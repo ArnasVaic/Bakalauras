@@ -8,8 +8,8 @@ In this paper, a two-dimensional computational model was implemented using an ex
 
 $$
 \begin{cases}
-\dot{c_1}=D\Delta c_1-5kc_1c_2\\
-\dot{c_2}=D\Delta c_2-3kc_1c_2\\
+\dot{c_1}=D\Delta c_1-3kc_1c_2\\
+\dot{c_2}=D\Delta c_2-5kc_1c_2\\
 \dot{c_3}=2kc_1c_2
 \end{cases}
 $$
