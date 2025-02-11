@@ -13,8 +13,8 @@ class ThresholdStopper(Stopper):
 
   def should_stop(self, state) -> bool:
 
-    q0 = np.sum(state.c1[0] + state.c2[0])
-    q = np.sum(state.c1[-1] + state.c1[-1])
+    q0 = np.sum(state.c_init[0] + state.c_init[1])
+    q = np.sum(state.c_curr[0] + state.c_curr[1])
 
     return q / q0 <= self.threshold
     

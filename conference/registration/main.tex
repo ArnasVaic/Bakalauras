@@ -1,0 +1,53 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[lithuanian]{babel}  % Lithuanian language support
+\usepackage[T1]{fontenc}        % Proper font encoding
+\usepackage{amsmath, amssymb}   % Math symbols and equations
+\usepackage{graphicx}           % Images
+\usepackage{hyperref}           % Clickable links
+\usepackage{cite}               % Better citation formatting
+
+\begin{document}
+
+\title{\textbf{Rinkėjo modelis su periodinių apklausų mechanizmu}}
+\author{%
+    Rokas Astrauskas, Aleksejus Kononovičius, Marijus Radavičius, Feliksas Ivanauskas \\
+    \textit{Vilniaus universitetas}
+}
+\date{} % No date
+\maketitle
+
+\begin{abstract}
+Atsitiktinių procesų modeliai ir statistinė fizika gali būti panaudoti įvairių socialinių reiškinių tyrimams. Vienas populiariausių tokių modelių yra rinkėjo modelis, kuris šiame darbe pritaikome nagrinėdami apklausų įtaką rinkėjų nuomonei.
+\end{abstract}
+
+\section{Įvadas}
+Sistemoje turime \(N\) agentų, kurie gali būti vienoje iš dviejų būsenų: \(0^\text{m}\) arba \(1^\text{m}\). 
+
+\section{Matematinis modelis}
+Apklausos atliekamos laiko \( \tau \) intervalais. Kiekvieno periodo pradžioje atliekama nauja apklausa, kurios rezultatas yra:
+\[
+A_k = X(k\tau),
+\]
+kur \( X(k\tau) \) žymi agentų skaičių būsenoje \(1^\text{m}\) apklausos atlikimo metu.
+
+Agentai keičia būsenas pagal šiuos perėjimo spartas:
+\[
+\lambda_i^+ = (N - X) \left[\sigma_1 + h A_{k-1} \right], \quad
+\lambda_i^- = X \left[\sigma_0 + h (N - A_{k-1}) \right].
+\]
+
+\section{Rezultatai}
+Tyrime pateiktas naujas simuliavimo algoritmas, apjungiantis Gillespie ir Next reaction metodus.
+
+\section{Išvados}
+Modelio analizė rodo, kad rinkėjų nuomonė priklauso nuo apklausų rezultatų ir jų įtakos parametrų.
+
+\begin{thebibliography}{9}
+\bibitem{castellano2009}
+Castellano, C., Fortunato, S., and Loreto, V. (2009). Statistical physics of social dynamics. \textit{Reviews of modern physics}, \textbf{81}(2), 591.
+
+\bibitem{kononovicius2024}
+Kononovičius, A., Astrauskas, R., Radavičius, M., and Ivanauskas, F. (2024). Delayed interactions in the noisy voter model through the periodic polling mechanism. \textit{arXiv preprint} \textbf{arXiv:2403.10277}.
+\end{thebibliography}
+
+\end{document}
