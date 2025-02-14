@@ -9,4 +9,4 @@ def log_debug_info(logger: Logger | None, state: State) -> None:
     q0 = state.c_init.sum(axis=(1, 2))
     q1p, q2p = q[0] / q0[0], q[1] / q0[1]
 
-    logger.debug(f'step = {state.time_step}, q1 % = {q1p}, q2 % = {q2p}, q3 = {q[2]}')
+    logger.debug(f'step = {state.time_step}, q1 % = {q1p:.02f}, q2 % = {q2p:.02f}, q3 = {q[2]:.02f}')

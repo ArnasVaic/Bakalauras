@@ -10,7 +10,7 @@ class Mixer:
     pass
 
   @abstractmethod
-  def mix(self, state: State) -> None:
+  def mix(self, c: np.ndarray[np.float64]) -> np.ndarray[np.float64]:
     pass
 
 @dataclass
@@ -36,13 +36,14 @@ class SubdivisionMixer:
     # than a half time step away from point of mixing.
     return np.any(abs(time_step * dt - self.mix_times) <= dt / 2)
 
-  def mix(self, c: np.ndarray[np.float64]) -> None:
+  def mix(self, c: np.ndarray[np.float64]) -> np.ndarray[np.float64]:
     if self.mode == 'random':
-      self.random_mix(c)
+      c_mixed = self.random_mix(c)
     elif self.mode == 'perfect':
-      self.perfect_mix(c)
+      c_mixed = self.perfect_mix(c)
     else:
       raise Exception("mix mode not supported")
+    return c_mixed
   
   def random_mix(self, c: np.ndarray[np.float64]) -> np.ndarray[float]:
     rotations = np.random.randint(4, size=self.subdivision_count)
@@ -55,7 +56,8 @@ class SubdivisionMixer:
       for j in range(0, self.subdivisions[1], 2):
         indices[i:i+2, j:j+2] = indices[i:i+2, j:j+2][::-1, ::-1]
     rotations = np.zeros(self.subdivision_count)
-    return self.mix_with_params(c, rotations, indices)
+    flat_indices = indices.flatten()
+    return self.mix_with_params(c, rotations, flat_indices)
 
   def mix_with_params(
     self, 
@@ -63,33 +65,29 @@ class SubdivisionMixer:
     rotations: np.ndarray[int],
     positions: np.ndarray[int]):
 
-    # blocks make up the reaction space and are
-    # of identical dimensions so that they could
-    # be swapped with one another and/or rotated
-    sub_size = np.astype(c.shape[1:] / np.array(self.subdivisions), int)
-    assert sub_size[0] == sub_size[1]
-    sidelength = sub_size[0]
+    # Split space [3, W, H] into chunks of equal sidelength.
+    # Chunk shape will look like [3, a, a] 
+    chunk_size = \
+      int(c.shape[1] / self.subdivisions[0]), \
+      int(c.shape[2] / self.subdivisions[1])
+    assert chunk_size[0] == chunk_size[1]
 
-    flat_blocks = []
+    a = chunk_size[0]
+    num_chunks_w, num_chunks_h = self.subdivisions
 
-    for index in range(self.subdivision_count):
-      x, y = index % self.subdivisions[0], index // self.subdivisions[0]
-      block = rect_values(c, x, y, sidelength)
-      flat_blocks.append(block)
+    chunks = c.reshape(3, num_chunks_w, a, num_chunks_h, a)
+    # shape [num_chunks_w, num_chunks_h, 3, a, a]
+    chunks = chunks.transpose(1, 3, 0, 2, 4)
+    # shape [num_chunks_w * num_chunks_h, 3, a, a]
+    flat_chunks = chunks.reshape(-1, 3, a, a)
 
-    # rotate
-    flat_blocks = np.array([ 
-      np.array([ np.rot90(c_i, angle) for c_i in c ]) 
-      for c, angle 
-      in zip(flat_blocks, rotations) 
-    ])
+    for i in range(flat_chunks.shape[0]):
+      for c in range(3):
+        flat_chunks[i, c] = np.rot90(flat_chunks[i, c], k=rotations[i])
 
-    # reposition
-    flat_blocks = flat_blocks[positions]  
+    # reindex
+    flat_chunks = flat_chunks[positions]
 
-    # reshape back into a grid
-    blocks_grid = np.reshape(flat_blocks, (self.subdivisions[0], self.subdivisions[1], *sub_size))
-
-    # concatenate columns and rows back into N x M matrix 
-    columns = np.concatenate(blocks_grid, axis=1)
-    return np.concatenate(columns, axis=1)
+    flat_chunks = flat_chunks.reshape(num_chunks_w, num_chunks_h, 3, a, a)
+    mixed = flat_chunks.transpose(2, 0, 3, 1, 4).reshape(3, num_chunks_w * a, num_chunks_h * a)
+    return mixed
