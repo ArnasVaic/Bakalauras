@@ -3,4 +3,4 @@ resources/
 out/
 *.fls
 *.pdf
-**logs.txt
+**.log
