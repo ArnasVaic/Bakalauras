@@ -9,7 +9,7 @@ from solvers.efd.solver import Solver
 from solvers.mixer import SubdivisionMixer
 
 logging.basicConfig(
-  filename='logs.txt',
+  filename='debug.log',
   filemode='w',
   format='%(asctime)s,%(msecs)03d %(name)s %(levelname)s %(message)s',
   datefmt='%Y-%m-%d %H:%M:%S',
