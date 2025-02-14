@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import numpy as np
 from scipy.signal import convolve2d
-from solvers.efd.debug import log_debug_info
+from solvers.efd.debug import log_debug_info, log_initial_info
 from solvers.efd.state import State
 from solvers.mixer import Mixer
 from solvers.stopper import Stopper
@@ -31,6 +31,7 @@ class Solver:
 
   def solve(self, c_init: np.ndarray[np.float64]) -> tuple[np.ndarray[np.float64], np.ndarray[np.float64]]:
     self.config.validate()
+    log_initial_info(self.config.logger, self.dt, self.config)
     state = State(c_curr = c_init.copy(), c_init = c_init.copy(), c_prev = c_init.copy())
     D, k = self.config.D, self.config.k
     while True:
