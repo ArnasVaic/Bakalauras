@@ -2,6 +2,7 @@
 
 import logging
 from matplotlib import pyplot as plt
+import numpy as np
 from solvers.initial_condition import initial_condition 
 import datetime
 from solvers.config import Config
@@ -17,8 +18,8 @@ logging.basicConfig(
 
 config = Config()
 config.logger = logging.getLogger(__name__)
-config.mixer = SubdivisionMixer((4, 4), 'random', [ 1 * 3600 ])
-c0 = initial_condition(config)
+config.mixer = SubdivisionMixer((2, 2), 'random', [ ])
+c0 = initial_condition(config, (1, 1))
 
 solver = Solver(config)
 
@@ -26,8 +27,15 @@ t, c = solver.solve(c0)
 
 # %%
 
-show_step = 60
+show_step = -1
+element = 2
 actual_step = t[show_step]
+
+print(t.shape[0])
+vmin, vmax = np.min(c[:,element,:,:]), np.max(c[:,element,:,:])
+
 time = str(datetime.timedelta(seconds=int(actual_step * solver.dt)))
 plt.title(f't = {time}')
-plt.imshow(c[show_step, 2, :, :])
+plt.imshow(c[show_step, element, :, :], vmin=max(vmin, 0), vmax=vmax)
+plt.colorbar()
+plt.show()

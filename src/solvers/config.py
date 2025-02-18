@@ -13,7 +13,7 @@ class Config:
   size: tuple[float, float] = (2.154434690031884, 2.154434690031884)
 
   # Number of discrete points in each axis
-  resolution: tuple[int, int] = (80, 80)
+  resolution: tuple[int, int] = (40, 40)
 
   # Diffusion coefficients for each element
   D: tuple[float, float, float] = (28e-6, 28e-6, 28e-8)
@@ -31,7 +31,7 @@ class Config:
   dt: None | float = None
 
   # Controls when to stop the simulation
-  stopper: Stopper = ThresholdStopper(0.06)
+  stopper: Stopper = ThresholdStopper(0.03)
 
   # Controls how and when to mix reagents
   mixer: Mixer = SubdivisionMixer((2, 2), 'perfect', [])
