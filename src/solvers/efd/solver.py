@@ -39,7 +39,8 @@ class Solver:
       log_debug_info(self.config.logger, state)
 
       if self.mixer.should_mix(state.time_step, self.dt):
-        self.config.logger.debug(f'mixing, step = {state.time_step}, time = {state.time_step * self.dt}')
+        if self.config.logger is not None:
+          self.config.logger.debug(f'mixing, step = {state.time_step}, time = {state.time_step * self.dt}')
         state.c_prev = self.mixer.mix(state.c_prev)
 
       if state.time_step % self.config.frame_stride == 0:
