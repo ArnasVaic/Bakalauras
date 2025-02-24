@@ -1,12 +1,16 @@
 # %%
 
+import datetime
 import logging
 from matplotlib import pyplot as plt
 import numpy as np
-from solvers.initial_condition import initial_condition 
-from solvers.config import Config
+from tqdm import tqdm
+from solver_utils import reaction_end_time
+from solvers.config import large_config
+from concurrent.futures import ProcessPoolExecutor
+
 from solvers.efd.solver import Solver
-from solvers.mixer import SubdivisionMixer
+from solvers.initial_condition import initial_condition
 
 # This script will run the simulations on increasingly
 # larger spaces (numbers discrete points also increasing)
@@ -20,59 +24,52 @@ logging.basicConfig(
   datefmt='%Y-%m-%d %H:%M:%S',
   level=logging.DEBUG)
 
-config = Config()
-config.logger = logging.getLogger(__name__)
+ts_mix = 3600 * np.arange(1.5, 2.5, 0.01)
+orders = [1]
 
-mix_hours = np.arange(0, 11, 0.5)
+for order in orders:
 
-# reaction completion time without mixing
+  config = large_config(order)
+  config.dt = 5
+  config.frame_stride = 50
+  config.logger = logging.getLogger(__name__)
+  # ts_end = [ reaction_end_time(config, t_mix) for t_mix in ts_mix ]
+  with ProcessPoolExecutor() as executor:
+    futures = [ executor.submit(reaction_end_time, config, t) for t in ts_mix ]
+    ts_end = [ future.result() for future in tqdm(futures, total=len(ts_mix)) ]
 
-# c0 = initial_condition(config, (1, 1))
-# config.mixer.mix_times = []
-# solver = Solver(config)
-# steps, _ = solver.solve(c0)
+  # show_step = 100
+  # solver = Solver(config)
+  # c0 = initial_condition(config)
+  # t, c = solver.solve(c0)
 
-# ts = np.repeat(steps[-1] * solver.dt, len(mix_hours))
-# np.save(f'assets/{1}x{1}.npy', ts)
+  # actual_step = t[show_step]
 
-# reaction completion times for 
-# multiple grid sizes with mixing
+  # pretty_time = str(datetime.timedelta(seconds=int(actual_step * solver.dt)))
+  # print(pretty_time)
+  # img = np.transpose(c[show_step], (1, 2, 0))
+  # plt.imshow(img / np.max(c))
 
-sizes = []
-
-base_size = 2.154434690031884
-
-for s in sizes:
-  ts = [] # reaction completion times
-  for index, mix_hour in enumerate(mix_hours):
-
-    # discrete points per particle
-    pts_per_particle = 40
-    config.size = ( s * base_size, s * base_size )
-    config.resolution = ( s * pts_per_particle, s * pts_per_particle) 
-    config.mixer = SubdivisionMixer(
-      (2 * s, 2 * s), 'perfect', [ mix_hour * 3600 ])
-    
-    c0 = initial_condition(config, (s, s))
-    solver = Solver(config)
-    steps, c = solver.solve(c0)
-
-    # we only care about the end time
-    ts.append(steps[-1] * solver.dt)
-  ts = np.array(ts)
-  np.save(f'larger-efd/assets/{s}x{s}.npy', ts)
+  np.save(f'larger-efd/assets/{order}x{order}-detailed.npy', ts_end)
 
 # %%
-
-# visualize
-
-base_size = 2.154434690031884
-pts_per_particle = 40
 
 for s in [1, 2, 4, 8, 16]:
   ts = np.load(f'larger-efd/assets/{s}x{s}.npy')
   hours = ts / 3600
-  plt.plot(mix_hours, hours, label=f'{s}x{s}')
+  plt.plot(np.arange(0, 11, 0.5), hours, label=f'{s}x{s}')
+
+for order in [0, 1]:
+  ts_end = np.load(f'larger-efd/assets/{order}x{order}-detailed.npy')
+  hours = ts_end / 3600
+  plt.plot(np.arange(1, 3, 0.01), hours, label=f'{order}x{order}-d')
+
+# , 8401.53
+# for order, opt_t in enumerate([7086.69]):
+#   config = large_config(0)
+#   t_end = reaction_end_time(config, opt_t)
+#   plt.scatter([opt_t / 3600], [t_end / 3600])
+
 plt.xlabel('$t_{mix}$ [h]')
 plt.ylabel('$t_{end}$ [h]')
 plt.legend()

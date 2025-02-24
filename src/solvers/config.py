@@ -40,6 +40,11 @@ class Config:
   # small number of frames spaced evenly throughout the time.
   frame_stride: int = 10
 
+  # You should NEVER set this parameter explicitly.
+  # It is used to signal to the initial configuration
+  # creator how many particles should be in the 
+  _order: tuple[int, int] = (1, 1)
+
   @property
   def dx(self) -> float:
     return self.size[0] / (self.resolution[0] - 1)
@@ -54,3 +59,23 @@ class Config:
     assert self.resolution[0] > 0, f"Resolution width must be positive, but is {self.resolution[0]}."
     assert self.resolution[1] > 0, f"Resolution width must be positive, but is {self.resolution[1]}."
     assert self.dt is None or self.dt > 0, f"Time step must be None ir positive, but is {self.dt}."
+    # TODO: add more validations
+
+def large_config(order: int) -> Config:
+  """Create a configuration for a larger space. 
+  Do not change configuration that has been created
+  with this method, it could lead to unexpected results. 
+  Order of magnitude in each axis. Min value is 0 which 
+  results in smallest possible configuration. Each subsequent value 
+  mirrors the space in specified axis making it 4 times larger."""
+
+  # Resolution multiplier
+  res_mul = 2 ** order
+
+  config = Config() # construct default config object
+  config._order = (order, order)
+  config.size = (config.size[0] * res_mul, config.size[1] * res_mul)
+  config.resolution = (config.resolution[0] * res_mul, config.resolution[1] * res_mul)
+  config.mixer = SubdivisionMixer((2 * res_mul, 2 * res_mul), 'perfect', [])
+
+  return config

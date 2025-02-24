@@ -3,32 +3,17 @@
 import datetime
 from golden_search import gss
 from solvers.initial_condition import initial_condition 
-from solvers.config import Config
+from solvers.config import Config, large_config
 from solvers.efd.solver import Solver
 from solvers.mixer import SubdivisionMixer
 import matplotlib.pyplot as plt
 import numpy as np
 
-# physical size of particle
-PART_SZ = 2.154434690031884 
-# particle resolution
-PART_RS = 40 
-
 # %%
 
-s = 4
-
-config = Config()
-config.size = ( s * PART_SZ, s * PART_SZ )
-config.resolution = ( s * PART_RS, s * PART_RS) 
-config.mixer = SubdivisionMixer((2 * s, 2 * s), 'perfect', [ 3 * 3600 ])
-
-c0 = initial_condition(config, (s, s))
-
+config = large_config(order=(0, 0))
+c0 = initial_condition(config)
 solver = Solver(config)
-
-print(solver.dt)
-
 t, c = solver.solve(c0)
 
 # %%
@@ -45,13 +30,6 @@ plt.imshow(img / np.max(img), vmin=0, vmax=1)
 plt.show()
 
 # %%
-
-def reaction_end_time(s: int, config: Config, t: float) -> float:
-    config.mixer.mix_times = [ t ]
-    solver = Solver(config)
-    c0 = initial_condition(config, (s, s))
-    ts, _ = solver.solve(c0)
-    return ts[-1] * solver.dt
 
 ts = []
 sizes = [1, 2, 4, 8, 16]

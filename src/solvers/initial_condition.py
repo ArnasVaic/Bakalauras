@@ -3,31 +3,33 @@ import numpy as np
 
 from solvers.config import Config
 
-def initial_condition(config: Config, subdivisions: tuple[int, int]) -> np.ndarray[np.float64]:
-  assert config.resolution[0] % subdivisions[0] == 0
-  assert config.resolution[1] % subdivisions[1] == 0
+def initial_condition(config: Config) -> np.ndarray[np.float64]:
+
+  rx = 2 ** config._order[0] # Resolution in x axis
+  ry = 2 ** config._order[1] # Resolution in y axis
+
+  assert config.resolution[0] % rx == 0
+  assert config.resolution[1] % ry == 0
 
   # fill with checker board pattern
 
   c0 = config.c0
 
-  assert subdivisions[0] > 0
-  assert subdivisions[1] > 0
-
-  subs_x, subs_y = subdivisions
-
+  assert rx > 0
+  assert ry > 0
+  
   shift_x = True
-  if subs_x == 1:
+  if rx == 1:
     shift_x = False
-    subs_x = 2
+    rx = 2
 
   shift_y = True
-  if subs_y == 1:
+  if ry == 1:
     shift_y = False
-    subs_y = 2
+    ry = 2
 
-  square_w = config.resolution[0] / subs_x
-  square_h = config.resolution[1] / subs_y
+  square_w = config.resolution[0] / rx
+  square_h = config.resolution[1] / ry
 
   assert square_w == square_h
 

@@ -1,8 +1,6 @@
 from abc import abstractmethod
 from dataclasses import dataclass
 import numpy as np
-from solvers.array_utils import rect_values
-from solvers.efd.state import State
 
 class Mixer:
   @abstractmethod
@@ -16,8 +14,9 @@ class Mixer:
 @dataclass
 class SubdivisionMixer:
 
-  # Subdivisions of space along each axis.
-  subdivisions: tuple[int, int] = (2, 2)
+  # Mixing will be performed on a discrete grid of 
+  # blocks by swapping them. Grid shape is the resolution.
+  resolution: tuple[int, int] = (2, 2)
 
   # Mixing mode.
   # Supported values: 'random', 'perfect'
@@ -27,16 +26,15 @@ class SubdivisionMixer:
   # when the reaction space is going to be mixed.
   mix_times: np.ndarray[float] = np.array([])
 
-  @property
-  def subdivision_count(self) -> int:
-    return self.subdivisions[0] * self.subdivisions[1]
-
   def should_mix(self, time_step: int, dt: float) -> bool:
     # true if any discrete time points are less 
     # than a half time step away from point of mixing.
+
+    self.mix_times = np.array(self.mix_times)
     return np.any(abs(time_step * dt - self.mix_times) <= dt / 2)
 
   def mix(self, c: np.ndarray[np.float64]) -> np.ndarray[np.float64]:
+    """Creates a new state by mixing given state c."""
     if self.mode == 'random':
       c_mixed = self.random_mix(c)
     elif self.mode == 'perfect':
@@ -46,16 +44,18 @@ class SubdivisionMixer:
     return c_mixed
   
   def random_mix(self, c: np.ndarray[np.float64]) -> np.ndarray[float]:
-    rotations = np.random.randint(4, size=self.subdivision_count)
-    positions = np.random.permutation(self.subdivision_count)
+    particle_cnt = self.resolution[0] * self.resolution[1]
+    rotations = np.random.randint(4, size=particle_cnt)
+    positions = np.random.permutation(particle_cnt)
     return self.mix_with_params(c, rotations, positions)
 
   def perfect_mix(self, c: np.ndarray[np.float64]) -> np.ndarray[float]:
-    indices = np.arange(self.subdivision_count).reshape(self.subdivisions[0], self.subdivisions[1])    
-    for i in range(0, self.subdivisions[0], 2):
-      for j in range(0, self.subdivisions[1], 2):
+    particle_cnt = self.resolution[0] * self.resolution[1]
+    indices = np.arange(particle_cnt).reshape(self.resolution[0], self.resolution[1])    
+    for i in range(0, self.resolution[0], 2):
+      for j in range(0, self.resolution[1], 2):
         indices[i:i+2, j:j+2] = indices[i:i+2, j:j+2][::-1, ::-1]
-    rotations = np.zeros(self.subdivision_count)
+    rotations = np.zeros(particle_cnt)
     flat_indices = indices.flatten()
     return self.mix_with_params(c, rotations, flat_indices)
 
@@ -68,14 +68,13 @@ class SubdivisionMixer:
     # Split space [3, W, H] into chunks of equal sidelength.
     # Chunk shape will look like [3, a, a] 
     chunk_size = \
-      int(c.shape[1] / self.subdivisions[0]), \
-      int(c.shape[2] / self.subdivisions[1])
+      int(c.shape[1] / self.resolution[0]), \
+      int(c.shape[2] / self.resolution[1])
     assert chunk_size[0] == chunk_size[1]
 
     a = chunk_size[0]
-    num_chunks_w, num_chunks_h = self.subdivisions
-
-    chunks = c.reshape(3, num_chunks_w, a, num_chunks_h, a)
+   
+    chunks = c.reshape(3, self.resolution[0], a, self.resolution[1], a)
     # shape [num_chunks_w, num_chunks_h, 3, a, a]
     chunks = chunks.transpose(1, 3, 0, 2, 4)
     # shape [num_chunks_w * num_chunks_h, 3, a, a]
@@ -88,6 +87,6 @@ class SubdivisionMixer:
     # reindex
     flat_chunks = flat_chunks[positions]
 
-    flat_chunks = flat_chunks.reshape(num_chunks_w, num_chunks_h, 3, a, a)
-    mixed = flat_chunks.transpose(2, 0, 3, 1, 4).reshape(3, num_chunks_w * a, num_chunks_h * a)
+    flat_chunks = flat_chunks.reshape(self.resolution[0], self.resolution[1], 3, a, a)
+    mixed = flat_chunks.transpose(2, 0, 3, 1, 4).reshape(3, self.resolution[0] * a, self.resolution[1] * a)
     return mixed

@@ -19,7 +19,7 @@ logging.basicConfig(
 config = Config()
 config.logger = logging.getLogger(__name__)
 config.mixer = SubdivisionMixer((2, 2), 'random', [ ])
-c0 = initial_condition(config, (1, 1))
+c0 = initial_condition(config)
 
 solver = Solver(config)
 
