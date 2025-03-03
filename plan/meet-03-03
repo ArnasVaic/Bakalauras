@@ -1,0 +1,43 @@
+reakcijos mechanizo aiškinimasis
+brangios medžiagos
+ilgas reakcijos laikas (gal)
+
+nenaudoti "papildytas", perfrazuotis
+
+i tyrimo objekta/aktualuma deti citatas ir t.t. padaryti daug ilgesnį.
+nagrineti taikymus, cituoti vadovelus finite element, boundary element (alternatives to finite difference)
+
+nuo chemijos iki poreikio iki kaip modeliuoju
+
+jei mineti ADI mineti orginalu straipsni galima
+
+kelios pastraipos
+
+golden search irgi galima kazkaip paminėti
+įsivaizduoti kad aiškinu nežinančiam
+tiksle kažkaip paminėti, kad kuriam modelį reakcijos difuzijos sistemai, kuri modeliuoja YAG reakcija   
+
+uzdavinyje pamineti specifinius skaitinius metodus (Euler, FTCS, ADI)
+Pridėti/papildyti uzdavinius palyginti modeliu rezultatus tarpusavy
+
+
+
+Paskutinis uzduotis istirti rezultatus skirtingo dydzio erdvese
+glai buti uzdavinys palyginti skirtingas schemas praktiskai, kazkiek teoriskai parasyti, (kurioj vietoj?)
+Perfrazuoti uždavinius
+
+Išimti iš tyrimo metodų literatūros analizę
+
+Pataisyti paieškos algoritmus, geriau parašyti optimalios reikšmės
+Modeliavimo metoduose parašyti konkrečius metodus
+
+Ne optimizavimo metodai, gal išskirti į atskirus poskyrius, lyginamoji analizę
+
+Darbo eigoje parašyti kad modeliai KOMPIUTERINIAI!
+
+5 punkto nerekia darbo eigoje
+eigoje gal pamineti kokiak kalba naudoji ir t.t. atskirti nuo uzdaviniu (labai panasu)
+eiga taip pat gali buti pastraipa 
+
+galima pacituoti kur naudojamos ADI schemos (aktualumui!!!)
+
