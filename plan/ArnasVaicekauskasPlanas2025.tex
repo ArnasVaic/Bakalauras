@@ -56,7 +56,27 @@
 
 \subsection{Tyrimo objektas ir aktualumas}
 
-Itrio aliuminio granato (YAG) kristalai, legiruoti neodimio jonais, yra viena populiariausių medžiagų lazerių aktyviosioms terpėms, naudojamoms pramoninėje gamyboje ir medicinoje. Chemiškai paprasčiausias ir pramoninei gamybai labiausiai pritaikytas šios medžiagos sintezės metodas yra kietafazė reakcija, kurios spartinimui taikomas reagentų išmaišymas. Šiame darbe analizuojamas YAG kietafazės reakcijos modelis, į kurį įtrauktas išmaišymo mechanizmas.
+% Itrio aliuminio granato (YAG) kristalai, legiruoti neodimio jonais, yra viena populiariausių medžiagų lazerių aktyviosioms terpėms, naudojamoms pramoninėje gamyboje ir medicinoje. Chemiškai paprasčiausias ir pramoninei gamybai labiausiai pritaikytas šios medžiagos sintezės metodas yra kietafazė reakcija, kurios spartinimui taikomas reagentų išmaišymas. Šiame darbe analizuojamas YAG kietafazės reakcijos modelis, į kurį įtrauktas išmaišymo mechanizmas.
+
+% outline:
+% YAG medžiaga
+% optinės savybės
+% pritaikymas rinkoje (trumpai, gal kažką pacituoti)
+% sintezės būdai, kietafazės reakcijos paprastumas bei pritaikomumas pramonėje (turėjau lygtais čia source vieną)
+% modeliavimo privalumai (reakcijos mechanizmo aiškinimasis, kaina, laikas, žmogiškieji ištekliai)
+% modeliavimo būdai, FEM, BEM ir naudojamas FDM (finite difference method)
+% konkretūs finite difference metodai:
+%   explicit FTCS, jo paprastumas ir trūkumai
+%   implicit ADI, stiprybės ir trūkumai, dabartiniai taikymai
+
+Itrio aliuminio granatas arba kitaip - YAG, yra kristalinis junginys, kuris pasižymi išskirtinėmis optinėmis savybėmis. Dėl šių savybiu, YAG kristalai, legiruoti su neodimio jonais, yra plačiai naudojami kaip lazerių aktyvioji terpė. Šios medžiagos lazeriai yra plačiai naudojami odontologijoje \cite{valentiUseErYAG2021}, pramoninė gamyboje \cite{dubeyExperimentalStudyNd2008} bei aibėje kitų sričių.
+
+Ši medžiaga gali būti sintezuota keliais skirtingais būdais - kietafazė reakcija, solvoterminiu procesu, nusodinimu, purškiamo aerozolio terminiu skilimu bei zolio-gelio procesu. Daugelis iš išvardintų metodų yra chemiškai sudėtingi ir privalo būti atliekami laboratorijoje. Paprasčiausias ir geriausiai pramoninei gamybai pritaikomas metodas sintezuoti šią medžiaga yra kietafazė reakcija \cite{zhangNovelSynthesisYAG2005}. Šios reakcijos metu iš Itrio ir aliuminio oksidai reaguoja aukštoje temperatūroje, kurioje ir susidaro YAG kristalai. Tiesa, praktikoje šią reakcija galima spartinti reagentus periodiškai išmaišant.
+
+Kompiuterinis fizinių bei cheminių procesų modeliavimas yra ypač paplitusi tyrimo metodika, kuri leidžia giliau suprasti ir tiksliau nuspėti tokio pobūdžio procesų eigą ir jų rezultatus. Tai galioja ir šiuo atveju - laboratorijoje atliekant YAG sintezės reakciją, chemikai turi ribotas galimybes ištirti reakcijos metu veikiančius mechanizmus, todėl šiame darbe modeliuosime YAG sintezės reakcijos modelį kaip reakcijos-difuzijos sistemą. Reakcijos-difuzijos sistemos yra senas, tačiau vis dar plačiai taikomas metodas modeliuoti tokio tipo procesus. Matematinį YAG reakcijos modelį pasiūlė Ivanauskas et. al. \cite{ivanauskasModellingSolidState2005}. Šiame ir susijusiuose straipsniuose \cite{ivanauskasComputationalModellingYAG2009,mackeviciusCloserLookComputer2012} eksperimentiniu būdu yra išmatuotos fizinės modelio konstantos todėl kompiuterinio modelio rezultatai gali būti reikšmingai matuojami ir lyginami.
+
+Šią reakcija nusako trejetas netiesinių parabolinių dalinių diferencialinių lygčių, kurios sudaro reakcijos-difuzijos sistemą. Tokio tipo sistemoms uždara sprendinio forma neegzistuoja todėl jų sprendimui yra taikomi skaitiniai metodai. Spręsti dalinių diferencialinių lygčių sistemas dažniausiai yra naudojami tokie metodai kaip baigtinių elementų metodas (\textit{angl. finite element method, FEM}) - <neilgas sakinukas apie šio metodo esmę>. Taip pat gali būti taikomas ribinių elementų metodas (\textit{angl. boundary element method, BEM}), kuris <trumpas sakinukas apie tai kaip veikia ir kada naudojamas>. Šiuo atveju, spręsti šiai sistemai naudosime du baigtinių skirtumų metodus (\textit{angl. finite difference method, FDM}). Pirmasis metodas yra išreikštinis FTCS metodas arba kitaip žinomas kaip Oilerio integracija - šis metodas nėra techniškai sudėtingas, tačiau yra sąlyginai stabilus ir nėra ypatingai tikslus. Antrasis metodas yra žinomas kaip neišreikštinis kintamosios krypties metodas (\textit{angl. alternating direction implicit, ADI}) - šis metodas yra techniškai sudėtingas, tačiau nesąlyginiai stabilus bei turi didesnį tikslumą \cite{NumericalSolutionParabolic}. Nors ADI metodas yra senas, tačiau vis dar plačiai taikomas \cite{}
+\end{itemize}
 
 \subsection{Darbo tikslas}
 
@@ -102,7 +122,7 @@ Itrio aliuminio granato (YAG) kristalai, legiruoti neodimio jonais, yra viena po
 \begin{enumerate}
     \item Analizuojama literatūra 
     \item Sudaromi kompiuteriai YAG reakcijos modeliai naudojant python programavimo kalbą su \textit{NumPy} bei \textit{SciPy} paketais
-    \item Tikrinamas kompiuterinių YAG reakcijos modelių rezultatų korektiškumas, lyginami skirtingų kompiuterinių modelių rezultatai. Duomenų vizualizavimui naudojamas \texdtit{Matplotlib} paketas
+    \item Tikrinamas kompiuterinių YAG reakcijos modelių rezultatų korektiškumas, lyginami skirtingų kompiuterinių modelių rezultatai. Duomenų vizualizavimui naudojamas \textit{Matplotlib} paketas
     \item Apibrėžiami maišymo modeliai
     \item Maišymo poveikio bei korektiškumo tyrimas kompiuterinių YAG reakcijos modelių rezultatuose 
     \item Tiriamas maišymo proceso poveikis įvairaus dydžio erdvėse
