@@ -83,9 +83,9 @@ YAG gali būti sintezuojamas keliais skirtingais būdais, įskaitant kietafazę 
 
 Kompiuterinis fizinių bei cheminių procesų modeliavimas yra plačiai taikomas tyrimo metodas, leidžiantis giliau suprasti ir tiksliau prognozuoti tokių procesų eigą bei jų rezultatus. Šis metodas itin naudingas YAG sintezės reakcijų analizėje, kadangi laboratoriniai eksperimentai suteikia ribotas galimybes detaliai ištirti vykstančius mechanizmus. Todėl šiame darbe modeliuosime YAG sintezės reakciją kaip reakcijos-difuzijos sistemą. Nors šis metodas taikomas jau ilgą laiką, jis išlieka aktualus ir šiandien. Matematinį YAG reakcijos modelį pasiūlė Ivanauskas et al. \cite{ivanauskasModellingSolidState2005}, o susijusiuose darbuose \cite{ivanauskasComputationalModellingYAG2009,mackeviciusCloserLookComputer2012} eksperimentiniu būdu nustatytos fizinės modelio konstantos, todėl skaičiavimų rezultatus galima tiksliai palyginti su eksperimentiniais duomenimis.
 
-Šią reakciją aprašo trijų netiesinių parabolinių dalinių diferencialinių lygčių sistema, sudaranti reakcijos-difuzijos modelį. Tokiose sistemose analitinis sprendinys paprastai neegzistuoja, todėl jų sprendimui taikomi skaitiniai metodai. Vienas iš dažniausiai naudojamų metodų yra baigtinių elementų metodas (\textit{angl. finite element method, FEM}) – jis leidžia suskaidyti nagrinėjamą sritį į mažesnius elementus ir spręsti diferencialines lygtis kiekviename iš jų. Taip pat gali būti taikomas ribinių elementų metodas (\textit{angl. boundary element method, BEM}), kuris naudoja tik ribinių sąlygų informaciją, todėl yra efektyvus sprendžiant uždavinius su sudėtingomis geometrijomis.
+Šią reakciją aprašo trijų netiesinių parabolinių dalinių diferencialinių lygčių sistema, sudaranti reakcijos-difuzijos modelį. Tokiose sistemose analitinis sprendinys paprastai neegzistuoja, todėl jų sprendimui taikomi skaitiniai metodai. Vienas iš dažniausiai naudojamų metodų yra baigtinių elementų metodas (\textit{angl. finite element method, FEM}) - jis leidžia suskaidyti nagrinėjamą sritį į mažesnius elementus ir spręsti diferencialines lygtis kiekviename iš jų. Taip pat gali būti taikomas ribinių elementų metodas (\textit{angl. boundary element method, BEM}), kuris naudoja tik ribinių sąlygų informaciją, todėl yra efektyvus sprendžiant uždavinius su sudėtingomis geometrijomis.
 
-Šiame darbe reakcijos-difuzijos sistemai spręsti taikysime du baigtinių skirtumų metodus (\textit{angl. finite difference method, FDM}). Pirmasis – išreikštinis FTCS metodas (\textit{angl. Forward-Time Centered-Space}), dar žinomas kaip Oilerio integracija. Šis metodas pasižymi paprasta implementacija, tačiau yra sąlyginai stabilus ir nėra itin tikslus. Antrasis metodas – neišreikštinis kintamosios krypties metodas (\textit{angl. alternating direction implicit, ADI}), kuris yra techniškai sudėtingesnis, tačiau nesąlyginai stabilus ir užtikrina didesnį tikslumą \cite{NumericalSolutionParabolic}. Nepaisant to, kad ADI metodas sukurtas jau seniai, jis vis dar plačiai naudojamas \cite{gaidamauskaiteComparisonFiniteDifference2007}.
+Šiame darbe reakcijos-difuzijos sistemai spręsti taikysime du baigtinių skirtumų metodus (\textit{angl. finite difference method, FDM}). Pirmasis - išreikštinis FTCS metodas (\textit{angl. Forward-Time Centered-Space}), dar žinomas kaip Oilerio integracija. Šis metodas pasižymi paprasta implementacija, tačiau yra sąlyginai stabilus ir nėra itin tikslus. Antrasis metodas - neišreikštinis kintamosios krypties metodas (\textit{angl. alternating direction implicit, ADI}), kuris yra techniškai sudėtingesnis, tačiau nesąlyginai stabilus ir užtikrina didesnį tikslumą \cite{doi:10.1137/0103003}. Nepaisant to, kad ADI metodas sukurtas jau seniai, jis vis dar plačiai naudojamas \cite{gaidamauskaiteComparisonFiniteDifference2007}. Šie skaitiniai metodai detaliai aprašyti literatūroje \cite{pressNumericalRecipes3rd2007,levequeFiniteDifferenceMethods2007}.
 
 \subsection{Darbo tikslas}
 
@@ -111,8 +111,6 @@ Kompiuterinis fizinių bei cheminių procesų modeliavimas yra plačiai taikomas
 
 \end{enumerate}
 
-\newpage
-
 \subsection{Tyrimo metodai}
 
 \begin{enumerate}
@@ -130,16 +128,16 @@ Kompiuterinis fizinių bei cheminių procesų modeliavimas yra plačiai taikomas
 
 \begin{enumerate}
     \item Analizuojama literatūra 
-    \item Sudaromi kompiuteriai YAG reakcijos modeliai naudojant python programavimo kalbą su \textit{NumPy} bei \textit{SciPy} paketais
+    \item Sudaromi kompiuteriai YAG reakcijos modeliai naudojant python programavimo kalbą su \hbox{\textit{NumPy}} bei \textit{SciPy} paketais
     \item Tikrinamas kompiuterinių YAG reakcijos modelių rezultatų korektiškumas, lyginami skirtingų kompiuterinių modelių rezultatai. Duomenų vizualizavimui naudojamas \textit{Matplotlib} paketas
     \item Apibrėžiami maišymo modeliai
     \item Maišymo poveikio bei korektiškumo tyrimas kompiuterinių YAG reakcijos modelių rezultatuose 
     \item Tiriamas maišymo proceso poveikis įvairaus dydžio erdvėse
 \end{enumerate}
 
-\subsection{Literatūros šaltinių apibūdinimas}
+% \subsection{Literatūros šaltinių apibūdinimas}
 
-\cite{ivanauskasComputationalModellingYAG2009,ivanauskasModellingSolidState2005,mackeviciusCloserLookComputer2012} - pasiūlyta matematinė difuzijos-reakcijos sistema, kuria modeliuojama YAG sintezės reakcija bei išmatuotos fizinės konstantos prie skirtingų aplinkos sąlygų, kurios leidžia kiekybiškai lyginti kompiuterinių modelių rezultatus. Šis modelis bus naudojamas įgyvendinti kompiuterinį YAG reakcijos modelį. \cite{pressNumericalRecipes3rd2007,levequeFiniteDifferenceMethods2007} - aprašo skaitinius metodus, kuriais gali būti sprendžiamos parabolinių dalinių diferencialinių lygčių sistemos. Šie šaltiniais bus naudojami literatūros analizei bei jais bus vadovaujamasi įgyvendintant kompiuterinius modelius.
+% \cite{ivanauskasComputationalModellingYAG2009,ivanauskasModellingSolidState2005,mackeviciusCloserLookComputer2012} - pasiūlyta matematinė difuzijos-reakcijos sistema, kuria modeliuojama YAG sintezės reakcija bei išmatuotos fizinės konstantos prie skirtingų aplinkos sąlygų, kurios leidžia kiekybiškai lyginti kompiuterinių modelių rezultatus. Šis modelis bus naudojamas įgyvendinti kompiuterinį YAG reakcijos modelį. \cite{pressNumericalRecipes3rd2007,levequeFiniteDifferenceMethods2007} - aprašo skaitinius metodus, kuriais gali būti sprendžiamos parabolinių dalinių diferencialinių lygčių sistemos. Šie šaltiniais bus naudojami literatūros analizei bei jais bus vadovaujamasi įgyvendintant kompiuterinius modelius.
 
 \printbibliography[title = {Literatūra ir šaltiniai}]
 
