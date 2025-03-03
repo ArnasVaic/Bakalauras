@@ -56,21 +56,21 @@
 
 \subsection{Tyrimo objektas ir aktualumas}
 
-Itrio aliuminio granato (YAG) kristalai, legiruoti neodimio jonais, yra viena populiariausių medžiagų lazerių aktyviosioms terpėms, naudojamoms pramoninėje gamyboje ir medicinoje. Chemiškai paprasčiausias ir pramoninei gamybai labiausiai pritaikytas šios medžiagos sintezės metodas yra kietafazė reakcija, kurios spartinimui taikomas reagentų išmaišymas. Šiame darbe nagrinėjamas YAG kietafazės reakcijos modelis, papildytas išmaišymo mechanizmu.
+Itrio aliuminio granato (YAG) kristalai, legiruoti neodimio jonais, yra viena populiariausių medžiagų lazerių aktyviosioms terpėms, naudojamoms pramoninėje gamyboje ir medicinoje. Chemiškai paprasčiausias ir pramoninei gamybai labiausiai pritaikytas šios medžiagos sintezės metodas yra kietafazė reakcija, kurios spartinimui taikomas reagentų išmaišymas. Šiame darbe analizuojamas YAG kietafazės reakcijos modelis, į kurį įtrauktas išmaišymo mechanizmas.
 
 \subsection{Darbo tikslas}
 
-Šio darbo tikslas yra ištirti maišymo modelio poveikį YAG kristalų sintezės spartai modeliuojant reakcija įvairaus dydžio erdvėse.
+Šio darbo tikslas yra sudaryti kompiuterinę difuzijos-reakcijos sistemą, kuri modeliuotų kietafazę YAG reakciją bei ištirti maišymo modelio poveikį YAG kristalų sintezės spartai modeliuojant reakcija įvairaus dydžio erdvėse.
 
 \subsection{Keliami uždaviniai ir laukiami rezultatai}
 \subsubsection{Uždaviniai}
 \begin{enumerate}
-    \item Atlikti literatūros analizę baigtinių skirtumų metodų tema, siekiant surasti tinkamus skaitinius metodus pasirinktam modeliui įgyvendinti
-    \item Sudaryti kompiuterinius YAG reakcijos modelius remiantis pasirinktais skaitiniais metodais
-    \item Patikrinti kompiuterinių modelių rezultatų korektiškumą
+  
+    \item Sudaryti kompiuterinius YAG reakcijos modelius remiantis baigtinių skirtumų skaitiniais metodais
+    \item Patikrinti kompiuterinių modelių rezultatų korektiškumą bei palyginti modelių rezultatus tarpusavyje
     \item Apibrėžti medžiagų maišymo modelius
     \item Integruoti medžiagų maišymo modelius į skaitinius YAG reakcijos modelius
-    \item Ištirti maišymo modelių skirtumus ir poveikį YAG sintezės spartai modeliuojant reakcija įvairaus dydžio erdvėse
+    \item Ištirti kompiuterinių modelių rezultatus įvairaus dydžio erdvėse
 \end{enumerate}
 \subsubsection{Laukiami rezultatai}
 \begin{enumerate}
@@ -87,17 +87,13 @@ Itrio aliuminio granato (YAG) kristalai, legiruoti neodimio jonais, yra viena po
 \subsection{Tyrimo metodai}
 
 \begin{enumerate}
-    \item \textbf{Literatūros analizė}.
-    \item \textbf{Modeliavimo metodas}. Tiriant medžiagų maišymo poveikį bus naudojami šie modeliai:
+    \item \textbf{Modeliavimo metodas}. Kompiuteriniai modeliai tyrimui bus konstruojami šiais baigtinių skirtumų metodais:
     \begin{itemize}
-        \item YAG reakcijos modeliai, įgyvendinti remiantis baigtinių skirtumų metodais
-        \item Medžiagų maišymo modeliai, įgyvendinti kaip komponentai, kuriuos naudoja YAG reakcijos modeliai 
+        \item Išreikštinis FTCS (\textit{angl. explicit forward time, centered space}) metodas
+        \item Neišreikštinis kintamosios krypties metodas (\textit{angl. alternating direction implicit, ADI}) 
     \end{itemize}
-    \item \textbf{Optimizavimo metodai}. Konstruojant kopiuterinius modelius bus naudojami šie optimizavimo metodai:
-    \begin{itemize}
-        \item Paieškos algoritmai
-        \item Lygiagretinimas
-    \end{itemize}
+    \item \textbf{Auksinio pjūvio paieškos algoritmas}. Ieškomas optimalus medžiagų išmaišymo laikas naudojant auksinio pjūvio paieškos algoritmą.
+    \item \textbf{Lyginamoji analizė}. Lyginami skirtingais skaitiniais metodai įgyvendintų kompiuterinių YAG reakcijos modelių rezultatai. 
 \end{enumerate}
 
 
@@ -105,12 +101,11 @@ Itrio aliuminio granato (YAG) kristalai, legiruoti neodimio jonais, yra viena po
 
 \begin{enumerate}
     \item Analizuojama literatūra 
-    \item Konstruojami YAG reakcijos modeliai
-    \item Tikrinamas YAG reakcijos modelių rezultatų korektiškumas
+    \item Sudaromi kompiuteriai YAG reakcijos modeliai naudojant python programavimo kalbą su \textit{NumPy} bei \textit{SciPy} paketais
+    \item Tikrinamas kompiuterinių YAG reakcijos modelių rezultatų korektiškumas, lyginami skirtingų kompiuterinių modelių rezultatai. Duomenų vizualizavimui naudojamas \texdtit{Matplotlib} paketas
     \item Apibrėžiami maišymo modeliai
-    \item Maišymo modeliai integruojami į YAG reakcijos modelius
-    \item YAG reakcijos modelių, papildytų išmaišymo procesu, rezultatų korektiškumo tikrinimas
-    \item Tiriamas mašymo proceso poveikis įvairaus dydžio erdvėse
+    \item Maišymo poveikio bei korektiškumo tyrimas kompiuterinių YAG reakcijos modelių rezultatuose 
+    \item Tiriamas maišymo proceso poveikis įvairaus dydžio erdvėse
 \end{enumerate}
 
 \subsection{Literatūros šaltinių apibūdinimas}
