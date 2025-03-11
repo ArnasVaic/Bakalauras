@@ -43,7 +43,7 @@ class Config:
   # You should NEVER set this parameter explicitly.
   # It is used to signal to the initial configuration
   # creator how many particles should be in the 
-  _order: tuple[int, int] = (1, 1)
+  _order: tuple[int, int] = (0, 0)
 
   @property
   def dx(self) -> float:

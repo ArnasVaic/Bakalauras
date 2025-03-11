@@ -16,6 +16,8 @@ class ThresholdStopper(Stopper):
     q0 = np.sum(state.c_init[0] + state.c_init[1])
     q = np.sum(state.c_curr[0] + state.c_curr[1])
 
+    print(q / q0)
+
     return q / q0 <= self.threshold
     
 class TotalStepsStopper(Stopper):
