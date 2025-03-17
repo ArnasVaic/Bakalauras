@@ -19,6 +19,6 @@ class State:
   
   captured_c: list[np.ndarray[np.float64]] = field(default_factory=list)
  
-  def capture(self) -> None:
+  def capture(self, dt: float) -> None:
     self.captured_c.append(self.c_curr.copy())
-    self.captured_steps.append(self.time_step)
+    self.captured_steps.append(self.time_step * dt)

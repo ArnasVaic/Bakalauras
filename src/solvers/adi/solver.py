@@ -1,4 +1,3 @@
-# %%
 from dataclasses import dataclass
 import scipy.sparse as sp
 import numpy as np
@@ -9,10 +8,10 @@ from solvers.efd.state import State
 from solvers.stopper import Stopper
 
 def build_banded_matrix_A(n: int, mu: float):
-  subdiag = np.repeat(mu, n)
+  subdiag = np.repeat(-mu, n)
   subdiag[0] = 0
 
-  supdiag = np.repeat(mu, n)
+  supdiag = np.repeat(-mu, n)
   supdiag[-1] = 0
 
   diag = np.repeat(1 + 2 * mu, n)
@@ -32,7 +31,7 @@ class Solver:
       self.config = config
       self.stopper = config.stopper
 
-    def solve(self, c0: np.array) -> np.array:
+    def solve(self, c0: np.array) -> tuple[np.array, np.array]:
 
       # for shorter notation
       nx, ny = self.config.resolution
@@ -80,8 +79,11 @@ class Solver:
             diffusion_term = (1 - 2 * mu_x[m]) * c_half[m, x, :] + mu_x[m] * (c_half[m, max(x - 1, 0), :] + c_half[m, min(x + 1, nx - 1), :])
             c_next[m, x, :] = la.solve_banded((1, 1), Ay_banded[m], reaction_term + diffusion_term)
 
+        time_step = time_step + 1
+
         state.c_prev = c
         state.c_curr = c_next
+        state.time_step = time_step
 
         captured_frames.append(c_next.copy())
         captured_times.append(time_step * dt)
@@ -90,6 +92,6 @@ class Solver:
           break
 
         c = c_next
-        time_step = time_step + 1
+        
 
       return np.array(captured_times), np.array(captured_frames)

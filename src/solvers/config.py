@@ -38,7 +38,7 @@ class Config:
 
   # Reduce the size of the resulting array by saving a 
   # small number of frames spaced evenly throughout the time.
-  frame_stride: int = 10
+  frame_stride: int = 1
 
   # You should NEVER set this parameter explicitly.
   # It is used to signal to the initial configuration

@@ -29,7 +29,7 @@ class Solver:
     D, k, c0 = self.config.D, self.config.k, self.config.c0
     return 1.0 / (15 * k * c0 + 2 * np.max(D) * (dx**-2 + dy**-2))
 
-  def solve(self, c_init: np.ndarray[np.float64]) -> tuple[np.ndarray[np.float64], np.ndarray[np.float64]]:
+  def solve(self, c_init: np.ndarray[np.float64]) -> tuple[np.ndarray, np.ndarray]:
     self.config.validate()
     log_initial_info(self.config.logger, self.dt, self.config)
     state = State(c_curr = c_init.copy(), c_init = c_init.copy(), c_prev = c_init.copy())
@@ -44,7 +44,7 @@ class Solver:
         state.c_prev = self.mixer.mix(state.c_prev)
 
       if state.time_step % self.config.frame_stride == 0:
-        state.capture()
+        state.capture(self.dt)
 
       kc1c2 = k * state.c_prev[0] * state.c_prev[1]
  
