@@ -3,7 +3,7 @@
 \usepackage[version=4]{mhchem}  
 \usepackage{tikz}
 \usepackage{caption}
-%\usepackage[lithuanian,english]{babel}
+\usepackage{gensymb}
 \usepackage{polyglossia}
 \setmainlanguage{lithuanian}
 \usepackage[
@@ -17,20 +17,12 @@
 \usetheme{Copenhagen}
 
 \setbeamertemplate{caption}[numbered]
-
-%Information to be included in the title page:
-\title{Sample title}
-\author{Anonymous}
-\institute{Overleaf}
-\date{2025}
-
-%\section{Medžiagų maišymo modeliavimas cheminėse reakcijose}
 \setbeamertemplate{headline}{}
 
-\title[]
-{Medžiagų maišymo modeliavimas cheminėse reakcijose}
+\date{2025}
 
-\subtitle{Modelling the mixing of reagents in chemical reactions}
+\title[]{Medžiagų maišymo modeliavimas YAG reakcijoje}
+\subtitle{Modelling the mixing of reagents in YAG reaction}
 
 \author[Arnas Vaicekauskas]
 {
@@ -50,59 +42,48 @@
 
 \frame{\titlepage}
 
-\begin{frame}
-\frametitle{Ytrio aliuminio granatas (YAG)}
+\frame{
+    \tableofcontents[currentsubsection,subsectionstyle=show]
+}
 
-\begin{figure}
+\section{Motyvacija}
+
+\begin{frame}
+\frametitle{Motyvacija}
+ 
+    \begin{itemize}
+        \item Medžiagų maišymo modeliavimas gali padėti suprasti procesus vykstančius YAG reakcijos metu, kurių nėra galimybės ištirti fiziškai dėl aplinkos sąlygų reikalingų reakcijai
+        \item Kompiuterinių modelių efektyvumas leidžia simuliuoti YAG sintezės reakciją daug greičiau ir pigiau negu fiziniai eksperimentai laboratorijoje
+    \end{itemize}
+
+\end{frame}
+
+\section{YAG sintezės reakcija}
+
+\begin{frame}
+    \frametitle{YAG sintezės reakcija}
+
     \centering
-    \begin{minipage}{.5\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{assets/nd:yag.png}
-        \caption{Apdoroti YAG kristalai \cite{NdYAGCrystals}}
-    \end{minipage}%
-    \begin{minipage}{.5\textwidth}
-               
-    \end{minipage}
-\end{figure}
+    \begin{align*}
+        \ce{3Y_2O_3 + 5Al_2O_3 -> 2Y_3Al_5O_{12}}
+    \end{align*}    
 
-\begin{itemize}
-    \item Plačiausiai naudojama medžiaga lazerių aktyviosioms terpėms gaminti
-    \item YAG lazeriai naudojami medicinos bei gamybos srityse
-\end{itemize}
+    \begin{itemize}
+        \item Reakcija vykdoma kaitinant itrio ir aliuminio oksidų homogeninį mišinį
+        \item Sintezė vyksta $1000-1600 C\degree$ laipsnių temperatūroje
+        \item Reakcija gali užtrukti keliolika valandų
+        \item Praktikoje reagentai yra periodiškai išmaišomi norint paspartinti reakciją 
+    \end{itemize}
 
 \end{frame}
 
-\begin{frame}
-\frametitle{YAG cheminė reakcija}
+\section{Matematinis modelis}
 
-\centering
-\begin{align*}
-    \ce{3Y_2O_3 + 5Al_2O_3 -> 2Y_3Al_5O_{12}}
-\end{align*}    
-\begin{itemize}
-\item YAG kristalai sintezuojami kaitinant Aliuminio ir Itrio oksidų mišinį
-\item Reakcija gali užtrukti keliolika valandų
-\item Chemikai vykstant reakcijai periodiškai išmaišo reagentus, kad reakcijos laikas sutrumpėtų
-\end{itemize}
 
-\end{frame}
+\subsection{Reakcijos-difuzijos sistema}
 
 \begin{frame}
-\frametitle{Darbo tikslas ir uždaviniai}
-\textbf{Tikslas} - sukurti kompiuterinį YAG reakcijos maišymo modelį ir jį ištirti.
-
-\textbf{Uždaviniai:}
-\begin{enumerate}
-\item Sukurti kompiuterinį YAG reakcijos modelį
-\item Patikrinti kompiuterinio modelio rezultatų korektiškumą
-\item Papildyti kompiuterinį modelį su maišymo procesu
-\item Ištirti kompiuterinio modelio rezultatus
-\end{enumerate}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Matematinis modelis}
+\frametitle{Matematinė reakcijos-difuzijos sistema}
 
 YAG Reakcijos--difuzijos sistema
 
@@ -114,6 +95,8 @@ YAG Reakcijos--difuzijos sistema
 \end{align*}
 
 \end{frame}
+
+\subsection{Pradinės ir kraštinės sąlygos}
 
 \begin{frame}
     \frametitle{Pradinės ir kraštinės sąlygos}
@@ -166,14 +149,18 @@ YAG Reakcijos--difuzijos sistema
     \end{figure}
 \end{frame}
 
+\subsection{Stabilumo sąlyga}
+
 \begin{frame}
-    \frametitle{Stabilumas}
+    \frametitle{Stabilumo sąlyga}
     Galima parodyti, kad skaitinis sprendinys bus stabilus tada, kai tenkinama ši nelygybė:
     \begin{align*}
         \Delta t \leqslant \left(15kc_0+2D\left((\Delta x)^{-2}+(\Delta y)^{-2}\right)\right)^{-1}
     \end{align*}
     Čia $k$ - reakcijos greitis, $D$ - difuzijos konstanta, $\Delta x, \Delta y$ - diskretūs erdvės žingsniai, $c_0$ - pradinių medžiagų koncentracijų didžiausias bendras daliklis.
 \end{frame}
+
+\subsection{Modelio rezultatai}
 
 \begin{frame}
     \frametitle{Reakcijos--difuzijos modelio rezultatai}
@@ -184,6 +171,9 @@ YAG Reakcijos--difuzijos sistema
 
 \end{frame}
 
+\section{Maišymo modeliai}
+\subsection{Reakcijos stabdymo sąlyga}
+
 \begin{frame}
     \frametitle{Reakcijos stabdymo sąlyga}
     \begin{align*}
@@ -191,6 +181,8 @@ YAG Reakcijos--difuzijos sistema
     \end{align*}
     Čia $q(t)$ yra pirmos ir antros medžiagų kiekis sistemoje. Reakcija stabdoma tada, kai pirmų dviejų medžiagų kiekis sistemoje pasiekia 3\% pradinio kiekio.
 \end{frame}
+
+\subsection{Atsitiktinis maišymas}
 
 \begin{frame}
 \frametitle{Atsitiktinis maišymas}
@@ -235,25 +227,7 @@ YAG Reakcijos--difuzijos sistema
 \end{figure}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Atsitiktinio maišymo rezultatai}
-    \begin{figure}
-        \centering
-        \includegraphics[width=12cm]{assets/random-mix-example-c0-1.png} \\
-        \includegraphics[width=12cm]{assets/random-mix-example-c2-1.png}
-        \caption{Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}, kai naudojamas atsitiktinio išmaišymo modelis \eqref{random-mix}.}
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Atsitiktinio maišymo rezultatai}
-    \begin{figure}
-        \centering
-        \includegraphics[width=7cm]{assets/bad-mix-qnt-compare-1.png}
-        \caption{Atsitiktinio išmaišymo modelio \eqref{random-mix} problema - gali ženkliai prailginti reakcijos pabaigos laiką. Tokio modelio poveiki reikia matuoti statistiniu bandymu arba pilnu perrinkimu. }
-    \end{figure}
-\end{frame}
-
+\subsection{Tobulas maišymas}
 \begin{frame}
 \frametitle{Tobulas maišymas}
 \begin{figure}
@@ -296,6 +270,29 @@ YAG Reakcijos--difuzijos sistema
 \end{figure}
 \end{frame}
 
+\section{Modelių rezultatai}
+
+\subsection{Atsitiktinio maišymo rezultatai}
+\begin{frame}
+    \frametitle{Atsitiktinio maišymo rezultatai}
+    \begin{figure}
+        \centering
+        \includegraphics[width=12cm]{assets/random-mix-example-c0-1.png} \\
+        \includegraphics[width=12cm]{assets/random-mix-example-c2-1.png}
+        \caption{Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}, kai naudojamas atsitiktinio išmaišymo modelis \eqref{random-mix}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Atsitiktinio maišymo rezultatai}
+    \begin{figure}
+        \centering
+        \includegraphics[width=7cm]{assets/bad-mix-qnt-compare-1.png}
+        \caption{Atsitiktinio išmaišymo modelio \eqref{random-mix} problema - gali ženkliai prailginti reakcijos pabaigos laiką. Tokio modelio poveiki reikia matuoti statistiniu bandymu arba pilnu perrinkimu. }
+    \end{figure}
+\end{frame}
+
+\subsection{Tobulo maišymo rezultatai}
 \begin{frame}
 \frametitle{Tobulo maišymo rezultatai}
 \begin{figure}
@@ -314,6 +311,7 @@ YAG Reakcijos--difuzijos sistema
     \end{figure}
 \end{frame}
 
+\subsection{Tobulas maišymo modelis didesnėms erdvėms}
 \begin{frame}
     \frametitle{Maišymas didesnėje erdvėje}
     \begin{figure}
@@ -415,6 +413,7 @@ YAG Reakcijos--difuzijos sistema
 \end{figure}
 \end{frame}
 
+\subsection{Tobulas maišymo modelio rezultatai didesnėje erdvėje}
 \begin{frame}
     \frametitle{Maišymas didesnėje erdvėje}
     \begin{figure}
@@ -424,17 +423,17 @@ YAG Reakcijos--difuzijos sistema
     \end{figure}
 \end{frame}
 
-\begin{frame}
-\frametitle{Rezultatai}
-\begin{itemize}
-    \item Sukurtas kompiuterinis YAG reakcijos modelis. 
-    \item Teoriškai parodyta skaitinio modelio stabilumo sąlyga
-    \item Kompiuterinio modelio rezultatai buvo analizuojami ir buvo užtikrinta, kad modelis veikia korektiškai
-    \item Pasiūlyti du maišymo modeliai - atsitiktinis ir tobulas
-    \item Išmaišymo modeliai integruoti į kompiuterinį YAG reakcijos modelį
-    \item Atlikta papildyto kompiuterinio modelio rezultatų analizė
-\end{itemize}
-\end{frame}
+% \begin{frame}
+% \frametitle{Rezultatai}
+% \begin{itemize}
+%     \item Sukurtas kompiuterinis YAG reakcijos modelis. 
+%     \item Teoriškai parodyta skaitinio modelio stabilumo sąlyga
+%     \item Kompiuterinio modelio rezultatai buvo analizuojami ir buvo užtikrinta, kad modelis veikia korektiškai
+%     \item Pasiūlyti du maišymo modeliai - atsitiktinis ir tobulas
+%     \item Išmaišymo modeliai integruoti į kompiuterinį YAG reakcijos modelį
+%     \item Atlikta papildyto kompiuterinio modelio rezultatų analizė
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}
 \frametitle{Išvados}
@@ -448,9 +447,9 @@ YAG Reakcijos--difuzijos sistema
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Literatūros šaltiniai}
-\printbibliography
-\end{frame}
+% \begin{frame}
+% \frametitle{Literatūros šaltiniai}
+% \printbibliography
+% \end{frame}
 
 \end{document}
