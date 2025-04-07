@@ -1,0 +1,72 @@
+\documentclass[
+    % english, % Klasei padavus parametrą 'english', darbas bus anglų kalba.
+    % signatureplaces % prideda parašų vietas tituliniame puslapyje
+]{VUMIFPSkursinis}
+\usepackage{float}
+\usepackage{wrapfig2}
+\usepackage{hyperref}
+\usepackage{algorithmicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{biblatex}
+
+\usepackage{gensymb}
+\usepackage{acro}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{amssymb,amsthm}
+\usepackage[version=4]{mhchem}
+
+\setlength{\jot}{8px} 
+
+% Titulinio aprašas
+% Titulinio aprašas
+\university{Vilniaus universitetas}
+\faculty{Matematikos ir informatikos fakultetas}
+\department{Programų sistemų studijų programa}
+\papertype{Kursinis darbas}
+\title{Medžiagų maišymo modeliavimas cheminėse reakcijose}
+\titleineng{Modelling the mixing of reagents in chemical reactions}
+\author{Arnas Vaicekauskas}
+\status{4 kurso 3 grupės studentas}
+\supervisor{Asist. Dr. Rokas Astrauskas}
+\reviewer{doc. dr. Vardauskas Pavardauskas}
+\date{Vilnius – \the\year}
+
+\bibliography{bibliografija}
+
+% Nustatymai
+% \setmainfont{Palemonas}   
+% Pakeisti teksto šriftą į Palemonas (turi būti įdiegtas sistemoje)
+\bibliography{bibliografija}
+
+\DeclareAcronym{yag}{
+  short   = YAG,
+  long    = Itrio aliuminio granatas    
+}
+
+\captionsetup{justification=centering}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\include{ivadas}
+\include{chemija}
+\include{modelis}
+\include{skaitinis-stabilumas}
+\include{palyginimas}
+\include{maisymas}
+\include{rezultatai}
+\printbibliography[heading=bibintoc]
+%\appendix
+
+\end{document}
