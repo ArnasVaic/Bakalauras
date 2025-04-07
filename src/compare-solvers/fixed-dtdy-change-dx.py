@@ -11,7 +11,7 @@ from solvers.efd.solver import Solver as EFDSolver
 COMMON_TIME_STEP = 25
 markers = [ 'x', 'o', '+', '^' ]
 Y_RESOLUTION = 40
-X_RESOLUTIONS = [ 40, 80, 120 ]
+X_RESOLUTIONS = [ 10, 20, 40, 120 ]
 
 # %% Generate a single with EFD solver with default resolution (40x40)
 
@@ -21,7 +21,7 @@ solver = EFDSolver(config)
 c0 = initial_condition(config)
 with timed("EFD Solve time") as elapsed:
     t, c = solver.solve(c0)
-print(t.shape, c.shape)
+print(c.shape)
 q = get_quantity_over_time(config, c)
 
 np.save('compare-solvers/assets/efd-default-t', t)
@@ -40,6 +40,7 @@ for resolution in X_RESOLUTIONS:
     c0 = initial_condition(config)
     with timed(f"ADI Solve time {config.resolution}") as elapsed:
         t, c = solver.solve(c0)
+    print(c.shape)
     q = get_quantity_over_time(config, c)
 
     np.save(f'compare-solvers/assets/adi-{resolution}x{Y_RESOLUTION}-t', t)
@@ -75,6 +76,38 @@ plt.plot(
 plt.xlabel('t [h]')
 plt.ylabel('q [g]')
 plt.legend()
+
+# %% Generate difference plot between 40x40 solution and others to see the error
+
+base_t = np.load(f'compare-solvers/assets/adi-40x40-t.npy')
+base_q = np.load(f'compare-solvers/assets/adi-40x40-q.npy') 
+
+for index, resolution in enumerate(X_RESOLUTIONS):
+
+    t = np.load(f'compare-solvers/assets/adi-{resolution}x{Y_RESOLUTION}-t.npy')
+    q = np.load(f'compare-solvers/assets/adi-{resolution}x{Y_RESOLUTION}-q.npy')
+
+    # reactions can end at different times, but the step size is the same
+    # so trim the longer solution in the temporal axis because we're plotting
+    # the difference
+
+    T = min(t.shape[0], base_t.shape[0])
+
+    error_rel = np.abs(base_q[:T, :] - q[:T, :]) / np.abs(base_q[:T, :])
+
+    #error_rel[np.isnan(error_rel)] = 0
+
+    # show the quantity only for the product of the reaction
+    plt.plot(
+        t[:T] / 3600, 
+        error_rel[:, 2], 
+        label=f'{resolution}x{Y_RESOLUTION}')
+
+plt.title(f'Relative error between ADI solutions for different grid sizes')
+plt.xlabel('t [h]')
+plt.ylabel('q [g]')
+plt.legend()
+
 
 # %% Visualize single frame
 config = Config()
