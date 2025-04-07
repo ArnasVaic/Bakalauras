@@ -14,7 +14,7 @@ from solvers.efd.solver import Solver as EFDSolver
 
 COMMON_TIME_STEP = 25
 markers = [ 'x', 'o', '+', '^' ]
-RESOLUTIONS = [ (40, 40), (60, 60), (80, 80), (100, 100) ]
+RESOLUTIONS = [ (10, 10), (20, 20), (40, 40), (100, 100) ]
 
 @contextmanager
 def timed(msg="Elapsed"):
@@ -23,7 +23,7 @@ def timed(msg="Elapsed"):
     end = time.perf_counter()
     print(f"{msg}: {end - start:.6f} seconds")
 
-# %% Generate a single with EFD solver with default resolution
+# %% Generate a single with EFD solver with default resolution (40x40)
 
 config = Config()
 config.dt = COMMON_TIME_STEP
@@ -70,19 +70,7 @@ plt.plot(
     label=f'EFD {40}x{40}')
 plt.legend()
 
-# ADI Solve time:
-# (40x40):  6.973656 seconds
-# (60x60): 10.778534 seconds
-# (80x80): 14.679421 seconds
-# (100x100): 17.802746 seconds
-
 # %% Measure EFD solver time in comparison
-
-# EFD Solve time:
-# (40x40): 0.401968 seconds
-# (60x60): 1.413152 seconds
-# (80x80): 4.537827 seconds
-# (100x100): 10.265503 seconds
 
 plt.xlabel('t [h]')
 plt.ylabel('q [g]')
