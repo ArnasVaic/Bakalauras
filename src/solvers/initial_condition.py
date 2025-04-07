@@ -31,10 +31,10 @@ def initial_condition(config: Config) -> np.ndarray[np.float64]:
   square_w = config.resolution[0] / rx
   square_h = config.resolution[1] / ry
 
-  assert square_w == square_h
+  # assert square_w == square_h
 
-  c1 = 3 * c0 * checkerboard(config.resolution, square_w)
-  c2 = 5 * c0 * checkerboard(config.resolution, square_w, False)
+  c1 = 3 * c0 * checkerboard(config.resolution, square_w, square_h)
+  c2 = 5 * c0 * checkerboard(config.resolution, square_w, square_h, False)
   c3 = np.zeros(config.resolution)
 
   if shift_x:
@@ -47,7 +47,7 @@ def initial_condition(config: Config) -> np.ndarray[np.float64]:
 
   return np.array([c1, c2, c3])
 
-def checkerboard(shape, a, fill_odd=True):
+def checkerboard(shape, a, b, fill_odd=True):
   """
   Create a checkerboard pattern with an option to fill either odd or even squares.
   
@@ -61,7 +61,7 @@ def checkerboard(shape, a, fill_odd=True):
   """
   rows, cols = shape
   x = np.arange(rows) // a  
-  y = np.arange(cols) // a  
+  y = np.arange(cols) // b  
   pattern = (x[:, None] + y) % 2  # Create checkerboard pattern
   
   return pattern if fill_odd else 1 - pattern  # Invert for even squares
