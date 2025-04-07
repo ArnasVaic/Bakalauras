@@ -1,16 +1,28 @@
 \sectionnonum{Įvadas}
 
+Itrio aliuminio granatas (YAG) yra kristalinis junginys, pasižymintis išskirtinėmis optinėmis savybėmis. Dėl šių savybių YAG kristalai, legiruoti neodimio jonais, plačiai naudojami kaip lazerių aktyvioji terpė. Tokie lazeriai taikomi įvairiose srityse, įskaitant odontologiją \cite{valentiUseErYAG2021}, pramoninę gamybą \cite{dubeyExperimentalStudyNd2008} ir daugelį kitų.
+
+YAG gali būti sintezuojamas keliais skirtingais būdais, įskaitant kietafazę reakciją, solvoterminį procesą, nusodinimą, purškiamo aerozolio terminį skilimą ir zolio-gelio metodą. Daugelis šių metodų yra chemiškai sudėtingi ir reikalauja specializuotos laboratorinės įrangos. Tarp jų kietafazė reakcija išsiskiria kaip paprasčiausias ir pramoninei gamybai tinkamiausias sintezės būdas \cite{zhangNovelSynthesisYAG2005}. Šios reakcijos metu itrio ir aliuminio oksidai reaguoja aukštoje temperatūroje, susidarant YAG kristalams. Praktikoje šios reakcijos greitį galima padidinti periodiškai maišant reagentus.
+
+Kompiuterinis fizinių bei cheminių procesų modeliavimas yra plačiai taikomas tyrimo metodas, leidžiantis giliau suprasti ir tiksliau prognozuoti tokių procesų eigą bei jų rezultatus. Šis metodas itin naudingas YAG sintezės reakcijų analizėje, kadangi laboratoriniai eksperimentai suteikia ribotas galimybes detaliai ištirti vykstančius mechanizmus. Todėl šiame darbe modeliuosime YAG sintezės reakciją kaip reakcijos-difuzijos sistemą. Nors šis metodas taikomas jau ilgą laiką, jis išlieka aktualus ir šiandien. Matematinį YAG reakcijos modelį pasiūlė Ivanauskas et al. \cite{ivanauskasModellingSolidState2005}, o susijusiuose darbuose \cite{ivanauskasComputationalModellingYAG2009,mackeviciusCloserLookComputer2012} eksperimentiniu būdu nustatytos fizinės modelio konstantos, todėl skaičiavimų rezultatus galima tiksliai palyginti su eksperimentiniais duomenimis. Minėtuose straipsniuose dėmesys skiriamas pačiai YAG sintezės reakcijai ir koeficientų nustatymui ir dėl to reakcija yra modeliuojama labai mažoje fizinėje erdvėje, kurioje telpa vos kelios mikrodalelės. Šiame darbe yra tiriamas maišymo mechanizmo poveikis reakcijai, kuris gali kisti priklausomai nuo fizinės erdvės dydžio, todėl yra reikšminga modeliuoti įvairaus dydžio erdves.
+
+Šią reakciją aprašo trijų netiesinių parabolinių dalinių diferencialinių lygčių sistema, sudaranti reakcijos-difuzijos modelį. Tokiose sistemose analitinis sprendinys paprastai neegzistuoja, todėl jų sprendimui taikomi skaitiniai metodai. Vienas iš dažniausiai naudojamų metodų yra baigtinių elementų metodas (\textit{angl. finite element method, FEM}) - jis leidžia suskaidyti nagrinėjamą sritį į mažesnius elementus ir spręsti diferencialines lygtis kiekviename iš jų. Taip pat gali būti taikomas ribinių elementų metodas (\textit{angl. boundary element method, BEM}), kuris naudoja tik ribinių sąlygų informaciją, todėl yra efektyvus sprendžiant uždavinius su sudėtingomis geometrijomis.
+
+Šiame darbe reakcijos-difuzijos sistemai spręsti taikysime du baigtinių skirtumų metodus (\textit{angl. finite difference method, FDM}). Pirmasis - išreikštinis FTCS metodas (\textit{angl. Forward-Time Centered-Space}), dar žinomas kaip Oilerio integracija. Šis metodas pasižymi paprasta implementacija, tačiau yra sąlyginai stabilus ir nėra itin tikslus. Antrasis metodas - neišreikštinis kintamosios krypties metodas (\textit{angl. alternating direction implicit, ADI}), kuris yra techniškai sudėtingesnis, tačiau nesąlyginai stabilus ir užtikrina didesnį tikslumą \cite{doi:10.1137/0103003}. Nepaisant to, kad ADI metodas sukurtas jau seniai, jis vis dar plačiai naudojamas \cite{gaidamauskaiteComparisonFiniteDifference2007}. Šie skaitiniai metodai detaliai aprašyti literatūroje \cite{pressNumericalRecipes3rd2007,levequeFiniteDifferenceMethods2007}.
+
 Itrio aliuminio granato (YAG) kristalai legiruoti su neodimio arba kitų lantanoidų jonais yra naudojami kaip kietakūnių lazerių aktyviosios terpės dėl savo geidžiamų optinių savybių. Šios medžiagos lazeriai yra dažnai taikomi gamybos ir medicinos srityse \cite{dubeyExperimentalStudyNd2008, valentiUseErYAG2021}. Šiai medžiagai sintezuoti yra žinoma keletas būdų, tačiau kietafazės reakcijos metodas yra lengviausiai pritaikomas pramoninei gamybai \cite{bhattacharyyaMethodsSynthesisY3AI5O122007, zhangNovelSynthesisYAG2005}. Praktikoje, (YAG) sintezė, kietafazės reakcijos metodu, užtrunka mažiausiai kelias valandas priklausomai nuo temperatūros, kurioje vykdomas atkaitinimo procesas \cite{mackeviciusCloserLookComputer2012}. Yra žinoma, kad chemikai bando spartinti šią reakcija periodiškai išmaišydami reagentus.
 
 Ivanauskas et al \cite{ivanauskasModellingSolidState2005} pasiūlė matematinį kietafazės (YAG) reakcijos modelį ir nustatė reakcijos greičio ir difuzijos konstantas prie tam tikrų temperatūrų, tačiau šis modelis nemodeliuoja minėto išmaišymo proceso. Kompiuterinis modelis, apimantis išmaišymo procesą, galėtų padėti efektyviau suprasti kokią įtaką maišymas turi šiam procesui ir jo trukmei. Šiame darbe įgyvendinsime kompiuterinį reakcijos modelį, pateiksime porą skirtingų išmaišymo modelių ir juos integruosime į kompiuterinį modelį. Nagrinėsime modelio teorinį stabilumą ir modelio rezultatų korektiškumą. Pateiksime ir išanalizuosime įvairiai agreguotus modelio rezultatus.
 
-Šio \textbf{darbo tikslas} yra sukurti kompiuterinį (YAG) reakcijos maišymo modelį ir jį ištirti.
+Šio darbo tikslas yra sudaryti kompiuterinę difuzijos-reakcijos sistemą, kuri modeliuotų kietafazę YAG reakciją bei ištirti maišymo modelio poveikį YAG kristalų sintezės spartai modeliuojant reakcija įvairaus dydžio erdvėse.
 
-Iškelti darbo uždaviniai:
-
+\subsection{Keliami uždaviniai ir laukiami rezultatai}
+\subsubsection{Uždaviniai}
 \begin{enumerate}
-\item Sukurti kompiuterinį (YAG) reakcijos modelį
-\item Patikrinti kompiuterinio modelio rezultatų korektiškumą
-\item Papildyti kompiuterinį modelį su maišymo procesu
-\item Ištirti kompiuterinio modelio rezultatus
+  
+    \item Sudaryti kompiuterinius YAG reakcijos modelius remiantis baigtinių skirtumų skaitiniais metodais
+    \item Patikrinti kompiuterinių modelių rezultatų korektiškumą bei palyginti modelių rezultatus tarpusavyje
+    \item Apibrėžti medžiagų maišymo modelius
+    \item Integruoti medžiagų maišymo modelius į skaitinius YAG reakcijos modelius
+    \item Ištirti kompiuterinių modelių rezultatus įvairaus dydžio erdvėse
 \end{enumerate}
