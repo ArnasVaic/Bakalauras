@@ -27,8 +27,8 @@ t, c = solver.solve(c0)
 
 # %%
 
-show_step = -1
-element = 2
+show_step = 20
+element = 1
 actual_step = t[show_step]
 
 print(t.shape[0])

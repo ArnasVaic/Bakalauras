@@ -31,6 +31,9 @@ class Solver:
 
   def solve(self, c_init: np.ndarray[np.float64]) -> tuple[np.ndarray, np.ndarray]:
     self.config.validate()
+
+    assert(self.dt <= self.dt_bound())
+
     log_initial_info(self.config.logger, self.dt, self.config)
     state = State(c_curr = c_init.copy(), c_init = c_init.copy(), c_prev = c_init.copy())
     D, k = self.config.D, self.config.k
