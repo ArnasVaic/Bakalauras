@@ -22,24 +22,24 @@ Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.75\textwidth]{../paper/assets/example-0.png} \\ 
-\includegraphics[width=0.75\textwidth]{../paper/assets/example-1.png} \\
-\includegraphics[width=0.75\textwidth]{../paper/assets/example-2.png}
+\includegraphics[width=0.75\textwidth]{images/example-0.png} \\ 
+\includegraphics[width=0.75\textwidth]{images/example-1.png} \\
+\includegraphics[width=0.75\textwidth]{images/example-2.png}
 
 \caption{Kompiuterinio modelio rezultato pavyzdys su parametrais gautais eksperimentiniu būdu, kai reakcija vyksta temperatūroje $T=1600\degree C$ \cite{mackeviciusCloserLookComputer2012}. Parametrų reikšmės: $D = 28\times 10^{-6} \frac{\mu m^2}{s}$, $W = \sqrt[3]{10}\mu m$, $H = \sqrt[3]{10}\mu m$, $\Delta x = \frac{\sqrt[3]{10}}{79}\mu m$, $\Delta y = \frac{\sqrt[3]{10}}{79} \mu m$, $k = 192 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $c_0 = 10^{-6} \frac{g}{\mu m^3}$, $\Delta t \approx 6.5157s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
 
 \label{result-example}
 \end{figure}
 
-\ref{result-example}-ame pavyzdys vaizduoja kompiuterinio \acs{yag} reakcijos modelio rezultatus, kurie yra išdėstyti vertikaliai kiekvienai medžiagai $c_1, c_2, c_3$. Kiekvienas kadrų stulpelis vaizduoja visų medžiagų koncentracijas tuo pačiu laiko momentu. Pavyzdyje nurodyti parametrai bus naudojami tolesniems pavyzdžiams ir nebus išreikštinai dar kartą nurodomi nebent jie keičiasi.
+\ref{result-example}-ame pavyzdys vaizduoja kompiuterinio (YAG) reakcijos modelio rezultatus, kurie yra išdėstyti vertikaliai kiekvienai medžiagai $c_1, c_2, c_3$. Kiekvienas kadrų stulpelis vaizduoja visų medžiagų koncentracijas tuo pačiu laiko momentu. Pavyzdyje nurodyti parametrai bus naudojami tolesniems pavyzdžiams ir nebus išreikštinai dar kartą nurodomi nebent jie keičiasi.
 
 \newpage
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\textwidth]{assets/T1200-c0-1.png} \\ 
-\includegraphics[width=\textwidth]{assets/T1200-c1-1.png}  \\
-\includegraphics[width=\textwidth]{assets/T1200-c2-1.png} 
+\includegraphics[width=\textwidth]{images/T1200-c0-1.png} \\ 
+\includegraphics[width=\textwidth]{images/T1200-c1-1.png}  \\
+\includegraphics[width=\textwidth]{images/T1200-c2-1.png} 
 
 \caption{Kompiuterinio modelio rezultato pavyzdys su parametrais gautais eksperimentiniu būdu, kai reakcija vyksta temperatūroje $T=1200\degree C$ \cite{mackeviciusCloserLookComputer2012}. Parametrų reikšmės: $D = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 17.1651s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
 
@@ -59,7 +59,7 @@ Norint nustatyti, ar programa veikia korektiškai galima tikrinti, ar mažinant 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{../assets/space-error-1.png}
+    \includegraphics[width=\textwidth]{images/space-error-1.png}
 
     \caption{Kompiuterinio modelio rezultatai - sprendinio tikslumo priklausomybė nuo diskrečių taškų skaičiaus. }
 
@@ -75,7 +75,7 @@ Analogiškai galima būtų fiksuoti erdvinius žingsnius $\Delta x, \Delta y$ ir
 
 \centering
 
-\includegraphics[width=\textwidth]{../assets/time-error-1.png}
+\includegraphics[width=\textwidth]{images/time-error-1.png}
 
 \caption{Kompiuterinio modelio rezultatai - sprendinio priklausomybė nuo laiko žingsio pasirinkimo. Čia reakcijos laikas $T=16h$.}
 
@@ -92,7 +92,7 @@ Jei reakcijos koeficientas būtų lygus nuliui, vienintelis sistemoje vykstantis
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{../assets/only-diff-1.png}
+    \includegraphics[width=0.5\textwidth]{images/only-diff-1.png}
     \caption{Kompiuterinio modelio rezultatai - medžiagų kiekių priklausomybė nuo laiko, kai reakcija nevyksta. Čia diskrečių laiko žingsnių skaičius $\tau=10^4$, o reakcijos greitis $k = 0$. }
     \label{no-reaction}
 \end{figure}
@@ -101,8 +101,8 @@ Jei reakcijos koeficientas būtų lygus nuliui, vienintelis sistemoje vykstantis
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\textwidth]{../assets/all-only-diff-1.png} \\
-\includegraphics[width=\textwidth]{../assets/all-only-diff-2.png}
+\includegraphics[width=\textwidth]{images/all-only-diff-1.png} \\
+\includegraphics[width=\textwidth]{images/all-only-diff-2.png}
 
 \caption{Kompiuterinio modelio rezultatai - medžiagų koncentracijų pasiskirstymas per laiką, kai vyksta tik difuzija. Čia diskrečių laiko žingsnių skaičius $\tau=10^4$, o reakcijos greitis $k = 0$. }
 

@@ -1,0 +1,24 @@
+\newcommand{\sectionbreak}{\clearpage}
+
+\makeatletter
+\renewcommand{\fnum@algorithm}{\thealgorithm}
+\makeatother
+\renewcommand\thealgorithm{\arabic{algorithm} algoritmas}
+
+% --------------------------- Footnote Refs ----------------------------------
+
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
+% --------------------------- Math Tools -------------------------------------
+
+\DeclarePairedDelimiter\set\{\}
+
+% Author's MACROS
+\newcommand{\EE}{\mathbb{E}\,} % Mean
+\newcommand{\ee}{{\mathrm e}}  % nice exponent
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\angl}[1]{\textit{(angl. #1)}}
+\newcommand{\Angl}[1]{\textit{angl. #1}}
+\newcommand{\zr}[1]{(žr. \ref{#1}~pav.)}

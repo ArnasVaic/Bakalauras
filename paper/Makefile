@@ -1,12 +1,11 @@
-NAME:=kursinis
+NAME:=main
 TEX_NAME:=$(NAME).tex
-PDF_NAME:=$(NAME).pdf
+PDF_NAME:=ArnasVaicekauskas2025
 LATEXMK_BASE_FLAGS:=-lualatex -file-line-error -Werror -emulate-aux-dir -aux-directory=out
 
 .PHONY: pdf
 pdf:
-	latexmk $(LATEXMK_BASE_FLAGS) -halt-on-error $(TEX_NAME)
-	# open $(PDF_NAME) || setsid xdg-open $(PDF_NAME)
+	latexmk $(LATEXMK_BASE_FLAGS) -halt-on-error $(TEX_NAME) -jobname=$(PDF_NAME)
 
 .PHONY: watch
 watch: pdf
