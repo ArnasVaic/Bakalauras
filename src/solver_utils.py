@@ -23,7 +23,7 @@ def get_quantity_over_time(config: Config, solution: np.ndarray) -> np.ndarray:
 
 def show_solution_frame(
     config: Config, 
-    t: np.array, 
+    t: np.ndarray, 
     solution: np.ndarray, 
     frame: int, 
     element: int) -> None:

@@ -10,7 +10,7 @@ class Config:
   logger: Logger | None = None
 
   # Physical size of the simulation space.
-  size: tuple[float, float] = (2.154434690031884, 2.154434690031884)
+  size: tuple[float, float] = (1, 1)
 
   # Number of discrete points in each axis
   resolution: tuple[int, int] = (40, 40)
