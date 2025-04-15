@@ -2,7 +2,7 @@ from logging import Logger
 
 import numpy as np
 
-from solvers.config import Config
+from solvers.efd.config import Config
 
 
 # def log_debug_info(logger: Logger | None, c0: np.ndarray, c: np.ndarray, step: int) -> None:

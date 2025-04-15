@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from tqdm import tqdm
 from solver_utils import reaction_end_time
-from solvers.config import large_config
+from solvers.efd.config import large_config
 from concurrent.futures import ProcessPoolExecutor
 
 # This script will run the simulations on increasingly

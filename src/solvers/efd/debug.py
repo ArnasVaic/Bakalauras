@@ -1,5 +1,5 @@
 from logging import Logger
-from solvers.config import Config
+from solvers.efd.config import Config
 from solvers.efd.state import State
 
 def log_debug_info(logger: Logger | None, state: State) -> None:

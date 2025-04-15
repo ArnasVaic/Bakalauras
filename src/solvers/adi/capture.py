@@ -22,5 +22,4 @@ class AutoFrameCapture(FrameCapture):
     self.targetFrameCount = targetFrameCount
 
   def should_capture(self, frame: np.ndarray):
-    
     return 

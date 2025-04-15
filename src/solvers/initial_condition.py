@@ -1,7 +1,7 @@
 
 import numpy as np
 
-from solvers.config import Config
+from solvers.efd.config import Config
 
 def initial_condition(config: Config) -> np.ndarray[np.float64]:
 

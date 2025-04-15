@@ -5,7 +5,7 @@ from solvers.efd.debug import log_debug_info, log_initial_info
 from solvers.efd.state import State
 from solvers.mixer import Mixer
 from solvers.stopper import Stopper
-from solvers.config import Config
+from solvers.efd.config import Config
 
 # Explicit finite difference solver.
 

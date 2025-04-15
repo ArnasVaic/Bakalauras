@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from solvers.initial_condition import initial_condition
 from solver_utils import *
-from solvers.config import Config
+from solvers.efd.config import Config
 from solvers.adi.solver import Solver as ADISolver
 
 COMMON_TIME_STEP = 25
@@ -32,17 +32,17 @@ for resolution in RESOLUTIONS:
 
     c0 = initial_condition(config)
 
-    show_solution_frame(config, [0], np.array([c0]), 0, 0)
+    # show_solution_frame(config, [0], np.array([c0]), 0, 0)
 
-    # print("solver started")
-    # with timed(f"ADI Solve time {config.resolution}") as elapsed:
-    #     t, c = solver.solve(c0)
+    print("solver started")
+    with timed(f"ADI Solve time {config.resolution}") as elapsed:
+        t, c = solver.solve(c0)
 
-    # print(c.shape)
+    print(c.shape)
     
-    # q = get_quantity_over_time(config, c)
+    q = get_quantity_over_time(config, c)
 
-    # np.save(f'compare-solvers/assets/adi-{resolution}x{resolution}-t', t)
-    # np.save(f'compare-solvers/assets/adi-{resolution}x{resolution}-q', q)
+    np.save(f'compare-solvers/assets/adi-{resolution}x{resolution}-t', t)
+    np.save(f'compare-solvers/assets/adi-{resolution}x{resolution}-q', q)
 
-# del config, solver, c0, t, c, q
+del config, solver, c0, t, c, q

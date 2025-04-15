@@ -3,7 +3,7 @@
 import datetime
 from golden_search import gss
 from solver_utils import reaction_end_time
-from solvers.config import large_config
+from solvers.efd.config import large_config
 
 ts = []
 orders = [1, 2, 3]

@@ -4,7 +4,7 @@ import datetime
 import time
 from matplotlib import pyplot as plt
 import numpy as np
-from solvers.config import Config
+from solvers.efd.config import Config
 from solvers.efd.solver import Solver
 from solvers.initial_condition import initial_condition
 
