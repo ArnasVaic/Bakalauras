@@ -13,10 +13,14 @@ class State:
   # Previous state of the simulation with shape [ 3, width, height ]
   previous: np.ndarray[np.float64]
 
+  # optimize calculation by cache'ing initial quantity
+  initial_qnt: float
+
   # simulation time step
   time_step: int = 0
 
   def __init__(self, initial: np.ndarray[np.float64]):
-    np.copyto(self.initial, initial)
-    np.copyto(self.current, initial)
-    np.copyto(self.previous, initial)
+    self.initial = np.copy(initial)
+    self.current = np.copy(initial)
+    self.previous = np.copy(initial)
+    self.initial_qnt = initial[:2].sum()

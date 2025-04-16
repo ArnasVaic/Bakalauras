@@ -22,10 +22,10 @@ def get_quantity_over_time(config: Config, solution: np.ndarray) -> np.ndarray:
   return solution.sum(axis=(2, 3)) / total_points
 
 def show_solution_frame(
-    config: Config, 
-    t: np.ndarray, 
-    solution: np.ndarray, 
-    frame: int, 
+    config: Config,
+    t: np.ndarray,
+    solution: np.ndarray,
+    frame: int,
     element: int) -> None:
   extent = [
     0, config.dx * (config.resolution[0] - 1), 
@@ -43,6 +43,26 @@ def show_solution_frame(
     aspect=1,
     extent=extent
   )
+
+  plt.colorbar()
+
+def validate_solution_stable(config: Config, solution: np.ndarray):
+  # this check is very specific to the initial conditions
+  # take a line at about a quarter of the total height from
+  # the bottom (specific height doesn't really matter since
+  # the initial conditions are very symmetric)
+  y = int(config.resolution[1] / 4)
+  df = np.diff(solution[1, 0, :, y])
+  assert np.sum((df[:-1] > 0) & (df[1:] < 0)) < 1, "Simulation not stable"
+
+def validate_frame_stable(config: Config, frame: np.ndarray):
+  # this check is very specific to the initial conditions
+  # take a line at about a quarter of the total height from
+  # the bottom (specific height doesn't really matter since
+  # the initial conditions are very symmetric)
+  y = int(config.resolution[1] / 4)
+  df = np.diff(frame[0, :, y])
+  assert np.sum((df[:-1] > 0) & (df[1:] < 0)) < 1, "Simulation not stable"
 
 @contextmanager
 def timed(msg="Elapsed"):

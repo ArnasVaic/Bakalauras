@@ -1,23 +1,19 @@
 from abc import abstractmethod
-import numpy as np
 
 class Stopper:
   @abstractmethod
-  def should_stop(state) -> bool:
+  def should_stop(self, state) -> bool:
     pass
 
 class ThresholdStopper(Stopper):
 
-  def __init__(self, threshold):
+  def __init__(self, threshold: float):
     self.threshold = threshold
 
   def should_stop(self, state) -> bool:
+    q = state.current[:2].sum()
+    return q / state.initial_qnt <= self.threshold
 
-    q0 = np.sum(state.c_init[0] + state.c_init[1])
-    q = np.sum(state.c_curr[0] + state.c_curr[1])
-
-    return q / q0 <= self.threshold
-    
 class TotalStepsStopper(Stopper):
 
   def __init__(self, total_steps):

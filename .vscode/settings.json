@@ -2,5 +2,8 @@
     "cSpell.words": [
         "dxdy"
     ],
-    "interactiveWindow.alwaysScrollOnNewCell": false
+    "interactiveWindow.alwaysScrollOnNewCell": false,
+    "pylint.args": [
+        "--indent-string=\"  \""
+    ]
 }

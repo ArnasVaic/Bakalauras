@@ -5,13 +5,16 @@ import numpy as np
 class State:
 
   # Current state of the simulation with shape [ 3, t, width, height ]
-  c_curr: np.ndarray[np.float64]
+  current: np.ndarray[np.float64]
 
   # Previous state of the simulation with shape [ 3, t, width, height ]
   c_prev: np.ndarray[np.float64]
 
   # Initial state of the simulation with shape [ 3, t, width, height ]
   c_init: np.ndarray[np.float64]
+
+  # optimize calculation by cache'ing initial quantity
+  initial_qnt: float
 
   time_step: int = 0
 
@@ -20,5 +23,5 @@ class State:
   captured_c: list[np.ndarray[np.float64]] = field(default_factory=list)
  
   def capture(self, dt: float) -> None:
-    self.captured_c.append(self.c_curr.copy())
+    self.captured_c.append(self.current.copy())
     self.captured_steps.append(self.time_step * dt)

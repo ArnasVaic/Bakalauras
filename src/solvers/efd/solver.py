@@ -35,7 +35,7 @@ class Solver:
     assert(self.dt <= self.dt_bound())
 
     log_initial_info(self.config.logger, self.dt, self.config)
-    state = State(c_curr = c_init.copy(), c_init = c_init.copy(), c_prev = c_init.copy())
+    state = State(current = c_init.copy(), c_init = c_init.copy(), c_prev = c_init.copy(), initial_qnt=c_init[:2].sum())
     D, k = self.config.D, self.config.k
     while True:
 
@@ -43,7 +43,7 @@ class Solver:
 
       if self.mixer.should_mix(state.time_step, self.dt):
         if self.config.logger is not None:
-          self.config.logger.debug(f'mixing, step = {state.time_step}, time = {state.time_step * self.dt}')
+          self.config.logger.info(f'mixing, step = {state.time_step}, time = {state.time_step * self.dt}')
         state.c_prev = self.mixer.mix(state.c_prev)
 
       if state.time_step % self.config.frame_stride == 0:
@@ -51,11 +51,11 @@ class Solver:
 
       kc1c2 = k * state.c_prev[0] * state.c_prev[1]
  
-      state.c_curr[0] = state.c_prev[0] + self.dt * (-3 * kc1c2 + D[0] * self.laplacian(state.c_prev[0]))
-      state.c_curr[1] = state.c_prev[1] + self.dt * (-5 * kc1c2 + D[1] * self.laplacian(state.c_prev[1]))
-      state.c_curr[2] = state.c_prev[2] + self.dt * ( 2 * kc1c2 + D[2] * self.laplacian(state.c_prev[2]))
+      state.current[0] = state.c_prev[0] + self.dt * (-3 * kc1c2 + D[0] * self.laplacian(state.c_prev[0]))
+      state.current[1] = state.c_prev[1] + self.dt * (-5 * kc1c2 + D[1] * self.laplacian(state.c_prev[1]))
+      state.current[2] = state.c_prev[2] + self.dt * ( 2 * kc1c2 + D[2] * self.laplacian(state.c_prev[2]))
 
-      state.c_prev = state.c_curr
+      state.c_prev = state.current
 
       if self.stopper.should_stop(state):
         break
