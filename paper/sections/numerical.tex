@@ -98,7 +98,13 @@ $c^n_{1,i,j}$, $c^n_{2,i,j}$, $c^n_{3,i,j}$ - atitinkamai pirmos, antros ir tre�
 % Ka galima butu rasyti apie sita metoda
 % kontekstas, is kur jis, kam skiras, pliusai ir minusai
 
-Neišreikštinį kintamos krypties metodą (\textit{alternating direction implicit, ADI}) JAV mokslininkai Donald W. Peaceman ir Henry H. Rachford Jr. pristatė savo straipsnyje \enquote{skaitinis sprendinys parabolinėms ir elipsinės diferencialinėms lygtims}. Nuo to laiko šis metodas plačiai taikomas matematinio modeliavimo srityje. Kaip galima suprasti iš straipsnio pavadinimo, šis metodas pritaikytas spręsti parabolines ir elipsines diferencialinių lygčių sistemas, ypatingai tada, kai sistema turi daugiau nei vieną erdvinę dimensiją. Kadangi mūsų nagrinėjamą sistemą sudaro parabolinės lygtys jį ir taikysime.
+Neišreikštinį kintamos krypties metodą (\textit{alternating direction implicit, ADI}) JAV mokslininkai Donald W. Peaceman ir Henry H. Rachford Jr. pristatė savo straipsnyje \enquote{skaitinis sprendinys parabolinėms ir elipsinės diferencialinėms lygtims}. Nuo to laiko šis metodas plačiai taikomas matematinio modeliavimo srityje. Kaip galima suprasti iš straipsnio pavadinimo, šis metodas pritaikytas spręsti parabolines ir elipsines diferencialinių lygčių sistemas, ypatingai tada, kai sistema turi daugiau nei vieną erdvinę dimensiją. Kadangi mūsų nagrinėjamą sistemą sudaro parabolinės diferencialinės lygtys jį ir taikysime.
 
-Šis metodas yra tarpinis variantas tarp Išreikštinio FTCS ir Crank-Nicholson metodo, kuriuo bandoma išlaikyti sprendimo greitį, tačiau taip pat ir tikslumą. Šio metodo principas yra padalinti kiekvieno žingsnio sprendimą į kelis tarpinius žingsnius, kuriuose viena iš dimensijų būtų laikoma neišreikštine, o kitos išreikštinėmis. Yra parodyta, kas
+Šis metodas yra tarpinis variantas tarp Išreikštinio FTCS ir Crank-Nicholson metodo, kuriuo bandoma išlaikyti sprendimo greitį, tačiau taip pat ir tikslumą. Įprastoms parabolinėms lygtims šis metodas būna besąlygiškai stabilus \cite{liAlternatingDirectionImplicit2021}, tai leidžia pasirinkti bet kokio dydžio laiko žingsnį ir tokiu būdu sumažinti bendrą laiko žingsnių kiekį, kurį reikia įvykdyti. Toliau pritaikysime metodą nagrinėjamai sistemai.
+
+Tarkime turime skaitinį sprendinį konkrečių laiko momentu $t^n$, kaip ir anksčiau, jį žymėsime $c^n$. Vietoje to, kad tiesiogiai skaičiuotume skaitinį sprendinį sekančiu laiko momentu $c^{n + 1}$, apskaičiuosime tarpinį sprendinį, kurį žymėsime $c^*$. Šis sprendinys ypatingas tuo, kad jo ieškodami $x$ dimensiją laikysime išreikštine, o $y$ dimensiją -- neišreikštine:
+
+\begin{align}
+    \frac{c^* - c^n}{\frac{1}{2}\Delta t} = ...
+\end{align}
 

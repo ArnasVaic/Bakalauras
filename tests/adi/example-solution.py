@@ -7,12 +7,12 @@ from solvers.efd.config import Config
 from solvers.adi.solver import Solver
 
 config = Config()
-config.dt = 251.1
+config.dt = 25
 
 c0 = initial_condition(config)
 
 solver = Solver(config)
-t, c = solver.solve(c0)
+t, c = solver.solve(c0, lambda f: f.copy())
 q = c.sum(axis=(2, 3))
 
 print(t.shape)
