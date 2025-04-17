@@ -5,12 +5,12 @@
 
 import os
 import numpy as np
+import matplotlib.pyplot as plt
 
 from solver_utils import timed
 from solvers.initial_condition import initial_condition
 from solvers.adi.config import Config
 from solvers.adi.solver import Solver
-import matplotlib.pyplot as plt
 
 SAMPLE_POINTS = 20
 

@@ -1,34 +1,65 @@
-# %% 
+# %%
+# We want to see how reaction end time depends 
+# on the resolution ran with the same parameters.
 
-from matplotlib import pyplot as plt
+import datetime
 import numpy as np
+import matplotlib.pyplot as plt
+
+from solver_utils import timed
 from solvers.initial_condition import initial_condition
-from solver_utils import validate_solution_stable, get_quantity_over_time, timed
 from solvers.adi.config import Config
 from solvers.adi.solver import Solver
 
-def capture_frame(frame : np.ndarray) -> np.ndarray:
-  return frame.copy()
+SAMPLE_POINTS = 15
 
-def filepath(resolution: int, kind: str) -> str:
-  return f'compare-solvers/assets/adi-{resolution}x{resolution}-{kind}.npy'
+INITIAL_RESOLUTION = 40
+RESOLUTION_STEP = 10
+RESOLUTIONS = np.linspace(
+  INITIAL_RESOLUTION,
+  INITIAL_RESOLUTION + RESOLUTION_STEP * (SAMPLE_POINTS - 1),
+  SAMPLE_POINTS
+)
+
+RESOLUTIONS = [ int(r) for r in RESOLUTIONS ]
 
 # %%
+# Generate solutions with varying resolutions
 
-RESOLUTIONS = [ 40, 60, 80, 120, 200 ]
-ts_end = []
+dts = np.load('compare-solvers/assets/solve-time-steps.npy')
 
-for index, resolution in enumerate(RESOLUTIONS):
-  t = np.load(filepath(resolution, 't'))
-  ts_end.append(t[-1])
+end_times = np.zeros(SAMPLE_POINTS)
 
-ts_end = np.array(ts_end)
+for i, r in enumerate(RESOLUTIONS):
+  config = Config()
+  config.resolution = (r, r)
+  config.dt = dts[i]
+
+  solver = Solver(config)
+  c0 = initial_condition(config)
+  with timed(f"ADI {(r, r)} solve time (dt={dts[i]})") as elapsed:
+    t, _ = solver.solve(c0, lambda _: 0)
+  end_times[i] = t[-1]
+
+np.save('compare-solvers/assets/end-times', end_times)
+
+# %% Plot data
+
+end_times = np.load('compare-solvers/assets/end-times.npy')
+plt.plot(RESOLUTIONS, end_times / 3600)
 
 plt.plot(
   RESOLUTIONS,
-  ts_end / 3600
-)
+  np.repeat(end_times.min() / 3600, len(RESOLUTIONS)),
+  label=str(datetime.timedelta(seconds=int(end_times.min()))),
+  linestyle='dashed')
 
-plt.ylabel('t [h]')
-plt.xlabel(f'Square grid sidelength [units]')
-plt.show()
+plt.plot(
+  RESOLUTIONS,
+  np.repeat(end_times.max() / 3600, len(RESOLUTIONS)),
+  label=str(datetime.timedelta(seconds=int(end_times.max()))),
+  linestyle='dashed')
+
+plt.ylabel(f'reaction end time [h]')
+plt.xlabel(f'square grid sidelength [units]')
+plt.legend()
