@@ -8,7 +8,20 @@ logging.basicConfig(
   datefmt='%Y-%m-%d %H:%M:%S',
   level=logging.INFO)
 
-def build_banded_matrix_A(n: int, mu: float):
+def initialize_banded(array: np.ndarray, mu: float, element_index: int) -> None:
+  i = element_index # alias for brevity
+  # initialize first and last element of sup & sub-diagonals as zeros
+  # this is required format by scipy
+  array[i, 0, 0] = array[i, 2, -1] = 0
+
+  # initialize sup & sub-diagonals
+  array[i, 0, 1:] = array[i, 2, :-1] = - mu
+
+  # initialize the main diagonal
+  array[i, 1, 0] = array[i, 1, -1] = 1 + mu
+  array[i, 1, 1:-1] = 1 + 2 * mu
+
+def build_banded_matrix_A(n: int, mu: float) -> np.ndarray:
   sub_diag = np.repeat(-mu, n)
   sub_diag[0] = 0
 

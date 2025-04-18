@@ -37,12 +37,14 @@ def show_solution_frame(
 
   plt.xlabel('x [μm]')
   plt.ylabel('y [μm]')
-  plt.title(f'$c_{element}$ at $t=$ {time}')
+  plt.title(f'$c_{element + 1}$ at $t=$ {time}')
 
   plt.imshow(
     solution[frame, element, :, :], 
     aspect=1,
-    extent=extent
+    extent=extent,
+    vmin = solution[:, element].min(),
+    vmax = solution[:, element].max()
   )
 
   plt.colorbar()

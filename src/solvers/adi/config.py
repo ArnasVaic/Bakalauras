@@ -1,12 +1,15 @@
-
 from dataclasses import dataclass
 from logging import Logger
 import logging
+
+import numpy as np
+from solvers.adi.time_step_strategy import ConstantTimeStep, TimeStepStrategy
 from solvers.mixer import Mixer, SubdivisionMixer
 from solvers.stopper import Stopper, ThresholdStopper
 
 @dataclass
 class Config:
+  """Configuration for ADI solver"""
 
   # logging
   logger: Logger | None = logging.getLogger(__name__)
@@ -18,7 +21,10 @@ class Config:
   resolution: tuple[int, int] = (40, 40)
 
   # Diffusion coefficients for each element
-  D: tuple[float, float, float] = (28e-6, 28e-6, 28e-8)
+  D: np.ndarray = np.array([28e-6, 28e-6, 28e-8])
+
+  # Reaction coefficients
+  alpha: np.ndarray = np.array([-3, -5, 2])
 
   # Reaction speed
   k: float = 192
@@ -29,28 +35,33 @@ class Config:
   # Initial simulation time step.
   dt: float = 0.1
 
+  # Time step strategy
+  time_step_strategy: TimeStepStrategy = ConstantTimeStep(25.0)
+
   # Controls when to stop the simulation
   stopper: Stopper = ThresholdStopper(0.03)
 
   # Controls how and when to mix reagents
   mixer: Mixer = SubdivisionMixer((2, 2), 'perfect', [])
 
-  # Reduce the size of the resulting array by saving a 
+  # Reduce the size of the resulting array by saving a
   # small number of frames spaced evenly throughout the time.
   frame_stride: int = 1
 
   # You should NEVER set this parameter explicitly.
   # It is used to signal to the initial configuration
-  # creator how many particles should be in the 
+  # creator how many particles should be in the
   _order: tuple[int, int] = (0, 0)
 
   @property
   def dx(self) -> float:
+    """Step size in x axis is a function of the size and resolution"""
     return self.size[0] / (self.resolution[0] - 1)
-  
+
   @property
   def dy(self) -> float:
-    return self.size[1] / (self.resolution[1] - 1) 
+    """Step size in y axis is a function of the size and resolution"""
+    return self.size[1] / (self.resolution[1] - 1)
 
   def validate(self) -> None:
     assert self.size[0] > 0, f"Width must be positive, but is {self.size[0]}."
