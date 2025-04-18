@@ -2,7 +2,7 @@
 
 import logging
 from matplotlib import pyplot as plt
-import numpy as np
+import numpy as np  
 from solvers.initial_condition import initial_condition 
 import datetime
 from solvers.efd.config import Config

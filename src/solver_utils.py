@@ -19,6 +19,7 @@ def reaction_end_time(config: Config, t: float) -> float:
 def get_quantity_over_time(config: Config, solution: np.ndarray) -> np.ndarray:
   # shape of the solution is assumed to be [T, 3, W, H]
   total_points = config.resolution[0] * config.resolution[1]
+  # shape of the result is [T, 3]
   return solution.sum(axis=(2, 3)) / total_points
 
 def show_solution_frame(
