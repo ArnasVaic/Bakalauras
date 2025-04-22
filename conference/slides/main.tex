@@ -5,6 +5,8 @@
 \usepackage{caption}
 \usepackage{gensymb}
 \usepackage{polyglossia}
+\usepackage{subcaption}
+
 \setmainlanguage{lithuanian}
 \usepackage[
     backend=biber,
@@ -37,64 +39,90 @@
   Vilniaus Universitetas
 }
 
-
 \begin{document}
 
 \frame{\titlepage}
 
 \frame{
-    \tableofcontents[currentsubsection,subsectionstyle=show]
+  \tableofcontents[currentsubsection,subsectionstyle=show]
 }
 
-\section{YAG sintezės reakcija}
+\section{Įvadas}
 
 \begin{frame}
-    \frametitle{YAG sintezės reakcija}
+  \frametitle{YAG -- itrio aliuminio granatas}
 
+  Ši medžiaga turi daugelį paskirčių, viena iš jų -- lazeriai
+
+  \begin{figure}
     \centering
-    \begin{align*}
-        \ce{3Y_2O_3 + 5Al_2O_3 -> 2Y_3Al_5O_{12}}
-    \end{align*}    
+    \begin{subfigure}[t]{0.45\linewidth}
+      \includegraphics[width=\linewidth]{assets/NdYAG.png}
+      \caption{Nd:YAG -- YAG kristalai legiruoti (\textit{angl. doped}) su neodimio jonais}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\linewidth}
+      \includegraphics[width=\linewidth]{assets/NdYAG-laser.jpg}
+      \caption{Nd:YAG lazeris}
+    \end{subfigure}
+  \end{figure}
+\end{frame}
 
-    \begin{itemize}
-        \item Reakcija vykdoma kaitinant itrio ir aliuminio oksidų homogeninį mišinį
-        \item Sintezė vyksta $1000-1600 C\degree$ laipsnių temperatūroje
-        \item Reakcija gali užtrukti keliolika valandų
-        \item Praktikoje reagentai yra periodiškai išmaišomi norint paspartinti reakciją 
-    \end{itemize}
+\begin{frame}
+  \frametitle{YAG sintezės reakcija}
+
+  Tyrimo objektas -- YAG sintezės reakcija:
+
+  \centering
+  \begin{align*}
+    \ce{3Y_2O_3 + 5Al_2O_3 -> 2Y_3Al_5O_{12}}
+  \end{align*}    
+
+  \begin{itemize}
+    \item Reakcija vyksta kaitinant homogeninį itrio ir aliuminio oksidų mišinį aukštoje temperatūroje ($1000-1600$ C\degree)
+    \item Reakcijos trukmė gali siekti keliolika valandų
+    \item Praktikoje reagentai yra periodiškai maišomi -- taip spartinama reakcija 
+  \end{itemize}
 
 \end{frame}
 
-\section{Motyvacija}
+\section{Motyvacija tirti}
 
 \begin{frame}
-\frametitle{Motyvacija}
- 
-    \begin{itemize}
-        \item Medžiagų maišymo modeliavimas gali padėti suprasti procesus vykstančius YAG reakcijos metu, kurių nėra galimybės ištirti fiziškai dėl aplinkos sąlygų reikalingų reakcijai
-        \item Kompiuterinių modelių efektyvumas leidžia simuliuoti YAG sintezės reakciją daug greičiau ir pigiau negu fiziniai eksperimentai laboratorijoje
-    \end{itemize}
-
+\frametitle{Motyvacija tirti}
+  \begin{itemize}
+    \item Medžiagų maišymo modeliavimas gali padėti suprasti procesus vykstančius YAG reakcijos metu, kurių nėra galimybės ištirti fiziškai dėl aplinkos sąlygų reikalingų reakcijai
+    \item Kompiuterinių modelių efektyvumas leidžia simuliuoti YAG sintezės reakciją daug greičiau ir pigiau negu fiziniai eksperimentai laboratorijoje
+  \end{itemize}
 \end{frame}
 
 \section{Tyrimo tikslas}
 \begin{frame}
-    \frametitle{Tyrimo tikslas}
-    \begin{itemize}
-        \item Ištirti kompiuterinio maišymo modelio poveikį reakcijos rezultatams modeliuojant skirtingo dydžio sritis
-        \item Pasirinkti tokį kompiuterinį maišymo modelį, kurio poveikis rezultatams atitiktų fizinius eksperimentus
-    \end{itemize}
+  \frametitle{Tyrimo tikslas}
+  \begin{enumerate}
+    \item Nustatyti ar vykdant medžiagų maišymą užtenka modeliuoti reakciją mažoje erdvės srityje
+    \item Nustatyti kaip reakcijos trukmė priklauso nuo išmaišymo laiko
+  \end{enumerate}
+\end{frame}
+
+\section{Įrankiai}
+
+\begin{frame}
+  \frametitle{Įrankai ir metodai}
+  \begin{itemize}
+    \item Grafiniai rezultatai buvo sukurti, o skaičiavimai atlikti naudojant \textit{Python} programavimo kalbą bei \textit{NumPy}, \textit{Matplotlib} ir \textit{SciPy} paketus
+    \item Įgyvendintas lygčių sistemos sprendėjas, pagrįstas išreikštiniu FTCS metodu (\textit{angl. explicit forward time centered space})
+  \end{itemize}
 \end{frame}
 
 \section{Matematinis modelis}
-
 
 \subsection{Reakcijos-difuzijos sistema}
 
 \begin{frame}
 \frametitle{Matematinė reakcijos-difuzijos sistema}
 
-YAG Reakcijos--difuzijos sistema
+Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 
 \begin{align*}
     \frac{\partial c_1}{\partial t} & =-3kc_1c_2+D\left(\frac{\partial^2c_1}{\partial x^2}+\frac{\partial^2c_1}{\partial y^2}\right) \\
@@ -108,87 +136,89 @@ YAG Reakcijos--difuzijos sistema
 \subsection{Pradinės ir kraštinės sąlygos}
 
 \begin{frame}
-    \frametitle{Pradinės ir kraštinės sąlygos}
-    \begin{figure}
-        \centering
-        \begin{tikzpicture}[scale=2.0]
-            \draw[fill=white] (0,0) rectangle (1,1);
-            \draw[fill=white] (1,1) rectangle (2,2);
-            \draw[fill=gray!50] (0,1) rectangle (1,2);
-            \draw[fill=gray!50] (1,0) rectangle (2,1);
-    
-            % Draw the boundary of the square
-            \draw[thick] (0,0) rectangle (2,2);
-    
-            % Draw axes
-            \draw[->] (-0.5, 0) -- (2.5, 0) node[anchor=north west] {$x$};
-            \draw[->] (0, -0.5) -- (0, 2.5) node[anchor=north east] {$y$};
-    
-            % Mark the origin
-            \node[anchor=north east] at (0,0) {$(0, 0)$};
-    
-            % Mark the side length
-            \draw[-] (2,0) -- (2,2);
-            \draw[-] (0,2) -- (2,2);
+  \frametitle{Pradinės ir kraštinės sąlygos}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=2.0]
+      \draw[fill=white] (0,0) rectangle (1,1);
+      \draw[fill=white] (1,1) rectangle (2,2);
+      \draw[fill=gray!50] (0,1) rectangle (1,2);
+      \draw[fill=gray!50] (1,0) rectangle (2,1);
 
-            \node at (2.1, 0.75) {$H$};
-            \node at (0.75, 2.1) {$W$};
-            
-            \draw (0.5, 1.5) node[anchor=center] {$5c_0$};
-            \draw (1.5, 0.5) node[anchor=center] {$5c_0$};
-            \draw (1.5, 1.5) node[anchor=center] {$3c_0$};
-            \draw (0.5, 0.5) node[anchor=center] {$3c_0$};
+      % Draw the boundary of the square
+      \draw[thick] (0,0) rectangle (2,2);
 
-            % boundary conditions
-            \draw[->] (-0.05,1) -- (-0.55,1);
-            \node at (-0.55, 1.5) {$\frac{dc_m}{dx} = 0$};
+      % Draw axes
+      \draw[->] (-0.5, 0) -- (2.5, 0) node[anchor=north west] {$x$};
+      \draw[->] (0, -0.5) -- (0, 2.5) node[anchor=north east] {$y$};
 
-            \draw[->] (2.05,1) -- (2.55,1);
-            \node at (2.55, 1.5) {$\frac{dc_m}{dx} = 0$};
+      % Mark the origin
+      \node[anchor=north east] at (0,0) {$(0, 0)$};
 
-            \draw[->] (1, -0.05) -- (1, -0.55);
-            \node at (1.5, -0.25) {$\frac{dc_m}{dy} = 0$};
+      % Mark the side length
+      \draw[-] (2,0) -- (2,2);
+      \draw[-] (0,2) -- (2,2);
 
-            \draw[->] (1, 2.05) -- (1, 2.55);
-            \node at (1.5, 2.25) {$\frac{dc_m}{dy} = 0$};
+      \node at (2.1, 0.75) {$H$};
+      \node at (0.75, 2.1) {$W$};
+      
+      \draw (0.5, 1.5) node[anchor=center] {$5c_0$};
+      \draw (1.5, 0.5) node[anchor=center] {$5c_0$};
+      \draw (1.5, 1.5) node[anchor=center] {$3c_0$};
+      \draw (0.5, 0.5) node[anchor=center] {$3c_0$};
 
-        \end{tikzpicture}
-        \caption{Pradinės ir kraštinės sąlygos modeliui.}
-        \label{initial-boundary-condition}
-    \end{figure}
+      % boundary conditions
+      \draw[->] (-0.05,1) -- (-0.55,1);
+      \node at (-0.55, 1.5) {$\frac{dc_m}{dx} = 0$};
+
+      \draw[->] (2.05,1) -- (2.55,1);
+      \node at (2.55, 1.5) {$\frac{dc_m}{dx} = 0$};
+
+      \draw[->] (1, -0.05) -- (1, -0.55);
+      \node at (1.5, -0.25) {$\frac{dc_m}{dy} = 0$};
+
+      \draw[->] (1, 2.05) -- (1, 2.55);
+      \node at (1.5, 2.25) {$\frac{dc_m}{dy} = 0$};
+
+    \end{tikzpicture}
+    \caption{Pradinės ir kraštinės sąlygos modeliui.}
+    \label{initial-boundary-condition}
+  \end{figure}
 \end{frame}
 
-\subsection{Stabilumo sąlyga}
+% \subsection{Stabilumo sąlyga}
 
-\begin{frame}
-    \frametitle{Stabilumo sąlyga}
-    Galima parodyti, kad skaitinis sprendinys bus stabilus tada, kai tenkinama ši nelygybė:
-    \begin{align*}
-        \Delta t \leqslant \left(15kc_0+2D\left((\Delta x)^{-2}+(\Delta y)^{-2}\right)\right)^{-1}
-    \end{align*}
-    Čia $k$ - reakcijos greitis, $D$ - difuzijos konstanta, $\Delta x, \Delta y$ - diskretūs erdvės žingsniai, $c_0$ - pradinių medžiagų koncentracijų didžiausias bendras daliklis.
-\end{frame}
+% \begin{frame}
+%     \frametitle{Stabilumo sąlyga}
+%     Galima parodyti, kad skaitinis sprendinys bus stabilus tada, kai tenkinama ši nelygybė:
+%     \begin{align*}
+%         \Delta t \leqslant \left(15kc_0+2D\left((\Delta x)^{-2}+(\Delta y)^{-2}\right)\right)^{-1}
+%     \end{align*}
+%     Čia $k$ - reakcijos greitis, $D$ - difuzijos konstanta, $\Delta x, \Delta y$ - diskretūs erdvės žingsniai, $c_0$ - pradinių medžiagų koncentracijų didžiausias bendras daliklis.
+% \end{frame}
 
 \subsection{Modelio rezultatai}
 
 \begin{frame}
-    \frametitle{Reakcijos--difuzijos modelio rezultatai}
-    Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}
-    \centering
-    \includegraphics[width=12cm]{assets/example-0.png} \\ 
-    \includegraphics[width=12cm]{assets/example-2.png}
-
+  \frametitle{Reakcijos--difuzijos modelio rezultatai}
+  Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}
+  \centering
+  \includegraphics[width=12cm]{assets/example-0.png} \\ 
+  \includegraphics[width=12cm]{assets/example-2.png}
 \end{frame}
 
 \section{Maišymo modeliai}
 \subsection{Reakcijos stabdymo sąlyga}
 
 \begin{frame}
-    \frametitle{Reakcijos stabdymo sąlyga}
-    \begin{align*}
-        q(t_\text{stop})=0.03q(0)
-    \end{align*}
-    Čia $q(t)$ yra pirmos ir antros medžiagų kiekis sistemoje. Reakcija stabdoma tada, kai pirmų dviejų medžiagų kiekis sistemoje pasiekia 3\% pradinio kiekio.
+  \frametitle{Reakcijos stabdymo sąlyga}
+
+  \centering
+  \begin{figure}
+    \includegraphics[width=0.6\linewidth]{assets/stop.png}
+    \caption{Pirmos medžiagos kiekio priklausomybė nuo laiko}
+  \end{figure}
+  Reakcija stabdoma tada, kai pirmų dviejų medžiagų kiekis sistemoje pasiekia 3\% pradinio kiekio.
 \end{frame}
 
 \subsection{Atsitiktinis maišymas}
@@ -326,6 +356,39 @@ YAG Reakcijos--difuzijos sistema
     \begin{figure}
     \centering
     \begin{tikzpicture}
+      \fill[gray!30] (0,1) rectangle (1, 2);
+    \fill[gray!30] (1,0) rectangle (2, 1);
+    \draw[<->] (0.75,0.75) -- (1.25,1.25);
+    \draw[<->] (1.25,0.75) -- (0.75,1.25);
+    \draw[thick] (0,0) rectangle (2,2);
+    \draw[dashed] (1,0) -- (1,2);
+    \draw[dashed] (0,1) -- (2,1);
+
+    \node at (0.5,1.5) {$\Omega_1$};
+    \node at (1.5,1.5) {$\Omega_2$};
+    \node at (0.5,0.5) {$\Omega_3$};
+    \node at (1.5,0.5) {$\Omega_4$};
+
+    % Arrow
+    \draw[->, thick] (2.5,1) -- (3.5,1);
+
+    % Transformed Grid
+    \begin{scope}[shift={(4,0)}]
+        \fill[gray!30] (0,1) rectangle (1, 2);
+        \fill[gray!30] (1,0) rectangle (2, 1);
+        
+        \draw[dashed] (0,0) rectangle (2,2);
+        \draw[thick] (1,0) -- (1,2);
+        \draw[thick] (0,1) -- (2,1);
+
+        \node at (0.5,1.5) {$\Omega_4$};
+        \node at (1.5,1.5) {$\Omega_3$};
+        \node at (0.5,0.5) {$\Omega_2$};
+        \node at (1.5,0.5) {$\Omega_1$};
+    \end{scope}
+    \end{tikzpicture}
+    \vfill
+    \begin{tikzpicture}[scale=0.75]
         % Original Grid
     
         \fill[gray!30] (1, 0) rectangle (3, 1);

@@ -8,7 +8,7 @@ import datetime
 from solver_utils import validate_frame_stable
 from solvers.adi.config import Config
 from solvers.adi.state import State
-from solvers.adi.utils import build_banded_matrix_A, initialize_banded
+from solvers.adi.utils import build_banded_matrix_A, frame_quantity, initialize_banded
 
 NUM_OF_ELEMENTS = 3
 
@@ -52,9 +52,6 @@ class Solver:
     self.stopper = config.stopper
 
     nx, ny = self.config.resolution
-    time_step_strategy = config.time_step_strategy
-    dx, dy = self.config.dx, self.config.dy
-    k, D = self.config.k, self.config.D
 
     self.half = np.zeros((NUM_OF_ELEMENTS, nx, ny))
     self.ax_banded = np.zeros((3, 3, nx))
@@ -131,11 +128,14 @@ class Solver:
 
     state.time_step = state.time_step + 1
     state.time = state.time + dt
-    grid_points = self.config.resolution[0] * self.config.resolution[1]
-    state.quantity = state.current.sum(axis=(1,2)) / grid_points
+
+    # TODO: this is expensive, maybe think of a way to calling sum each frame
+    state.current_quantity = frame_quantity(state.current)
     self.config.time_step_strategy.update_dt(state)
 
   def solve(self, c0: np.array, capture: Callable) -> tuple[np.array, np.array]:
+
+    logger = self.config.logger
 
     state = State(c0)
 
@@ -143,7 +143,7 @@ class Solver:
     captured_times = [0]
 
     if self.config.logger:
-      self.config.logger.info(f'starting simulation, dt={self.config.dt}, dx={self.config.dx}, dy={self.config.dy}, D={self.config.D},k={self.config.k}, size={self.config.size}, resolution={self.config.resolution}')
+      self.config.logger.info(f'starting simulation, dt={self.config.time_step_strategy.dt}, dx={self.config.dx}, dy={self.config.dy}, D={self.config.D},k={self.config.k}, size={self.config.size}, resolution={self.config.resolution}')
 
     # O(TN^2)
 
@@ -154,20 +154,22 @@ class Solver:
 
       # check if banded matrices should be reinitialized
       current_dt: float = self.config.time_step_strategy.dt
-      if self.initialized_dt - current_dt < sys.float_info.epsilon:
+      if self.initialized_dt - current_dt > sys.float_info.epsilon:
+        logger.info(f"Recalculating banded, dt difference = {self.initialized_dt - current_dt:.2e}")
         self.initialize_banded(current_dt)
 
       # solve_start = datetime.datetime.now()
       self.solve_step(state)
       # solve_end = datetime.datetime.now()
 
-      # if self.config.logger:
+      if self.config.logger:
 
-      #   # every frame_stride frames log the remaining quantity ratio
-      #   if state.time_step % self.config.frame_stride == 0:
-      #     q, q0 = state.current[:2].sum(axis=(1, 2)), c0[:2].sum(axis=(1, 2))
-      #     ratio = (q[0] + q[1]) / (q0[0] + q0[1])
-      #     self.config.logger.info(f'step: {state.time_step}, avg frame t: {(solve_end - solve_start).total_seconds() * 1000 / state.time_step:.02f}ms, ratio: {ratio:.02f}, r1: {q[0]/q0[0]:.02f}, r1: {q[1]/q0[1]:.02f}')
+        # every frame_stride frames log the remaining quantity ratio
+        if state.time_step % self.config.frame_stride == 0:
+          dt = self.config.time_step_strategy.dt
+          q, q0 = state.current[:2].sum(axis=(1, 2)), c0[:2].sum(axis=(1, 2))
+          ratio = (q[0] + q[1]) / (q0[0] + q0[1])
+          self.config.logger.info(f'step: {state.time_step}, dt: {dt} ratio: {100 * ratio:.02f}, r1: {100 * q[0]/q0[0]:.02f}, r1: {100 * q[1]/q0[1]:.02f}')
 
       if state.time_step % self.config.frame_stride == 0:
         captured_result.append(capture(state.current))

@@ -2,17 +2,14 @@
 
 import numpy as np
 from solver_utils import get_quantity_over_time, show_solution_frame, timed, validate_solution_stable
-from solvers.adi.time_step_strategy import ClampedArithmeticTimeStep, ConstantTimeStep
+from solvers.adi.time_step_strategy import ClampedArithmeticTimeStep, ConstantTimeStep, ACAStep
 from solvers.initial_condition import initial_condition
 from solvers.adi.config import Config
 from solvers.adi.solver import Solver
 from solvers.stopper import TotalStepsStopper
 
 config = Config()
-config.time_step_strategy = ConstantTimeStep(25)
-# ClampedArithmeticTimeStep(25, 0.1, 200)
-config.frame_stride = 20
-
+config.time_step_strategy = ACAStep(25, 0.0000, 50, 0.0301)
 c0 = initial_condition(config)
 
 with timed("solved in"):

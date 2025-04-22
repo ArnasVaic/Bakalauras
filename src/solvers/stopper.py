@@ -11,8 +11,9 @@ class ThresholdStopper(Stopper):
     self.threshold = threshold
 
   def should_stop(self, state) -> bool:
-    q = state.quantity[0] + state.quantity[1]
-    return q / state.initial_qnt <= self.threshold
+    q = state.current_quantity[0] + state.current_quantity[1]
+    q0 = state.initial_quantity[0] + state.initial_quantity[1]
+    return q / q0 <= self.threshold
 
 class TotalStepsStopper(Stopper):
 

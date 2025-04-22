@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import numpy as np
 from scipy.signal import convolve2d
+from solvers.adi.utils import frame_quantity
 from solvers.efd.debug import log_debug_info, log_initial_info
 from solvers.efd.state import State
 from solvers.mixer import Mixer
@@ -29,13 +30,14 @@ class Solver:
     D, k, c0 = self.config.D, self.config.k, self.config.c0
     return 1.0 / (15 * k * c0 + 2 * np.max(D) * (dx**-2 + dy**-2))
 
-  def solve(self, c_init: np.ndarray[np.float64]) -> tuple[np.ndarray, np.ndarray]:
+  def solve(self, c_init: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     self.config.validate()
 
     assert(self.dt <= self.dt_bound())
 
     log_initial_info(self.config.logger, self.dt, self.config)
-    state = State(current = c_init.copy(), c_init = c_init.copy(), c_prev = c_init.copy(), initial_qnt=c_init[:2].sum())
+    state = State(c_init)
+    c, p = state.current, state.c_prev
     D, k = self.config.D, self.config.k
     while True:
 
@@ -50,12 +52,13 @@ class Solver:
         state.capture(self.dt)
 
       kc1c2 = k * state.c_prev[0] * state.c_prev[1]
- 
-      state.current[0] = state.c_prev[0] + self.dt * (-3 * kc1c2 + D[0] * self.laplacian(state.c_prev[0]))
-      state.current[1] = state.c_prev[1] + self.dt * (-5 * kc1c2 + D[1] * self.laplacian(state.c_prev[1]))
-      state.current[2] = state.c_prev[2] + self.dt * ( 2 * kc1c2 + D[2] * self.laplacian(state.c_prev[2]))
 
-      state.c_prev = state.current
+      c[0] = p[0] + self.dt * (-3 * kc1c2 + D[0] * self.laplacian(p[0]))
+      c[1] = p[1] + self.dt * (-5 * kc1c2 + D[1] * self.laplacian(p[1]))
+      c[2] = p[2] + self.dt * ( 2 * kc1c2 + D[2] * self.laplacian(p[2]))
+      np.copyto(p, c)
+
+      state.current_quantity = frame_quantity(c)
 
       if self.stopper.should_stop(state):
         break

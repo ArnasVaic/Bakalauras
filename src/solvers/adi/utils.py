@@ -32,3 +32,7 @@ def build_banded_matrix_A(n: int, mu: float) -> np.ndarray:
   diag[0] = diag[-1] = 1 + mu
 
   return np.array([sub_diag, diag, sup_diag])
+
+def frame_quantity(frame: np.ndarray) -> float:
+  # single frame of solution should be of shape [3, w, h]
+  return frame.sum(axis=(1,2))

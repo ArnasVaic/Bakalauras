@@ -63,6 +63,11 @@ class Config:
     """Step size in y axis is a function of the size and resolution"""
     return self.size[1] / (self.resolution[1] - 1)
 
+  @property
+  def total_points(self) -> int:
+    """Total number of discrete points in spatial axes"""
+    return self.resolution[0] * self.resolution[1]
+
   def validate(self) -> None:
     assert self.size[0] > 0, f"Width must be positive, but is {self.size[0]}."
     assert self.size[1] > 0, f"Height must be positive, but is {self.size[1]}."

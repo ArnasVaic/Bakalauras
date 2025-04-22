@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from logging import Logger
+import logging
 from solvers.mixer import Mixer, SubdivisionMixer
 from solvers.stopper import Stopper, ThresholdStopper
 
@@ -7,7 +8,7 @@ from solvers.stopper import Stopper, ThresholdStopper
 class Config:
 
   # logging
-  logger: Logger | None = None
+  logger: Logger | None = logging.getLogger(__name__)
 
   # Physical size of the simulation space.
   size: tuple[float, float] = (1, 1)
