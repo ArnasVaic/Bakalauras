@@ -309,47 +309,6 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 \end{figure}
 \end{frame}
 
-\section{Modelių rezultatai}
-
-\subsection{Atsitiktinio maišymo rezultatai}
-\begin{frame}
-    \frametitle{Atsitiktinio maišymo rezultatai}
-    \begin{figure}
-        \centering
-        \includegraphics[width=12cm]{assets/random-mix-example-c0-1.png} \\
-        \includegraphics[width=12cm]{assets/random-mix-example-c2-1.png}
-        \caption{Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}, kai naudojamas atsitiktinio išmaišymo modelis \eqref{random-mix}.}
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Atsitiktinio maišymo rezultatai}
-    \begin{figure}
-        \centering
-        \includegraphics[width=7cm]{assets/bad-mix-qnt-compare-1.png}
-        \caption{Atsitiktinio išmaišymo modelio \eqref{random-mix} problema - gali ženkliai prailginti reakcijos pabaigos laiką. Tokio modelio poveiki reikia matuoti statistiniu bandymu arba pilnu perrinkimu. }
-    \end{figure}
-\end{frame}
-
-\subsection{Tobulo maišymo rezultatai}
-\begin{frame}
-\frametitle{Tobulo maišymo rezultatai}
-\begin{figure}
-\centering
-\includegraphics[width=7cm]{assets/optimal-mix-qnt-1.png}
-\caption{Tobulas maišymas deterministinis ir tikroviškiau atspindi išmaišymo pasekmes.}
-\end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Tobulo maišymo rezultatai}
-    \begin{figure}
-        \centering
-        \includegraphics[width=7cm]{assets/mix-end-1.png}
-        \caption{Reakcijos pabaigos laiko priklausomybė nuo išmaišymo laiko, kai naudojamas tobulo išmaišymo modelis \eqref{perfect-mix}.}
-    \end{figure}
-\end{frame}
-
 \subsection{Tobulas maišymo modelis didesnėms erdvėms}
 \begin{frame}
     \frametitle{Maišymas didesnėje erdvėje}
@@ -485,15 +444,65 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 \end{figure}
 \end{frame}
 
-\subsection{Tobulas maišymo modelio rezultatai didesnėje erdvėje}
+\section{Modelių rezultatai}
+
+\subsection{Atsitiktinio maišymo rezultatai}
 \begin{frame}
-    \frametitle{Maišymas didesnėje erdvėje}
+    \frametitle{Atsitiktinio maišymo rezultatai}
     \begin{figure}
-    \centering
-    \includegraphics[width=7cm]{assets/mix-end-large-1.png}
-    \caption{Reakcijos pabaigos laiko priklausomybė nuo išmaišymo laiko, kai naudojamas tobulo išmaišymo modelis didesnėje erdvėje \eqref{large-perfect-mix}.}
+        \centering
+        \includegraphics[width=12cm]{assets/random-mix-example-c0-1.png} \\
+        \includegraphics[width=12cm]{assets/random-mix-example-c2-1.png}
+        \caption{Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}, kai naudojamas atsitiktinio išmaišymo modelis \eqref{random-mix}.}
     \end{figure}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Atsitiktinio maišymo rezultatai}
+    \begin{figure}
+        \centering
+        \includegraphics[width=7cm]{assets/bad-mix-qnt-compare-1.png}
+        \caption{Atsitiktinio išmaišymo modelio \eqref{random-mix} problema - gali ženkliai prailginti reakcijos pabaigos laiką. Tokio modelio poveiki reikia matuoti statistiniu bandymu arba pilnu perrinkimu. }
+    \end{figure}
+\end{frame}
+
+\subsection{Tobulo maišymo rezultatai}
+\begin{frame}
+\frametitle{Tobulo maišymo rezultatai}
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{assets/optimal-mix-qnt-1.png}
+\caption{Tobulas maišymas deterministinis ir tikroviškiau atspindi išmaišymo pasekmes.}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tobulo maišymo rezultatai}
+
+    \begin{figure}
+      \centering
+      \begin{subfigure}[t]{0.45\linewidth}
+        \includegraphics[width=\linewidth]{assets/mix-end-1.png}
+        \caption{Mažesnė reakcijos erdvė. \label{fig:perfect-small}}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[t]{0.45\linewidth}
+        \includegraphics[width=\linewidth]{assets/mix-end-large-1.png}
+        \caption{Didesnė reakcijos erdvė. \label{fig:perfect-large}}
+      \end{subfigure}
+      \caption{Reakcijos trukmės priklausomybė nuo išmaišymo laiko taikant tobulo maišymo modelį}
+    \end{figure}
+\end{frame}
+
+% \subsection{Tobulas maišymo modelio rezultatai didesnėje erdvėje}
+% \begin{frame}
+%     \frametitle{Maišymas didesnėje erdvėje}
+%     \begin{figure}
+%     \centering
+%     \includegraphics[width=7cm]{}
+%     \caption{}
+%     \end{figure}
+% \end{frame}
 
 % \begin{frame}
 % \frametitle{Rezultatai}
@@ -507,14 +516,19 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 % \end{itemize}
 % \end{frame}
 
+\section{Išvados}
+
 \begin{frame}
 \frametitle{Išvados}
 \begin{itemize}
-    \item Atsitiktinio maišymo modelio rezultatai neatitinka realybėje pastebimų rezultatų, kai reakcija modeliuojama mažoje srityje, kurioje susiduria tik 4-ios mikrodalelės. Norint iš šio modelio išgauti tikrovę atitinkančius rezultatus yra būtina modeliuoti didesnę erdvės sritį.
+      
+  \item Reakcijos trukmės priklausomybė nuo išmaišymo laiko yra nesimetrinė laiko atžvilgiu -- optimaliausi maišymo momentai išsidėstę arti reakcijos vykdymo pradžios.
 
-    \item Tobulo išmaišymo modelio rezultatai atitinka realybėje pastebimą reakcijos pagreitėjimą.
-    
-    \item Modeliuojant didesnę erdvės sritį, tobulo išmaišymo modelio rezultatai kinta gana nežymiai, todėl maišymo modeliavimui užtenka modeliuoti mažą reakcijos erdvės sritį su 4-iom skirtingų medžiagų mikrodalelėmis
+  \item Modeliuojant didesnę erdvės sritį, tobulo išmaišymo modelio rezultatai kinta gana nežymiai (pokytis tarp rezultatų pavyzdžiuose \ref{fig:perfect-small}-\ref{fig:perfect-large} yra 6min), todėl maišymo modeliavimui užtenka modeliuoti mažą  erdvės sritį.
+
+  \item Tobulo maišymo modelio rezultatuose yra pastebimas reakcijos pagreitėjimas, o atsitiktinio maišymo modelyje -- ne. Norint pastebėti reakcijos pagreitėjimą taikant atsitiktinį maišymo modelį yra būtina modeliuoti reakciją didesnėje erdvėje.
+  
+  % Tobulo išmaišymo modelio rezultatai atitinka realybėje pastebimą reakcijos pagreitėjimą, o atsitiktinio maišymo modelio rezultatai neatitinka realybėje pastebimų rezultatų, kai reakcija modeliuojama mažoje srityje, kurioje susiduria tik 4-ios mikrodalelės. Norint iš šio modelio išgauti tikrovę atitinkančius rezultatus yra būtina modeliuoti didesnę erdvės sritį.
 
 \end{itemize}
 \end{frame}
