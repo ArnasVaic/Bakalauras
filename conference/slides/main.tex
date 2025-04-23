@@ -4,14 +4,14 @@
 \usepackage{tikz}
 \usepackage{caption}
 \usepackage{gensymb}
-\usepackage{polyglossia}
+% \usepackage{polyglossia}
 \usepackage{subcaption}
 
-\setmainlanguage{lithuanian}
+% \setmainlanguage{lithuanian}
 \usepackage[
-    backend=biber,
-    style=numeric,
-    sorting=ynt
+  backend=biber,
+  style=numeric,
+  sorting=ynt
 ]{biblatex}
 
 \addtobeamertemplate{navigation symbols}{}{%
@@ -30,20 +30,19 @@
 
 \date{2025}
 
-\title[]{Medžiagų maišymo modeliavimas YAG reakcijoje}
-\subtitle{Modelling the mixing of reagents in YAG reaction}
+\title[]{Modelling the mixing of reagents in YAG reaction}
 
 \author[Arnas Vaicekauskas]
 {
     A.~Vaicekauskas\inst{1}\\ 
-    \small Darbo vadovas: Asist. Dr. R.~Astrauskas\inst{1}
+    \small Supervisor: Asist. Dr. R.~Astrauskas\inst{1}
 }
 
 \institute[MIF]
 {
   \inst{1}
-  Matematikos ir informatikos fakultetas\\
-  Vilniaus Universitetas
+  Faculty of Mathematics and Informatics\\
+  Vilnius University
 }
 
 \begin{document}
@@ -54,31 +53,31 @@
   \tableofcontents[currentsubsection,subsectionstyle=show]
 }
 
-\section{Įvadas}
+\section{Introduction}
 
 \begin{frame}
-  \frametitle{YAG -- itrio aliuminio granatas}
+  \frametitle{YAG -- yttrium aluminum garnet}
 
-  Ši medžiaga turi daugelį paskirčių, viena iš jų -- lazeriai
+  This material has many applications, one of them -- lasers
 
   \begin{figure}
     \centering
     \begin{subfigure}[t]{0.45\linewidth}
       \includegraphics[width=\linewidth]{assets/NdYAG.png}
-      \caption{Nd:YAG -- YAG kristalai legiruoti (\textit{angl. doped}) su neodimio jonais}
+      \caption{Nd:YAG -- YAG crystals doped with neodymium ions}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.45\linewidth}
       \includegraphics[width=\linewidth]{assets/NdYAG-laser.jpg}
-      \caption{Nd:YAG lazeris}
+      \caption{Nd:YAG laser}
     \end{subfigure}
   \end{figure}
 \end{frame}
 
 \begin{frame}
-  \frametitle{YAG sintezės reakcija}
+  \frametitle{YAG synthesis reaction}
 
-  Tyrimo objektas -- YAG sintezės reakcija:
+  Research object -- YAG synthesis reaction:
 
   \centering
   \begin{align*}
@@ -86,64 +85,65 @@
   \end{align*}    
 
   \begin{itemize}
-    \item Reakcija vyksta kaitinant homogeninį itrio ir aliuminio oksidų mišinį aukštoje temperatūroje ($1000-1600$ C\degree)
-    \item Reakcijos trukmė gali siekti keliolika valandų
-    \item Praktikoje reagentai yra periodiškai maišomi -- taip spartinama reakcija 
+    \item The reaction takes place by heating a homogeneous mixture of yttrium and aluminum oxides at a high temperature ($1000-1600$ C\degree)
+    \item The reaction duration can reach several hours
+    \item In practice, the reagents are periodically mixed -- this accelerates the reaction
   \end{itemize}
-
 \end{frame}
 
-\section{Motyvacija tirti}
+\section{Motivation for research}
 
 \begin{frame}
-\frametitle{Motyvacija tirti}
+  \frametitle{Motivation for research}
+
   \begin{itemize}
-    \item Medžiagų maišymo modeliavimas gali padėti suprasti procesus vykstančius YAG reakcijos metu, kurių nėra galimybės ištirti fiziškai dėl aplinkos sąlygų reikalingų reakcijai
-    \item Kompiuterinių modelių efektyvumas leidžia simuliuoti YAG sintezės reakciją daug greičiau ir pigiau negu fiziniai eksperimentai laboratorijoje
+    \item Modeling material mixing can help to understand the processes occurring during the YAG reaction, which cannot be physically investigated due to the environmental conditions required for the reaction
+    \item The efficiency of computer models allows simulating the YAG synthesis reaction much faster and more cheaply than physical experiments in a laboratory
   \end{itemize}
 \end{frame}
 
-\section{Tyrimo tikslas}
+\section{Research aim}
 \begin{frame}
-  \frametitle{Tyrimo tikslas}
+  \frametitle{Research aim}
+
   \begin{enumerate}
-    \item Nustatyti ar vykdant medžiagų maišymą užtenka modeliuoti reakciją mažoje erdvės srityje
-    \item Nustatyti kaip reakcijos trukmė priklauso nuo išmaišymo laiko
+    \item Determine whether it is sufficient to model the reaction in a small spatial region when mixing materials
+    \item Determine how the reaction duration depends on the mixing time
   \end{enumerate}
 \end{frame}
 
-\section{Įrankiai}
+\section{Tools and methods}
 
 \begin{frame}
-  \frametitle{Įrankai ir metodai}
+  \frametitle{Tools and methods}
   \begin{itemize}
-    \item Grafiniai rezultatai buvo sukurti, o skaičiavimai atlikti naudojant \textit{Python} programavimo kalbą bei \textit{NumPy}, \textit{Matplotlib} ir \textit{SciPy} paketus
-    \item Įgyvendintas lygčių sistemos sprendėjas, pagrįstas išreikštiniu FTCS metodu (\textit{angl. explicit forward time centered space})
+    \item Graphical results were created and calculations performed using the \textit{Python} programming language and the \textit{NumPy}, \textit{Matplotlib}, and \textit{SciPy} packages
+    \item An equation system solver was implemented, based on the explicit FTCS method (\textit{explicit forward time centered space})
   \end{itemize}
 \end{frame}
 
-\section{Matematinis modelis}
+\section{Mathematical model}
 
-\subsection{Reakcijos-difuzijos sistema}
+\subsection{Reaction-diffusion system}
 
 \begin{frame}
-\frametitle{Matematinė reakcijos-difuzijos sistema}
+  \frametitle{Mathematical reaction-diffusion system}
 
-Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
-
-\begin{align*}
+  Reaction-diffusion system describing the YAG synthesis reaction:
+  
+  \begin{align*}
     \frac{\partial c_1}{\partial t} & =-3kc_1c_2+D\left(\frac{\partial^2c_1}{\partial x^2}+\frac{\partial^2c_1}{\partial y^2}\right) \\
     \frac{\partial c_2}{\partial t} & =-5kc_1c_2+D\left(\frac{\partial^2c_2}{\partial x^2}+\frac{\partial^2c_2}{\partial y^2}\right)\\
     \frac{\partial c_3}{\partial t} & =2kc_1c_2\\
     (x, y, t)&\in(0, W)\times(0, H)\times[0, T]
-\end{align*}
+  \end{align*}
 
 \end{frame}
 
 \subsection{Pradinės ir kraštinės sąlygos}
 
 \begin{frame}
-  \frametitle{Pradinės ir kraštinės sąlygos}
+  \frametitle{Initial and boundary conditions}
   \begin{figure}
     \centering
     \begin{tikzpicture}[scale=2.0]
@@ -188,7 +188,7 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
       \node at (1.5, 2.25) {$\frac{dc_m}{dy} = 0$};
 
     \end{tikzpicture}
-    \caption{Pradinės ir kraštinės sąlygos modeliui.}
+    \caption{Initial and boundary conditions of the model.}
     \label{initial-boundary-condition}
   \end{figure}
 \end{frame}
@@ -204,34 +204,38 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 %     Čia $k$ - reakcijos greitis, $D$ - difuzijos konstanta, $\Delta x, \Delta y$ - diskretūs erdvės žingsniai, $c_0$ - pradinių medžiagų koncentracijų didžiausias bendras daliklis.
 % \end{frame}
 
-\subsection{Modelio rezultatai}
+\subsection{Reaction-diffusion model results}
 
 \begin{frame}
-  \frametitle{Reakcijos--difuzijos modelio rezultatai}
-  Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}
+  \frametitle{Reaction-diffusion model results}
+
+  Model evolution over time with initial and boundary conditions \eqref{initial-boundary-condition}
   \centering
   \includegraphics[width=12cm]{assets/example-0.png} \\ 
   \includegraphics[width=12cm]{assets/example-2.png}
+
 \end{frame}
 
-\section{Maišymo modeliai}
-\subsection{Reakcijos stabdymo sąlyga}
+\section{Mixing models}
+\subsection{Reaction stopping condition}
 
 \begin{frame}
-  \frametitle{Reakcijos stabdymo sąlyga}
+  \frametitle{Reaction stopping condition}
 
   \centering
   \begin{figure}
     \includegraphics[width=0.6\linewidth]{assets/stop.png}
-    \caption{Pirmos medžiagos kiekio priklausomybė nuo laiko}
+    \caption{Amount of the first substance as a function of time}
   \end{figure}
-  Reakcija stabdoma tada, kai pirmų dviejų medžiagų kiekis sistemoje pasiekia 3\% pradinio kiekio.
+
+  The reaction is stopped when the amount of the first two substances in the system reaches 3\% of the initial amount.
+
 \end{frame}
 
-\subsection{Atsitiktinis maišymas}
+\subsection{Random mixing}
 
 \begin{frame}
-\frametitle{Atsitiktinis maišymas}
+\frametitle{Random mixing}
 \begin{figure}
 \centering
 \begin{tikzpicture}[scale=1.5]
@@ -268,34 +272,34 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
         \node at (1.5,0.5) {\rotatebox{90}{$\Omega_2$}};  % 90° rotation
     \end{scope}
 \end{tikzpicture}
-\caption{Atsitiktinio išmaišymo metu metu reakcijos erdvės sritys yra atsitiktinai pasukamos ir susikeičiamos vietomis. }
+\caption{During random mixing, the reaction space regions are randomly rotated and swapped.}
 \label{random-mix}
 \end{figure}
 \end{frame}
 
-\subsection{Atsitiktinio maišymo rezultatai}
+\subsection{Random Mixing Results}
 \begin{frame}
-  \frametitle{Atsitiktinio maišymo rezultatai}
+  \frametitle{Random Mixing Results}
   \begin{figure}
     \centering
     \includegraphics[width=12cm]{assets/random-mix-example-c0-1.png} \\
     \includegraphics[width=12cm]{assets/random-mix-example-c2-1.png}
-    \caption{Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}, kai naudojamas atsitiktinio išmaišymo modelis \eqref{random-mix}.}
+    \caption{Model evolution over time with initial and boundary conditions \eqref{initial-boundary-condition}, using the random mixing model \eqref{random-mix}.}
   \end{figure}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Atsitiktinio maišymo rezultatai}
+  \frametitle{Random Mixing Results}
   \begin{figure}
-      \centering
-      \includegraphics[width=7cm]{assets/bad-mix-qnt-compare-1.png}
-      \caption{Atsitiktinio išmaišymo modelio \eqref{random-mix} problema - gali ženkliai prailginti reakcijos pabaigos laiką. Tokio modelio poveiki reikia matuoti statistiniu bandymu arba pilnu perrinkimu. }
+    \centering
+    \includegraphics[width=7cm]{assets/bad-mix-qnt-compare-1.png}
+    \caption{Problem of the random mixing model \eqref{random-mix} - it can significantly extend the reaction end time. The effect of such a model needs to be measured through statistical testing or brute force.}
   \end{figure}
 \end{frame}
 
-\subsection{Tobulas maišymas}
+\subsection{Perfect mixing}
 \begin{frame}
-\frametitle{Tobulas maišymas}
+\frametitle{Perfect mixing}
 \begin{figure}
 \centering
 \begin{tikzpicture}[scale=1.5]
@@ -331,24 +335,24 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
         \node at (1.5,0.5) {$\Omega_1$};
     \end{scope}
 \end{tikzpicture}
-\caption{Tobulo išmaišymo metu metu reakcijos erdvės sritys yra susikeičiamos vietomis įstrižai, tokiu būdu reakcijos greitis padidėja daugiausiai. }
+\caption{During perfect mixing, the reaction space regions are swapped diagonally, thus maximizing the reaction rate.}
 \label{perfect-mix}
 \end{figure}
 \end{frame}
 
-\subsection{Tobulo maišymo rezultatai}
+\subsection{Perfect Mixing Results}
 \begin{frame}
-\frametitle{Tobulo maišymo rezultatai}
+\frametitle{Perfect Mixing Results}
 \begin{figure}
 \centering
 \includegraphics[width=7cm]{assets/optimal-mix-qnt-1.png}
-\caption{Tobulas maišymas deterministinis ir tikroviškiau atspindi išmaišymo pasekmes.}
+\caption{Perfect mixing is deterministic and more realistically reflects the consequences of mixing.}
 \end{figure}
 \end{frame}
 
-\subsection{Tobulas maišymo modelis didesnėms erdvėms}
+\subsection{Perfect Mixing Model for Larger Spaces}
 \begin{frame}
-    \frametitle{Maišymas didesnėje erdvėje}
+    \frametitle{Mixing in a Larger Space}
     \begin{figure}
     \centering
     \begin{tikzpicture}
@@ -476,27 +480,28 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
             \node at (3.5,0.5) {$\Omega_{11}$};
         \end{scope}
     \end{tikzpicture}
-    \caption{Tobulo maišymo modelis didesnėje erdvėje analogiškas modeliui \eqref{perfect-mix} atkartojant jį periodiškai.}
+    \caption{The perfect mixing model for a larger space is analogous to the model \eqref{perfect-mix}, replicated using a mirror principle.}
     \label{large-perfect-mix}
 \end{figure}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Tobulo maišymo rezultatai}
+  \frametitle{Perfect Mixing Results}
 
-    \begin{figure}
-      \centering
-      \begin{subfigure}[t]{0.45\linewidth}
-        \includegraphics[width=\linewidth]{assets/mix-end-1.png}
-        \caption{Mažesnė reakcijos erdvė. \label{fig:perfect-small}}
-      \end{subfigure}
-      \hfill
-      \begin{subfigure}[t]{0.45\linewidth}
-        \includegraphics[width=\linewidth]{assets/mix-end-large-1.png}
-        \caption{Didesnė reakcijos erdvė. \label{fig:perfect-large}}
-      \end{subfigure}
-      \caption{Reakcijos trukmės priklausomybė nuo išmaišymo laiko taikant tobulo maišymo modelį. Skirtumas tarp grafikų -- modeliuotas reakcijos erdvės dydis.}
-    \end{figure}
+  \begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.45\linewidth}
+      \includegraphics[width=\linewidth]{assets/mix-end-1.png}
+      \caption{Smaller reaction space. \label{fig:perfect-small}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\linewidth}
+      \includegraphics[width=\linewidth]{assets/mix-end-large-1.png}
+      \caption{Larger reaction space. \label{fig:perfect-large}}
+    \end{subfigure}
+    \caption{Dependence of reaction duration on mixing time using the perfect mixing model. The difference between the graphs is the modeled reaction space size.}
+  \end{figure}
+
 \end{frame}
 
 % \subsection{Tobulas maišymo modelio rezultatai didesnėje erdvėje}
@@ -521,26 +526,17 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 % \end{itemize}
 % \end{frame}
 
-\section{Išvados}
+\section{Conclusions}
 
 \begin{frame}
-\frametitle{Išvados}
-\begin{itemize}
-      
-  \item Reakcijos trukmės priklausomybė nuo išmaišymo laiko yra nesimetrinė laiko atžvilgiu -- optimaliausi maišymo momentai išsidėstę arti reakcijos vykdymo pradžios.
-
-  \item Modeliuojant didesnę erdvės sritį, tobulo išmaišymo modelio rezultatai kinta gana nežymiai (pokytis tarp rezultatų pavyzdžiuose \ref{fig:perfect-small}-\ref{fig:perfect-large} yra 6min), todėl maišymo modeliavimui užtenka modeliuoti mažą  erdvės sritį.
-
-  \item Tobulo maišymo modelio rezultatuose yra pastebimas reakcijos pagreitėjimas, o atsitiktinio maišymo modelyje -- ne. Norint pastebėti reakcijos pagreitėjimą taikant atsitiktinį maišymo modelį yra būtina modeliuoti reakciją didesnėje erdvėje.
-  
-  % Tobulo išmaišymo modelio rezultatai atitinka realybėje pastebimą reakcijos pagreitėjimą, o atsitiktinio maišymo modelio rezultatai neatitinka realybėje pastebimų rezultatų, kai reakcija modeliuojama mažoje srityje, kurioje susiduria tik 4-ios mikrodalelės. Norint iš šio modelio išgauti tikrovę atitinkančius rezultatus yra būtina modeliuoti didesnę erdvės sritį.
-
-\end{itemize}
+  \frametitle{Conclusions}
+  \begin{itemize}
+    \item The dependence of reaction duration on mixing time is asymmetric in terms of time -- the optimal mixing moments are clustered near the beginning of the reaction.
+    
+    \item When modeling a larger spatial region, the results of the perfect mixing model change insignificantly (the change between the results in examples \ref{fig:perfect-small}-\ref{fig:perfect-large} is 6 minutes), so it is sufficient to model a small spatial region for mixing.
+    
+    \item The perfect mixing model shows noticeable acceleration of the reaction, while the random mixing model does not. To observe reaction acceleration when using the random mixing model, it is necessary to model the reaction in a larger space.
+  \end{itemize}
 \end{frame}
-
-% \begin{frame}
-% \frametitle{Literatūros šaltiniai}
-% \printbibliography
-% \end{frame}
 
 \end{document}
