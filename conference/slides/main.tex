@@ -144,52 +144,61 @@
 
 \begin{frame}
   \frametitle{Initial and boundary conditions}
+
   \begin{figure}
     \centering
-    \begin{tikzpicture}[scale=2.0]
-      \draw[fill=white] (0,0) rectangle (1,1);
-      \draw[fill=white] (1,1) rectangle (2,2);
-      \draw[fill=gray!50] (0,1) rectangle (1,2);
-      \draw[fill=gray!50] (1,0) rectangle (2,1);
+    \begin{subfigure}[t]{0.55\linewidth}
+      \includegraphics[width=\linewidth]{assets/initial-model.png}
+      \caption{Idealized model of the homogenous mixture}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.35\linewidth}
+      \begin{tikzpicture}[scale=1.0]
+        \tiny
+        \draw[fill=white] (0,0) rectangle (1,1);
+        \draw[fill=white] (1,1) rectangle (2,2);
+        \draw[fill=gray!50] (0,1) rectangle (1,2);
+        \draw[fill=gray!50] (1,0) rectangle (2,1);
 
-      % Draw the boundary of the square
-      \draw[thick] (0,0) rectangle (2,2);
+        % Draw the boundary of the square
+        \draw[thick] (0,0) rectangle (2,2);
 
-      % Draw axes
-      \draw[->] (-0.5, 0) -- (2.5, 0) node[anchor=north west] {$x$};
-      \draw[->] (0, -0.5) -- (0, 2.5) node[anchor=north east] {$y$};
+        % Draw axes
+        \draw[->] (-0.5, 0) -- (2.5, 0) node[anchor=north west] {$x$};
+        \draw[->] (0, -0.5) -- (0, 2.5) node[anchor=north east] {$y$};
 
-      % Mark the origin
-      \node[anchor=north east] at (0,0) {$(0, 0)$};
+        % Mark the origin
+        \node[anchor=north east] at (0,0) {$(0, 0)$};
 
-      % Mark the side length
-      \draw[-] (2,0) -- (2,2);
-      \draw[-] (0,2) -- (2,2);
+        % Mark the side length
+        \draw[-] (2,0) -- (2,2);
+        \draw[-] (0,2) -- (2,2);
 
-      \node at (2.1, 0.75) {$H$};
-      \node at (0.75, 2.1) {$W$};
-      
-      \draw (0.5, 1.5) node[anchor=center] {$5c_0$};
-      \draw (1.5, 0.5) node[anchor=center] {$5c_0$};
-      \draw (1.5, 1.5) node[anchor=center] {$3c_0$};
-      \draw (0.5, 0.5) node[anchor=center] {$3c_0$};
+        \node at (2.1, 0.75) {$H$};
+        \node at (0.75, 2.1) {$W$};
+        
+        \draw (0.5, 1.5) node[anchor=center] {$5c_0$};
+        \draw (1.5, 0.5) node[anchor=center] {$5c_0$};
+        \draw (1.5, 1.5) node[anchor=center] {$3c_0$};
+        \draw (0.5, 0.5) node[anchor=center] {$3c_0$};
 
-      % boundary conditions
-      \draw[->] (-0.05,1) -- (-0.55,1);
-      \node at (-0.55, 1.5) {$\frac{dc_m}{dx} = 0$};
+        % boundary conditions
+        \draw[->] (-0.05,1) -- (-0.55,1);
+        \node at (-0.55, 1.5) {$\frac{dc_m}{dx} = 0$};
 
-      \draw[->] (2.05,1) -- (2.55,1);
-      \node at (2.55, 1.5) {$\frac{dc_m}{dx} = 0$};
+        \draw[->] (2.05,1) -- (2.55,1);
+        \node at (2.55, 1.5) {$\frac{dc_m}{dx} = 0$};
 
-      \draw[->] (1, -0.05) -- (1, -0.55);
-      \node at (1.5, -0.25) {$\frac{dc_m}{dy} = 0$};
+        \draw[->] (1, -0.05) -- (1, -0.55);
+        \node at (1.5, -0.25) {$\frac{dc_m}{dy} = 0$};
 
-      \draw[->] (1, 2.05) -- (1, 2.55);
-      \node at (1.5, 2.25) {$\frac{dc_m}{dy} = 0$};
+        \draw[->] (1, 2.05) -- (1, 2.55);
+        \node at (1.5, 2.25) {$\frac{dc_m}{dy} = 0$};
 
-    \end{tikzpicture}
-    \caption{Initial and boundary conditions of the model.}
-    \label{initial-boundary-condition}
+      \end{tikzpicture}
+      \caption{Initial and boundary conditions of the model.}
+      \label{initial-boundary-condition}
+    \end{subfigure}
   \end{figure}
 \end{frame}
 
