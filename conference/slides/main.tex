@@ -14,6 +14,13 @@
     sorting=ynt
 ]{biblatex}
 
+\addtobeamertemplate{navigation symbols}{}{%
+  \usebeamerfont{footline}%
+  \usebeamercolor[fg]{footline}%
+  \hspace{1em}%
+  \insertframenumber/\inserttotalframenumber
+}
+
 \bibliography{bibliografija}
 
 \usetheme{Copenhagen}
@@ -266,6 +273,26 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 \end{figure}
 \end{frame}
 
+\subsection{Atsitiktinio maišymo rezultatai}
+\begin{frame}
+  \frametitle{Atsitiktinio maišymo rezultatai}
+  \begin{figure}
+    \centering
+    \includegraphics[width=12cm]{assets/random-mix-example-c0-1.png} \\
+    \includegraphics[width=12cm]{assets/random-mix-example-c2-1.png}
+    \caption{Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}, kai naudojamas atsitiktinio išmaišymo modelis \eqref{random-mix}.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Atsitiktinio maišymo rezultatai}
+  \begin{figure}
+      \centering
+      \includegraphics[width=7cm]{assets/bad-mix-qnt-compare-1.png}
+      \caption{Atsitiktinio išmaišymo modelio \eqref{random-mix} problema - gali ženkliai prailginti reakcijos pabaigos laiką. Tokio modelio poveiki reikia matuoti statistiniu bandymu arba pilnu perrinkimu. }
+  \end{figure}
+\end{frame}
+
 \subsection{Tobulas maišymas}
 \begin{frame}
 \frametitle{Tobulas maišymas}
@@ -306,6 +333,16 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 \end{tikzpicture}
 \caption{Tobulo išmaišymo metu metu reakcijos erdvės sritys yra susikeičiamos vietomis įstrižai, tokiu būdu reakcijos greitis padidėja daugiausiai. }
 \label{perfect-mix}
+\end{figure}
+\end{frame}
+
+\subsection{Tobulo maišymo rezultatai}
+\begin{frame}
+\frametitle{Tobulo maišymo rezultatai}
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{assets/optimal-mix-qnt-1.png}
+\caption{Tobulas maišymas deterministinis ir tikroviškiau atspindi išmaišymo pasekmes.}
 \end{figure}
 \end{frame}
 
@@ -444,38 +481,6 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
 \end{figure}
 \end{frame}
 
-\section{Modelių rezultatai}
-
-\subsection{Atsitiktinio maišymo rezultatai}
-\begin{frame}
-    \frametitle{Atsitiktinio maišymo rezultatai}
-    \begin{figure}
-        \centering
-        \includegraphics[width=12cm]{assets/random-mix-example-c0-1.png} \\
-        \includegraphics[width=12cm]{assets/random-mix-example-c2-1.png}
-        \caption{Modelio evoliucija laike su pradinėmis ir kraštinėmis sąlygomis \eqref{initial-boundary-condition}, kai naudojamas atsitiktinio išmaišymo modelis \eqref{random-mix}.}
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Atsitiktinio maišymo rezultatai}
-    \begin{figure}
-        \centering
-        \includegraphics[width=7cm]{assets/bad-mix-qnt-compare-1.png}
-        \caption{Atsitiktinio išmaišymo modelio \eqref{random-mix} problema - gali ženkliai prailginti reakcijos pabaigos laiką. Tokio modelio poveiki reikia matuoti statistiniu bandymu arba pilnu perrinkimu. }
-    \end{figure}
-\end{frame}
-
-\subsection{Tobulo maišymo rezultatai}
-\begin{frame}
-\frametitle{Tobulo maišymo rezultatai}
-\begin{figure}
-\centering
-\includegraphics[width=7cm]{assets/optimal-mix-qnt-1.png}
-\caption{Tobulas maišymas deterministinis ir tikroviškiau atspindi išmaišymo pasekmes.}
-\end{figure}
-\end{frame}
-
 \begin{frame}
     \frametitle{Tobulo maišymo rezultatai}
 
@@ -490,7 +495,7 @@ Reakcijos--difuzijos sistema apibūdinanti YAG sintezės reakciją:
         \includegraphics[width=\linewidth]{assets/mix-end-large-1.png}
         \caption{Didesnė reakcijos erdvė. \label{fig:perfect-large}}
       \end{subfigure}
-      \caption{Reakcijos trukmės priklausomybė nuo išmaišymo laiko taikant tobulo maišymo modelį}
+      \caption{Reakcijos trukmės priklausomybė nuo išmaišymo laiko taikant tobulo maišymo modelį. Skirtumas tarp grafikų -- modeliuotas reakcijos erdvės dydis.}
     \end{figure}
 \end{frame}
 
