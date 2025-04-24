@@ -1,31 +1,19 @@
 from dataclasses import dataclass
+from logging import Logger
 import sys
 from typing import Callable
 import numpy as np
 import scipy.linalg as la
-import datetime
-
 from solver_utils import validate_frame_stable
 from solvers.adi.config import Config
 from solvers.adi.state import State
-from solvers.adi.utils import build_banded_matrix_A, frame_quantity, initialize_banded
+from solvers.adi.utils import frame_quantity, initialize_banded
 
 NUM_OF_ELEMENTS = 3
 
-# - It makes to have the frame capture module have the responsibility
-#   to capture the frames and to decide when it needs to do so.
-# - Maybe it doesn't because we may want to mix and match the result shapes and the frame skipping rules
-# What should be the life time of a frame capture module?
-# What would be a simple solution?
-# - Have the frame capture module belong to the configuration
-#   so it uses the same module for each solution
-
-
 @dataclass
 class Solver:
-  """
-  ADI Solver for the YAG reaction-diffusion system
-  """
+  """ADI Solver for the YAG reaction-diffusion system"""
   config: Config
 
   # Container for the half-step solution
@@ -47,7 +35,9 @@ class Solver:
   mu_y: list[float]
   mu_m: list[float]
 
-  def __init__(self, config: Config):
+  logger: Logger | None = None
+
+  def __init__(self, config: Config, logger: Logger | None = None):
     self.config = config
     self.stopper = config.stopper
 
@@ -60,6 +50,7 @@ class Solver:
     self.mu_x = [0, 0, 0]
     self.mu_y = [0, 0, 0]
     self.mu_m = [0, 0, 0]
+    self.logger = logger
 
     self.initialize_banded(config.time_step_strategy.dt)
 
@@ -135,15 +126,15 @@ class Solver:
 
   def solve(self, c0: np.array, capture: Callable) -> tuple[np.array, np.array]:
 
-    logger = self.config.logger
+    logger = self.logger
 
     state = State(c0)
 
     captured_result = [capture(c0)]
     captured_times = [0]
 
-    if self.config.logger:
-      self.config.logger.info(f'starting simulation, dt={self.config.time_step_strategy.dt}, dx={self.config.dx}, dy={self.config.dy}, D={self.config.D},k={self.config.k}, size={self.config.size}, resolution={self.config.resolution}')
+    if self.logger:
+      self.logger.info(f'starting simulation, dt={self.config.time_step_strategy.dt}, dx={self.config.dx}, dy={self.config.dy}, D={self.config.D},k={self.config.k}, size={self.config.size}, resolution={self.config.resolution}')
 
     # O(TN^2)
 
@@ -155,21 +146,23 @@ class Solver:
       # check if banded matrices should be reinitialized
       current_dt: float = self.config.time_step_strategy.dt
       if self.initialized_dt - current_dt > sys.float_info.epsilon:
-        logger.info(f"Recalculating banded, dt difference = {self.initialized_dt - current_dt:.2e}")
+        if logger:
+          diff: float = self.initialized_dt - current_dt
+          logger.info(f"Recalculating banded, dt difference = {diff:.2e}")
         self.initialize_banded(current_dt)
 
       # solve_start = datetime.datetime.now()
       self.solve_step(state)
       # solve_end = datetime.datetime.now()
 
-      if self.config.logger:
+      if self.logger:
 
         # every frame_stride frames log the remaining quantity ratio
         if state.time_step % self.config.frame_stride == 0:
           dt = self.config.time_step_strategy.dt
           q, q0 = state.current[:2].sum(axis=(1, 2)), c0[:2].sum(axis=(1, 2))
           ratio = (q[0] + q[1]) / (q0[0] + q0[1])
-          self.config.logger.info(f'step: {state.time_step}, dt: {dt} ratio: {100 * ratio:.02f}, r1: {100 * q[0]/q0[0]:.02f}, r1: {100 * q[1]/q0[1]:.02f}')
+          self.logger.info(f'step: {state.time_step}, dt: {dt} ratio: {100 * ratio:.02f}, r1: {100 * q[0]/q0[0]:.02f}, r1: {100 * q[1]/q0[1]:.02f}')
 
       if state.time_step % self.config.frame_stride == 0:
         captured_result.append(capture(state.current))

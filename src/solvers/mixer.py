@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import numpy as np
 
 class Mixer:
@@ -24,7 +24,7 @@ class SubdivisionMixer:
 
   # Moments in time when (not time steps)
   # when the reaction space is going to be mixed.
-  mix_times: np.ndarray[float] = np.array([])
+  mix_times: np.ndarray[float] = field(default_factory=lambda: np.array([]))
 
   def should_mix(self, time_step: int, dt: float) -> bool:
     # true if any discrete time points are less 
