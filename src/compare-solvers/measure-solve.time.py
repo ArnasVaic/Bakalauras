@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 from solver_utils import timed
 from solvers.initial_condition import initial_condition
-from solvers.adi.config import Config
+from solvers.adi.config import Config, default_config
 from solvers.adi.solver import Solver
 
 SAMPLE_POINTS = 20
@@ -34,17 +34,14 @@ RESOLUTIONS = np.linspace(
 
 RESOLUTIONS = [ int(r) for r in RESOLUTIONS ]
  
-def capture_none(_):
-  return 0
-
-def measure_solve_time(i: int, r: int, dt: float) -> float:
-  config = Config()
+def measure_adi_solve_time(i: int, r: int, dt: float) -> float:
+  config = default_config()
   config.resolution = (r, r)
   config.dt = dt
   solver = Solver(config)
   c0 = initial_condition(config)
   with timed(f"ADI {(r, r)} solve time (dt={dt})") as elapsed:
-    _ = solver.solve(c0, capture_none)
+    _ = solver.solve(c0, lambda _: 0)
   return elapsed()
 
 def write_solve_time(i: int, t: float) -> None:
@@ -60,7 +57,7 @@ time_steps = np.zeros(SAMPLE_POINTS)
 for i, r in enumerate(RESOLUTIONS):
   while True:
     try:
-      t = measure_solve_time(i, r, dt)
+      t = measure_adi_solve_time(i, r, dt)
       time_steps[i] = dt
       break
     except:
@@ -70,11 +67,20 @@ for i, r in enumerate(RESOLUTIONS):
 
 np.save('compare-solvers/assets/solve-time-steps.npy', time_steps)
 
+# %% EFD Solve times
+
+
+
 # %% Plot times
 
 ts = np.load('compare-solvers/assets/solve-times-backup.npy')
 
+efd_ts = np.load('compare-solvers/assets/efd-solver-duration.npy')
+
 plt.title(f'ADI solver calculation time')
 plt.plot([ r*r for r in RESOLUTIONS ], ts / 60)
+
+EFD_R = [ r*r for r in np.linspace(40, 230, 21)]
+plt.plot(EFD_R, efd_ts / 60)
 plt.xlabel(f'Number of discrete grid points [units]')
 plt.ylabel(f'time [min]')

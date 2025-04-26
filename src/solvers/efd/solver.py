@@ -52,7 +52,8 @@ class Solver:
         state.c_prev = self.mixer.mix(state.c_prev)
 
       if state.time_step % self.config.frame_stride == 0:
-        state.capture(dt)
+        # state.capture(dt)
+        pass
 
       kc1c2 = k * state.c_prev[0] * state.c_prev[1]
 

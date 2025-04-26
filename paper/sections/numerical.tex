@@ -95,16 +95,34 @@ $c^n_{1,i,j}$, $c^n_{2,i,j}$, $c^n_{3,i,j}$ - atitinkamai pirmos, antros ir tre�
 
 \subsection{Neišreikštinis kintamos krypties metodas}
 
-% Ka galima butu rasyti apie sita metoda
-% kontekstas, is kur jis, kam skiras, pliusai ir minusai
+Neišreikštinį kintamos krypties metodą (\textit{alternating direction implicit, ADI}) JAV mokslininkai Donald W. Peaceman ir Henry H. Rachford Jr. pristatė savo straipsnyje \enquote{Skaitinis sprendinys parabolinėms ir elipsinės diferencialinėms lygtims} \cite{doi:10.1137/0103003}. Nuo to laiko šis metodas plačiai taikomas matematinio modeliavimo srityje. Kaip galima suprasti iš straipsnio pavadinimo, šis metodas pritaikytas spręsti parabolines ir elipsines diferencialinių lygčių sistemas. Kadangi mūsų nagrinėjamą sistemą sudaro parabolinės diferencialinės lygtys, jį ir taikysime.
 
-Neišreikštinį kintamos krypties metodą (\textit{alternating direction implicit, ADI}) JAV mokslininkai Donald W. Peaceman ir Henry H. Rachford Jr. pristatė savo straipsnyje \enquote{skaitinis sprendinys parabolinėms ir elipsinės diferencialinėms lygtims}. Nuo to laiko šis metodas plačiai taikomas matematinio modeliavimo srityje. Kaip galima suprasti iš straipsnio pavadinimo, šis metodas pritaikytas spręsti parabolines ir elipsines diferencialinių lygčių sistemas, ypatingai tada, kai sistema turi daugiau nei vieną erdvinę dimensiją. Kadangi mūsų nagrinėjamą sistemą sudaro parabolinės diferencialinės lygtys jį ir taikysime.
+Šis metodas yra tarpinis variantas tarp išreikštinio FTCS ir Crank-Nicholson metodo, kuriuo bandoma išlaikyti sprendimo greitį ir tikslumą. Įprastoms parabolinėms lygtims šis metodas būna besąlygiškai stabilus \cite{liAlternatingDirectionImplicit2021}, tai leidžia pasirinkti bet kokio dydžio laiko žingsnį ir tokiu būdu sumažinti bendrą laiko žingsnių kiekį, kurį reikia įvykdyti. Toliau pritaikysime metodą nagrinėjamai sistemai.
 
-Šis metodas yra tarpinis variantas tarp Išreikštinio FTCS ir Crank-Nicholson metodo, kuriuo bandoma išlaikyti sprendimo greitį, tačiau taip pat ir tikslumą. Įprastoms parabolinėms lygtims šis metodas būna besąlygiškai stabilus \cite{liAlternatingDirectionImplicit2021}, tai leidžia pasirinkti bet kokio dydžio laiko žingsnį ir tokiu būdu sumažinti bendrą laiko žingsnių kiekį, kurį reikia įvykdyti. Toliau pritaikysime metodą nagrinėjamai sistemai.
-
-Tarkime turime skaitinį sprendinį konkrečių laiko momentu $t^n$, kaip ir anksčiau, jį žymėsime $c^n$. Vietoje to, kad tiesiogiai skaičiuotume skaitinį sprendinį sekančiu laiko momentu $c^{n + 1}$, apskaičiuosime tarpinį sprendinį, kurį žymėsime $c^*$. Šis sprendinys ypatingas tuo, kad jo ieškodami $x$ dimensiją laikysime išreikštine, o $y$ dimensiją -- neišreikštine:
+Užuot tiesiogiai skaičiavę skaitinį sprendinį sekančiu laiko momentu $c^{n+1}_{m,i,j}$, pirmiausia apskaičiuosime tarpinį sprendinį, kurį žymėsime $c^*_{m,i,j}$. Pagal ADI metodą, laikysime, kad difuzijos komponenta sudaro išreikštinė ir neišreikštinė dalys -- \hbox{t. y.} $x$ ašies išvestinei skaičiuoti bus naudojamas ateinančio laiko žingsnio sprendinys $c^*$, o $y$ ašies išvestinei naudosime jau turimą sprendinį $c^n$. Dėl priežasčių, kurios bus atskleistos vėliau, reakcijos komponentus visada skaičiuosime pagal jau turimą laiko žingsnį $c^n$. Sudarome lygtis tarpiniam sprendiniui $c^*$ pasinaudojant standartiniu baigtinių skirtumų operatorių žymėjimu $\delta_x^2[c_{ij}]=c_{i-1,j}-2c_{i,j}+c_{i+1,j}$, $\delta_y^2[c_{ij}]=c_{i,j-1}-2c_{i,j}+c_{i,j+1}$:
 
 \begin{align}
-    \frac{c^* - c^n}{\frac{1}{2}\Delta t} = ...
+    \frac{c^*_{1,i,j} - c^n_{1,i,j}}{\frac{1}{2}\Delta t} &= D_1 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^*_{1,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^n_{1,i,j}] \right) - 3kc^n_{1,i,j}c^n_{2,i,j}\\
+    \frac{c^*_{2,i,j} - c^n_{2,i,j}}{\frac{1}{2}\Delta t} &= D_2 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^*_{2,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^n_{2,i,j}] \right) - 5kc^n_{1,i,j}c^n_{2,i,j}\\
+    \frac{c^*_{3,i,j} - c^n_{3,i,j}}{\frac{1}{2}\Delta t} &= D_3 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^*_{3,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^n_{3,i,j}] \right) +2kc^n_{1,i,j}c^n_{2,i,j}
+\end{align}
+
+Analogiškas lygtis yra sudaromos sprendiniui $c^{n+1}_{ij}$ rasti, tačiau apkeičiame sprendinius, kuriuos naudojame difuzijos komponentui -- $x$ ašies išvestinei naudosime sekančio laiko žingsnio sprendinį $c^{n+1}$, o $y$ ašies naudosime jau turimą $c^*$:
+
+\begin{align}
+    \frac{c^{n+1}_{1,i,j} - c^*_{1,i,j}}{\frac{1}{2}\Delta t} &= D_1 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^{n+1}_{1,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^*_{1,i,j}] \right) - 3kc^*_{1,i,j}c^*_{2,i,j}\\
+    \frac{c^{n+1}_{2,i,j} - c^*_{2,i,j}}{\frac{1}{2}\Delta t} &= D_2 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^{n+1}_{2,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^*_{2,i,j}] \right) - 5kc^*_{1,i,j}c^*_{2,i,j}\\
+    \frac{c^{n+1}_{3,i,j} - c^*_{3,i,j}}{\frac{1}{2}\Delta t} &= D_3 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^{n+1}_{3,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^*_{3,i,j}] \right) +2kc^*_{1,i,j}c^*_{2,i,j}
+\end{align}
+
+Persitvarkysime gautas lygtis susikeldami skirtingų laiko žingsnių sprendinių komponentus į skirtingas lygybės puses:
+
+% \begin{align}
+% c^{*}_{m,i,j} % = \frac{1}{2}\Delta tD_m \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^{n+1}_{m,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^*_{m,i,j}] \right) + \frac{1}{2}\Delta t\alpha_m kc^*_{1,i,j}c^*_{2,i,j}
+
+% \end{align}
+
+\begin{align}
+    c^*_{m,i,j} = \frac{1}{2}\Delta tD_m\left(\frac{1}{(\Delta x)^2}\delta_x^2[c^{n+1}_{m,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^*_{m,i,j}]\right)+ \frac{1}{2}\Delta t\alpha_m kc^n_{1,i,j}c^n_{2,i,j}
 \end{align}
 

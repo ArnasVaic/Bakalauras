@@ -141,6 +141,7 @@ class Solver:
     while True:
 
       if state.time_step == 1:
+        # this should probably be called each frame when an adaptive time stepper is used
         validate_frame_stable(self.config, state.current)
 
       # check if banded matrices should be reinitialized

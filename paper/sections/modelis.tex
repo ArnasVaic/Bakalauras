@@ -1,22 +1,25 @@
 % skyrius apie matematinį modelį
 
-\section{Matematiniai modelis}
+\section{Matematinis modelis}
 
-Šiame darbe yra naudojamas (YAG) reakcijos modelis, kurį pasiūlė Ivanauskas et al \cite{ivanauskasModellingSolidState2005}. Yra žinoma, kad reakcijos produktas yra kristalas ir nedifunduoja, todėl difuzijos dėmens trečioje lygtyje nėra. Šis matematinis modelis yra reakcijos-difuzijos sistema, kuriai spręsti naudojamas išreikštinių baigtinių skirtumų metodas \cite{pressNumericalRecipes3rd2007}. Procesas yra modeliuojamas dviejose dimensijose - stačiakampio srityje.
+Šiame darbe yra naudojamas (YAG) reakcijos modelis, kurį pasiūlė Ivanauskas et al \cite{ivanauskasModellingSolidState2005}. Reakcija yra modeliuojama kaip reakcijos-difuzijos sistema. Patį procesą modeliuosime dviejose dimensijose, stačiakampio srityje.
 
 \begin{subequations} \label{rect}
 	\begin{align}
-		\frac{\partial c_1}{\partial t} & =-3kc_1c_2+D\left(\frac{\partial^2c_1}{\partial x^2}+\frac{\partial^2c_1}{\partial y^2}\right) \\
-		\frac{\partial c_2}{\partial t} & =-5kc_1c_2+D\left(\frac{\partial^2c_2}{\partial x^2}+\frac{\partial^2c_2}{\partial y^2}\right) & (x, y, t)&\in\Omega\times[0, T]\\
-		\frac{\partial c_3}{\partial t} & =2kc_1c_2
+		\frac{\partial c_1}{\partial t} & =-3kc_1c_2+D_1\left(\frac{\partial^2c_1}{\partial x^2}+\frac{\partial^2c_1}{\partial y^2}\right) \\
+		\frac{\partial c_2}{\partial t} & =-5kc_1c_2+D_2\left(\frac{\partial^2c_2}{\partial x^2}+\frac{\partial^2c_2}{\partial y^2}\right) & (x, y, t)&\in\Omega\times[0, T]\\
+		\frac{\partial c_3}{\partial t} & =2kc_1c_2+D_3\left(\frac{\partial^2c_3}{\partial x^2}+\frac{\partial^2c_3}{\partial y^2}\right)
 	\end{align}
 \end{subequations}
 
 Čia $c_1,c_2,c_3$ yra medžiagų koncentracija, $t$ - laikas, $T$ - proceso trukmė, $W$ - stačiakampio plotis, $H$ - stačiakampio aukštis,
-$D$ - medžiagų $c_1$ ir $c_2$ difuzijos konstanta, $k$ - reakcijos greičio konstanta, $\Omega=(0, W)\times(0, H)$ - stačiakampio sritis, kurioje vyksta reakcija. Srities $\Omega$ kraštinę žymėsime $\partial\Omega$:
+$D_i$ - atitinkamų medžiagų difuzijos konstantos, $k$ - reakcijos greičio konstanta, $\Omega=(0, W)\times(0, H)$ - stačiakampio sritis, kurioje vyksta reakcija. Srities $\Omega$ kraštinę žymėsime $\partial\Omega$:
 \begin{align*}
     \partial\Omega=\{0, W\}\times[0, H]\cup[0, W]\times\{0, H\}
 \end{align*}
+
+Yra žinoma, kad reagentai difunduoja panašiu greičiu, todėl laikysime, kad $D_1=D_2$. Reakcijos produktas yra kristalas ir difunduoja daug lėčiau negu reagentai, todėl laikysime, kad $D_1 \gg D_3$.
+
 Šios sistemos modelis yra uždaras - medžiagos neprateka pro stačiakampio srities kraštinę $\partial\Omega$, t.~y. taikoma Neumano kraštinė sąlyga:
 \begin{align} \label{general-boundary-cond}
 	\nabla c_m(x, y, t)\cdot\vec{n}&=0, & (x, y)&\in\partial\Omega & t&\in[0, T] & m&=1, 2, 3

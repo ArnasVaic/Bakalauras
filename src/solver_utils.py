@@ -73,3 +73,4 @@ def timed(msg="Elapsed"):
   yield lambda: time.perf_counter() - start
   end = time.perf_counter()
   print(f"{msg}: {end - start:.6f} seconds")
+  
