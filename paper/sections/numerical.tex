@@ -108,13 +108,19 @@ Užuot tiesiogiai skaičiavę skaitinį sprendinį sekančiu laiko momentu $c^{n
 \end{align}
 \end{subequations}
 
-Analogiškas lygtis yra sudaromos sprendiniui $c^{n+1}_{ij}$ rasti, tačiau apkeičiame sprendinius, kuriuos naudojame difuzijos komponentui -- $x$ ašies išvestinei naudosime sekančio laiko žingsnio sprendinį $c^{n+1}$, o $y$ ašies naudosime jau turimą $c^*$:
+Analogiškas lygtis yra sudaromos sprendiniui $c^{n+1}$ rasti, tačiau apkeičiame sprendinius, kuriuos naudojame difuzijos komponentui -- $x$ ašies išvestinei naudosime jau turimą sprendinį $c^{*}$, o $y$ ašies naudosime sekančio laiko žingsnio sprendininį $c^{n+1}$:
 
 \begin{subequations} \label{eqs:adi-next-step}
 \begin{align}
-	\frac{c^{n+1}_{1,i,j} - c^*_{1,i,j}}{\frac{1}{2}\Delta t} &= D_1 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^{n+1}_{1,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^*_{1,i,j}] \right) - 3kc^*_{1,i,j}c^*_{2,i,j}\\
-	\frac{c^{n+1}_{2,i,j} - c^*_{2,i,j}}{\frac{1}{2}\Delta t} &= D_2 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^{n+1}_{2,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^*_{2,i,j}] \right) - 5kc^*_{1,i,j}c^*_{2,i,j}\\
-	\frac{c^{n+1}_{3,i,j} - c^*_{3,i,j}}{\frac{1}{2}\Delta t} &= D_3 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^{n+1}_{3,i,j}] + \frac{1}{(\Delta y)^2}\delta_y^2[c^*_{3,i,j}] \right) +2kc^*_{1,i,j}c^*_{2,i,j}
+	\frac{c^{n+1}_{1,i,j} - c^*_{1,i,j}}{\frac{1}{2}\Delta t} 
+	&= D_1 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^{*}_{1,i,j}] 
+	+ \frac{1}{(\Delta y)^2}\delta_y^2[c^{n+1}_{1,i,j}] \right) - 3kc^*_{1,i,j}c^*_{2,i,j}\\
+	\frac{c^{n+1}_{2,i,j} - c^*_{2,i,j}}{\frac{1}{2}\Delta t} 
+	&= D_2 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^*_{2,i,j}] 
+	+ \frac{1}{(\Delta y)^2}\delta_y^2[c^{n+1}_{2,i,j}] \right) - 5kc^*_{1,i,j}c^*_{2,i,j}\\
+	\frac{c^{n+1}_{3,i,j} - c^*_{3,i,j}}{\frac{1}{2}\Delta t} 
+	&= D_3 \left( \frac{1}{(\Delta x)^2}\delta_x^2[c^*_{3,i,j}] 
+	+ \frac{1}{(\Delta y)^2}\delta_y^2[c^{n+1}_{3,i,j}] \right) +2kc^*_{1,i,j}c^*_{2,i,j}
 \end{align}
 \end{subequations}
 
@@ -137,8 +143,95 @@ Persitvarkysime gautas lygtis tarpiniam sprendiniui $c^*$ susikeldami skirtingų
 Čia $m = 1, 2, 3$,  o $\alpha$ yra skirtingų medžiagų reakcijos koeficientai $\alpha_1 = -3, \alpha_2 = -5, \alpha_3 = 2$. Tolimesniems pertvarkymams naudosime sutrumpintus žymėjimus $\mu_{mx} = \frac{\Delta t D_m}{2(\Delta x)^2}$, $\mu_{my} = \frac{\Delta t D_m}{2(\Delta y)^2}$, $\mu_m = \frac{1}{2}\Delta t \alpha_m k$. Tolimesnius pertvarkymus tesime nuo paskutinės lygties:
 
 \begin{align*}
-	c^*_{m,i,j} - \mu_{mx}\delta_x^2[c^{*}_{m,i,j}]
-	&= \mu_{my}\delta_y^2[c^n_{m,i,j}] + \frac{1}{2}\Delta t \alpha_m kc^n_{1,i,j}c^n_{2,i,j} + c^n_{m,i,j}\\
-	\mu_{mx}c^{*}_{m,i-1,j}+(1-2\mu_{mx})c^{*}_{m,i,j}+\mu_{mx}c^{*}_{m,i+1,j}
-	&= \mu_{my}c^n_{m,i,j-1}+(1-2\mu_{my})c^n_{m,i,j}+\mu_{my}c^n_{m,i,j+1}+\mu_m c^n_{1,i,j}c^n_{2,i,j}
+  c^*_{m,i,j} - \mu_{mx}\delta_x^2[c^{*}_{m,i,j}]
+  &= \mu_{my}\delta_y^2[c^n_{m,i,j}] + \mu_m c^n_{1,i,j}c^n_{2,i,j} + c^n_{m,i,j}\\
+  \mu_{mx}c^{*}_{m,i-1,j}+(1-2\mu_{mx})c^{*}_{m,i,j}+\mu_{mx}c^{*}_{m,i+1,j}
+  &= \mu_{my}c^n_{m,i,j-1}+(1-2\mu_{my})c^n_{m,i,j}+\mu_{my}c^n_{m,i,j+1}+\mu_m c^n_{1,i,j}c^n_{2,i,j}
 \end{align*}
+
+Analogiškai galima sukonstruoti lygtis sekančiam laiko žingsiui $c^{n+1}_{m,i,j}$:
+
+\begin{align*}
+  c^{n+1}_{m,i,j} - \mu_{my}\delta_y^2[c^{n+1}_{m,i,j}]
+  &= \mu_{mx}\delta_x^2[c^*_{m,i,j}] + \mu_m c^*_{1,i,j}c^*_{2,i,j} + c^*_{m,i,j}\\
+  \mu_{my}c^{n+1}_{m,i,j-1}+(1-2\mu_{my})c^{n+1}_{m,i,j}+\mu_{my}c^{n+1}_{m,i,j+1}
+  &= \mu_{mx}c^*_{m,i-1,j}+(1-2\mu_{mx})c^*_{m,i,j}+\mu_{mx}c^*_{m,i+1,j}+\mu_m c^*_{1,i,j}c^*_{2,i,j}
+\end{align*}
+
+Turime lygčių sistemas, kurias galima spręsti kiekvienai eilutei bei stulpeliui, tačiau pirmiausia reikia pasirūpinti kraštinėmis sąlygomis. Tam naudosime abipuses aproksimacijas pirmajai išvestinei:
+
+\begin{align*}
+  \frac{\partial c}{\partial x}\Big|_{x=x_i, y=y_j, t=t_n} &\approx \frac{c_{i+1,j}-c_{i,j}}{\Delta x} &
+  \frac{\partial c}{\partial x}\Big|_{x=x_i, y=y_j, t=t_n} &\approx \frac{c_{i,j}-c_{i-1,j}}{\Delta x}\\
+  \frac{\partial c}{\partial y}\Big|_{x=x_i, y=y_j, t=t_n} &\approx \frac{c_{i,j+1}-c_{i,j}}{\Delta y} &
+  \frac{\partial c}{\partial y}\Big|_{x=x_i, y=y_j, t=t_n} &\approx \frac{c_{i,j}-c_{i,j-1}}{\Delta y}
+\end{align*}
+
+Įsistate šias aproksimacijas į modelio kraštines sąlygas \eqref{boundary-cond} gauname:
+
+\begin{align} \label{boundary-cond-approx}
+  c_{i+1,j} &= c_{i,j}, \text{ kai } i = N - 1 &
+  c_{i-1,j} &= c_{i,j}, \text{ kai } i = 0\\
+  c_{i,j+1} &= c_{i,j}, \text{ kai } j = M - 1 &
+  c_{i,j-1} &= c_{i,j}, \text{ kai } j = 0
+\end{align}
+
+Turint kraštines sąlygas \eqref{boundary-cond-approx} bei lygtis \eqref{eqs:adi-half-step} ir \eqref{eqs:adi-next-step} galime užrašyti sistemas matriciniu pavidalu. Pirmiausia užrašome lygčių sistemas tarpiniam sprendiniui $c^*$:
+
+\begin{align*}
+  \resizebox{\textwidth}{!}{$
+  \begin{bmatrix}
+    1 + \mu_{mx} & -\mu_{mx} & 0 & \cdots & 0\\
+    -\mu_{mx} & 1 + 2\mu_{mx} & -\mu_{mx} & \cdots & 0\\
+    0 & -\mu_{mx} & 1 + 2\mu_{mx} & \cdots & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & 0 & \cdots & 1 + \mu_{mx}
+  \end{bmatrix}
+  \begin{bmatrix}
+    c^*_{m,0,j}\\
+    c^*_{m,1,j}\\
+    c^*_{m,2,j}\\
+    \vdots\\
+    c^*_{m,N-1,j}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \mu_{my}c^n_{m,0,j-1}+(1-2\mu_{my})c^n_{m,0,j}+\mu_{my}c^n_{m,0,j+1}+\mu_m c^n_{1,0,j}c^n_{2,0,j}\\
+    \mu_{my}c^n_{m,1,j-1}+(1-2\mu_{my})c^n_{m,1,j}+\mu_{my}c^n_{m,1,j+1}+\mu_m c^n_{1,1,j}c^n_{2,1,j}\\
+    \mu_{my}c^n_{m,2,j-1}+(1-2\mu_{my})c^n_{m,2,j}+\mu_{my}c^n_{m,2,j+1}+\mu_m c^n_{1,2,j}c^n_{2,2,j}\\
+    \vdots\\
+    \mu_{my}c^n_{m,N-1,j-1}+(1-2\mu_{my})c^n_{m,N-1,j}+\mu_{my}c^n_{m,N-1,j+1}+\mu_m c^n_{1,N-1,j}c^n_{2,N-1,j}
+  \end{bmatrix}
+  $}
+\end{align*}
+
+Tuomet lygčių sistemos sekančiam laiko žingsniui $c^{n+1}$:
+
+\begin{align*}
+  \resizebox{\textwidth}{!}{$
+  \begin{bmatrix}
+    1 + \mu_{my} & -\mu_{my} & 0 & \cdots & 0\\
+    -\mu_{my} & 1 + 2\mu_{my} & -\mu_{my} & \cdots & 0\\
+    0 & -\mu_{my} & 1 + 2\mu_{my} & \cdots & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & 0 & \cdots & 1 + \mu_{my}
+  \end{bmatrix}
+  \begin{bmatrix}
+    c^*_{m,i,0}\\
+    c^*_{m,i,1}\\
+    c^*_{m,i,2}\\
+    \vdots\\
+    c^*_{m,i,M-1}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \mu_{mx}c^n_{m,i-1,0}+(1-2\mu_{mx})c^n_{m,i,0}+\mu_{mx}c^n_{m,i+1,0}+\mu_m c^n_{1,i,0}c^n_{2,i,0}\\
+    \mu_{mx}c^n_{m,i-1,1}+(1-2\mu_{mx})c^n_{m,i,1}+\mu_{mx}c^n_{m,i+1,1}+\mu_m c^n_{1,i,1}c^n_{2,i,1}\\
+    \mu_{mx}c^n_{m,i-1,2}+(1-2\mu_{mx})c^n_{m,i,2}+\mu_{mx}c^n_{m,i+1,2}+\mu_m c^n_{1,i,2}c^n_{2,i,2}\\
+    \vdots\\
+    \mu_{mx}c^n_{m,i-1,M-1}+(1-2\mu_{mx})c^n_{m,i,M-1}+\mu_{mx}c^n_{m,i+1,M-1}+\mu_m c^n_{1,i,M-1}c^n_{2,i,M-1}
+  \end{bmatrix}
+  $}
+\end{align*}
+
+Nesunku pastebėti, kad abi lygčių sistemos yra tridiagonalios. Tokias sistemas galima spręsti efektyviai naudojant Thomas algoritmo metodą \cite{doi:10.1137/S0036144591191280}. Šis algoritmas yra specializuotas tridiagonalinių sistemų sprendimui, todėl jis yra greitesnis už bendrąsias matricų skaičiavimo algoritmus.
