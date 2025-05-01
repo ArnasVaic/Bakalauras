@@ -1,0 +1,39 @@
+\subsection{Išreikštinis FTCS metodas}
+
+Remiantis išreikštiniu FTCS (\textit{angl. forward time centered space}) metodu pakeisime sistemos \eqref{rect} lygtis su išvestinių aproksimacijomis gautomis skleidžiant išvestines pagal Teiloro eilutę.
+
+\begin{subequations} \label{finite-diffs}
+\begin{align}
+	\frac{\partial c}{\partial t}\Big|_{x=x_i, y=y_j, t=t_n}
+	&=\frac{c^{n+1}_{i,j}-c^n_{i,j}}{\Delta t} 
+	+ \mathcal{O}(\Delta t)\\
+	\frac{\partial^2c}{\partial x^2}\Big|_{x=x_i, y=y_j, t=t_n}
+	&=\frac{c^n_{i-1,j} - 2c^n_{i,j} + c^n_{i+1,j}}{(\Delta x)^2} 
+	+ \mathcal{O}((\Delta x)^2)\\
+	\frac{\partial^2c}{\partial y^2}\Big|_{x=x_i, y=y_j, t=t_n}
+	&=\frac{c^n_{i,j-1} - 2c^n_{i,j} + c^n_{i,j+1}}{(\Delta y)^2} 
+	+ \mathcal{O}((\Delta y)^2)
+\end{align}
+\end{subequations}
+
+Sudaryti skaitiniam modeliui naudosime standartinį žymėjimą baigtinių skirtumų operatoriams $\delta_x^2[c_{ij}]=c_{i-1,j}-2c_{i,j}+c_{i+1,j}$, $\delta_y^2[c_{ij}]=c_{i,j-1}-2c_{i,j}+c_{i,j+1}$. Įstatome aproksimacijas į matematinį modelį:
+
+\begin{subequations} \label{numerical-eqs}
+	\begin{align}
+		\frac{c^{n+1}_{1,i,j}-c^n_{1,i,j}}{\Delta t} &=
+		-3kc^{n}_{1,i,j}c^{n}_{2,i,j}
+		+D_1\left(\frac{\delta_x^2[c^n_{1,i,j}]}{(\Delta x)^2}+\frac{\delta_y^2[c^n_{1,i,j}]}{(\Delta y)^2}\right) \\
+		\frac{c^{n+1}_{2,i,j}-c^n_{2,i,j}}{\Delta t} &=
+		-5kc^{n}_{1,i,j}c^{n}_{2,i,j}
+		+D_2\left(\frac{\delta_x^2[c^n_{2,i,j}]}{(\Delta x)^2}+\frac{\delta_y^2[c^n_{2,i,j}]}{(\Delta y)^2}\right) \\
+		\frac{c^{n+1}_{3,i,j}-c^n_{3,i,j}}{\Delta t} &=
+		2kc^{n}_{1,i,j}c^{n}_{2,i,j}
+		+D_3\left(\frac{\delta_x^2[c^n_{3,i,j}]}{(\Delta x)^2}+\frac{\delta_y^2[c^n_{3,i,j}]}{(\Delta y)^2}\right)
+	\end{align}
+\end{subequations}
+
+Čia
+$\Delta t$ - laiko žingsnis,
+$\Delta x$ - diskrečios erdvės žingsnis $x$ ašimi,
+$\Delta y$ - diskrečios erdvės žingsnis $y$ ašimi.
+$c^n_{1,i,j}$, $c^n_{2,i,j}$, $c^n_{3,i,j}$ - atitinkamai pirmos, antros ir trečios medžiagų koncentracijos diskretizuotos erdvės tinklelio taške $(x_i, y_i, t_n)\in\omega$.

@@ -2,15 +2,23 @@
 
 Norint užtikrinti skaitinį programos stabilumą, reikia užtikrinti, kad visais laiko momentais, visuose diskretizuotos erdvės taškuose, visų medžiagų koncentracijos išliktų ne neigiamos. Šiai sąlygai išpildyti, užtenka pasirinkti pakankamai mažą laiko žingsnį $\Delta t$. Pirmiausia įvedame porą konstantų:
 \begin{align*}
-\mu_x = \frac{D\Delta t}{(\Delta x)^2}, \quad
-\mu_y = \frac{D\Delta t}{(\Delta y)^2}
+\mu_{mx} = \frac{D_m\Delta t}{(\Delta x)^2}, \quad
+\mu_{my} = \frac{D_m\Delta t}{(\Delta y)^2}, \quad m = 1, 2, 3
 \end{align*}
 Tada pertvarkome dviejų dimensijų skaitinį modelį \eqref{numerical-eqs} taip, kad kairėse lygčių pusėse liktų medžiagų koncentracija laiko momentu $n+1$, o dešinėse lygčių pusėse sugrupuojame narius pagal medžiagų koncentraciją skirtinguose diskretizuotos erdvės taškuose:
 \begin{subequations} \label{eqs:r-coefs}
   \begin{align}
-  c^{n+1}_{1,i,j}&=\underbrace{(1-3k\Delta tc^{n}_{2,i,j}-2(\mu_x+\mu_y))}_{R_1}c^n_{1,i,j}+\mu_xc^n_{1,i-1,j}+\mu_xc^n_{1,i+1,j}+\mu_yc^n_{1,i,j-1}+\mu_yc^n_{1,i,j+1} \label{r-coefs1}\\
-  c^{n+1}_{2,i,j}&=\underbrace{(1-5k\Delta tc^{n}_{1,i,j}-2(\mu_x+\mu_y))}_{R_2}c^n_{2,i,j}+\mu_xc^n_{2,i-1,j}+\mu_xc^n_{2,i+1,j}+\mu_yc^n_{2,i,j-1}+\mu_yc^n_{2,i,j+1} \label{r-coefs2}\\
-  c^{n+1}_{3,i,j}&=c^n_{3,i,j}+2k\Delta tc^{n}_{1,i,j}c^{n}_{2,i,j} \label{r-coefs3}
+  c^{n+1}_{1,i,j}&=
+  \underbrace{(1-3k\Delta tc^{n}_{2,i,j}-2(\mu_{1x}+\mu_{1y}))}_{R_1}c^n_{1,i,j}
+  +\mu_{1x}c^n_{1,i-1,j}+\mu_{1x}c^n_{1,i+1,j}+\mu_{1y}c^n_{1,i,j-1}+\mu_{1y}c^n_{1,i,j+1} \label{r-coefs1}\\
+  c^{n+1}_{2,i,j}&=
+  \underbrace{(1-5k\Delta tc^{n}_{1,i,j}-2(\mu_{2x}+\mu_{2y}))}_{R_2}c^n_{2,i,j}
+  +\mu_{2x}c^n_{2,i-1,j}+\mu_{2x}c^n_{2,i+1,j}+\mu_{2y}c^n_{2,i,j-1}+\mu_{2y}c^n_{2,i,j+1} \label{r-coefs2}\\
+  c^{n+1}_{3,i,j}&=
+  \underbrace{(1-2(\mu_{3x} + \mu_{3y}))}_{R_3}c^n_{3,i,j}+2k\Delta tc^{n}_{1,i,j}c^{n}_{2,i,j} 
+  +\mu_{3x}c^n_{3,i-1,j}+\mu_{3x}c^n_{3,i+1,j}
+  +\mu_{3y}c^n_{3,i,j-1}+\mu_{3y}c^n_{3,i,j+1}
+  \label{r-coefs3}
   \end{align}
 \end{subequations}
 Baziniu atveju, kai $n=0$, medžiagų koncentracija visuose taškuose yra ne neigiama, kaip numatyta pradinėse sąlygose \eqref{intial-cond}. Darome indukcijos hipotezės prielaidą, kad medžiagų koncentracija visuose diskretizuotos erdvės taškuose, laiko momentu $n$ bus ne neigiama:
