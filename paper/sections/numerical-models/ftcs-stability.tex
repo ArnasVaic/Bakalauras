@@ -25,34 +25,37 @@ Baziniu atveju, kai $n=0$, medžiagų koncentracija visuose taškuose yra ne nei
 \begin{align} \label{induction-assumption}
   c^n_{m,i,j} \geqslant 0, \quad m=1,2,3,\quad i=0,1,\dots,N-1,\quad j=0,1,\dots,M-1
 \end{align}
-Akivaizdu, kad lygtyje \eqref{r-coefs3}, medžiagos koncentracija $c^{n+1}_{3,i,j}$ bus ne neigiama:
+% Akivaizdu, kad lygtyje \eqref{r-coefs3}, medžiagos koncentracija $c^{n+1}_{3,i,j}$ bus ne neigiama:
+% \begin{align*}
+%   \Delta t > 0 \land c^n_{m,i,j}\geqslant 0 \implies c^{n+1}_{3,i,j}=c^n_{3,i,j}+2\Delta tc^{n}_{1,i,j}c^{n}_{2,i,j}\geqslant 0 
+% \end{align*}
+Visose trijose medžiagų lygtyse, galima pastebėti, kad dėmenys su medžiagų koncentracijomis iš aplinkinių diskretizuotos erdvės taškų visada bus ne neigiami dėl prielaidos \eqref{induction-assumption} ir fakto, kad $\mu_{mx}>0$ ir $\mu_{my}>0$:
 \begin{align*}
-  \Delta t > 0 \land c^n_{m,i,j}\geqslant 0 \implies c^{n+1}_{3,i,j}=c^n_{3,i,j}+2\Delta tc^{n}_{1,i,j}c^{n}_{2,i,j}\geqslant 0 
-\end{align*}
-Pirmos medžiagos lygtyje \eqref{r-coefs1}, galima pastebėti, kad dėmenys su medžiagų koncentracijomis iš aplinkinių diskretizuotos erdvės taškų visada bus ne neigiami dėl prielaidos \eqref{induction-assumption} ir fakto, kad $\mu_x>0$ ir $\mu_y>0$:
-\begin{align*}
-  \mu_xc^n_{1,i-1,j}+\mu_xc^n_{1,i+1,j}+\mu_yc^n_{1,i,j-1}+\mu_yc^n_{1,i,j+1}\geqslant 0
+  \mu_{mx}c^n_{m,i-1,j}+\mu_{mx}c^n_{m,i+1,j}+\mu_{my}c^n_{m,i,j-1}+\mu_{my}c^n_{m,i,j+1}\geqslant 0 ,\quad m=1,2,3
 \end{align*}
 \newpage
-Taigi, $c^{n+1}_{1,i,j}$ ženklą lemia tik koeficientas $R_1$, todėl įvedame ribojimą, kad $R_1\geqslant 0$. Analogiškai, iš antros medžiagos lygties \eqref{r-coefs2} gauname, kad $R_2\geqslant 0$ ir turime nelygybių sistemą:
+Taigi, $c^{n+1}_{m,i,j}$ ženklą lemia tik koeficientai $R_1, R_2, R_3$, todėl įvedame ribojimą, kad $R_1\geqslant 0, R_2\geqslant 0, R_3\geqslant 0$. Turime nelygybių sistemą:
 \begin{align} \label{impl-ineqs}
   \begin{cases}
-    1-3k\Delta tc^{n}_{2,i,j}-2(\mu_x+\mu_y)\geqslant 0\\
-    1-5k\Delta tc^{n}_{1,i,j}-2(\mu_x+\mu_y)\geqslant 0
+    1-3k\Delta tc^{n}_{2,i,j}-2(\mu_{2x}+\mu_{2y})\geqslant 0\\
+    1-5k\Delta tc^{n}_{1,i,j}-2(\mu_{1x}+\mu_{1y})\geqslant 0\\
+    1-2(\mu_{3x}+\mu_{3y})\geqslant 0
   \end{cases}, \quad i=0,1,\dots,N-1, \quad j=0,1,\dots,M-1
 \end{align}
 Išreiškę nelygybes \eqref{impl-ineqs} per laiko žingsnį $\Delta t$ gauname:
 \begin{align} \label{dt-ineq}
   \begin{cases}
-    \Delta t \leqslant (3kc^{n}_{2,i,j}+2D((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\
-    \Delta t \leqslant (5kc^{n}_{1,i,j}+2D((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}
+    \Delta t \leqslant (3kc^{n}_{2,i,j}+2D_1((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\
+    \Delta t \leqslant (5kc^{n}_{1,i,j}+2D_2((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\
+    \Delta t \leqslant (2D_3((\Delta x)^{-2}+(\Delta y)^{-2})))^{-1}
   \end{cases}
 \end{align}
-Gautas nelygybes galima apjungti dėl jų panašios struktūros. Norint, kad apjungta nelygybė tenkintų sistemą \eqref{dt-ineq}, reikia išrinkti mažiausią įmanomą laiko žingsnį $\Delta t$, o taip bus tada, kai trupmenos vardiklis bus kuo įmanoma didesnis. Dėl to gauta nelygybė įgaus formą:
-\begin{align}
-  \Delta t \leqslant \left(\max(3kc^{n}_{2,i,j}, 5kc^{n}_{1,i,j})+2D\left((\Delta x)^{-2}+(\Delta y)^{-2}\right)\right)^{-1}
-\end{align}
-Taigi, parodėme, kad su pakankamai mažu laiko žingsniu $\Delta t$ išvengiame neigiamų sprendinio reikšmių. Tačiau čia sustoti būtų nenaudinga, nes turime rekursyvią priklausomybę -- norint pasirinkti $\Delta t$, reikia žinoti maksimalią medžiagų reikšmę simuliacijoje, o jai sužinoti reikia atlikti simuliaciją su pasirinktu laiko žingsniu $\Delta t$.
+% Gautas nelygybes galima apjungti dėl jų panašios struktūros. Norint, kad apjungta nelygybė tenkintų sistemą \eqref{dt-ineq}, reikia išrinkti mažiausią įmanomą laiko žingsnį $\Delta t$, o taip bus tada, kai trupmenos vardiklis bus kuo įmanoma didesnis. Dėl to gauta nelygybė įgaus formą:
+% \begin{align}
+%   \Delta t \leqslant \left(\max(3kc^{n}_{2,i,j}, 5kc^{n}_{1,i,j})+2D\left((\Delta x)^{-2}+(\Delta y)^{-2}\right)\right)^{-1}
+% \end{align}
+
+Turime tris nelygybes, kurios apibūdina laiko žingsnio $\Delta t$ apribojimus. Skaičiavimuose paprasčiausiai naudosime tą nelygybę, kuri apibūdina mažiausią laiko žingsinį. Parodėme, kad su pakankamai mažu laiko žingsniu $\Delta t$ išvengiame neigiamų sprendinio reikšmių. Tačiau čia sustoti būtų nenaudinga, nes turime rekursyvią priklausomybę -- norint pasirinkti $\Delta t$, reikia žinoti maksimalią medžiagų reikšmę simuliacijoje, o jai sužinoti reikia atlikti simuliaciją su pasirinktu laiko žingsniu $\Delta t$.
 
 Parodysime, kad galima panaikinti laiko žingsnio priklausomybę nuo laiko momento $n$ ir kad $\Delta t$ priklauso tik nuo pradinių sąlygų $c^0_{1,i,j}$ ir $c^0_{2,i,j}$. Medžiagos kiekį sistemoje galima gauti integravus medžiagos koncentraciją erdvėje:
 
@@ -68,13 +71,21 @@ Iš čia galime išvesti išraišką medžiagos kiekio pokyčiui per laiką:
 
 Įstatome pirmų dviejų medžiagų lygtis iš matematinio modelio \eqref{rect} ir gauname lygtis pirmos $q_1$ ir antros $q_2$ medžiagos kiekio pokyčiams per laiką:
 \begin{align}
-  \frac{\partial q_1}{\partial t}=-3k\int_\Omega c_1c_2\,dV + D\int_\Omega \Delta c_1\,dV=-3k\int_\Omega c_1c_2\,dV + D\int_\Omega \nabla \cdot (\nabla c_1)\,dV\\
-  \frac{\partial q_2}{\partial t}=-5k\int_\Omega c_1c_2\,dV + D\int_\Omega \Delta c_2\,dV=-5k\int_\Omega c_1c_2\,dV + D\int_\Omega \nabla \cdot (\nabla c_2)\,dV
+  \frac{\partial q_1}{\partial t}
+  =-3k\int_\Omega c_1c_2\,dV 
+  + D_1\int_\Omega \Delta c_1\,dV
+  =-3k\int_\Omega c_1c_2\,dV 
+  + D_1\int_\Omega \nabla \cdot (\nabla c_1)\,dV\\
+  \frac{\partial q_2}{\partial t}
+  =-5k\int_\Omega c_1c_2\,dV 
+  + D_2\int_\Omega \Delta c_2\,dV
+  =-5k\int_\Omega c_1c_2\,dV 
+  + D_2\int_\Omega \nabla \cdot (\nabla c_2)\,dV
 \end{align}
 \newpage
 Pagal Gauso-Ostrogradskio divergencijos teoremą ir kraštinę sąlygą \eqref{general-boundary-cond} gauname, kad:
 \begin{align}\label{no-q-change}
-\int_\Omega \nabla \cdot (\nabla c_m) dV = \int_{\partial\Omega} \nabla c_k \cdot \vec{n}\, dS = 0,\quad m=1,2
+\int_\Omega \nabla \cdot (\nabla c_m) dV = \int_{\partial\Omega} \nabla c_m \cdot \vec{n}\, dS = 0,\quad m=1,2
 \end{align}
 Todėl pirmos ir antros medžiagų kiekio pokytis per laiką bus ne teigiamas:
 \begin{subequations} \label{negative-quantity}
@@ -85,15 +96,23 @@ Todėl pirmos ir antros medžiagų kiekio pokytis per laiką bus ne teigiamas:
 \end{subequations}
 Tai reiškia, kad maksimalios pirmos ir antros medžiagų reikšmės bus laiko momente $n=0$, tad nelygybę galime suprastinti iki šios formos:
 \begin{align}
-  \Delta t \leqslant \left(\max(3kc^{0}_{2,i,j}, 5kc^{0}_{1,i,j})+2D\left((\Delta x)^{-2}+(\Delta y)^{-2}\right)\right)^{-1}
+  \begin{cases}
+    \Delta t \leqslant (3kc^{0}_{2,i,j}+2D_1((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\
+    \Delta t \leqslant (5kc^{0}_{1,i,j}+2D_2((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\
+    \Delta t \leqslant (2D_3((\Delta x)^{-2}+(\Delta y)^{-2})))^{-1}
+  \end{cases}
 \end{align}
-Laiko žingsnis čia vis dar priklauso nuo diskretizuotos erdvės koordinatės $(i, j)$, tačiau nesunku pastebėti, kad užtenka parinkti didžiausią reikšmę iš kiekvienos pradinės sąlygos -- tokiu būdu laiko žingsnis gausis mažiausias. Iš pradinės sąlygos \eqref{intial-cond} turime:
+Laiko žingsnis čia vis dar priklauso nuo diskretizuotos erdvės koordinatės $(x_i, y_j)$, tačiau nesunku pastebėti, kad užtenka parinkti didžiausią reikšmę iš kiekvienos pradinės sąlygos -- tokiu būdu laiko žingsnis gausis mažiausias. Iš pradinės sąlygos \eqref{intial-cond} turime:
 \begin{align*}
 \max c^0_{1,i,j}=3c_0,\quad i=0,1,\dots,N-1, \quad j=0,1,\dots,M-1\\
 \max c^0_{2,i,j}=5c_0,\quad i=0,1,\dots,N-1, \quad j=0,1,\dots,M-1
 \end{align*}
 Taigi, kad simuliacija išliktų skaitiškai stabili, reikia, kad laiko žingsnis $\Delta t$ tenkintų šią nelygybę.
 \begin{align}
-  \Delta t \leqslant \left(15kc_0+2D\left((\Delta x)^{-2}+(\Delta y)^{-2}\right)\right)^{-1}\label{numerical-stability-condition}
+  \begin{cases}
+    \Delta t \leqslant (15kc_0+2D_1((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\
+    \Delta t \leqslant (15kc_0+2D_2((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\
+    \Delta t \leqslant (2D_3((\Delta x)^{-2}+(\Delta y)^{-2})))^{-1}
+  \end{cases}
 \end{align}
 
