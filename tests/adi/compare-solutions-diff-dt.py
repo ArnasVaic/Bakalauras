@@ -4,17 +4,17 @@ from matplotlib import pyplot as plt
 import numpy as np
 from solvers.initial_condition import initial_condition 
 import datetime
-from solvers.efd.config import Config
+from solvers.ftcs.config import Config
 from solvers.adi.solver import Solver as ADISolver
-from solvers.efd.solver import Solver as EFDSolver
+from solvers.ftcs.solver import Solver as FTCSSolver
 
-efd_config, adi_config = Config(),  Config()
+efd_config, adi_config = Config()
 
 efd_config.dt = 25
 adi_config.dt = 250 # explicit dt for ADI
 
-t1, c1 = ADISolver(adi_config).solve(initial_condition(adi_config))
-t2, c2 = EFDSolver(efd_config).solve(initial_condition(efd_config))
+t1, c1 = ADISolver(adi_config).solve(initial_condition(adi_config), lambda f: f.copy())
+t2, c2 = FTCSSolver(efd_config).solve(initial_condition(efd_config))
 
 q1, q2 = c1.sum(axis=(2, 3)), c2.sum(axis=(2, 3))
 
@@ -40,7 +40,3 @@ for ax, frame in zip(axes, frames):
   fig.colorbar(im, ax=ax)
 
 plt.tight_layout()
-
-# plt.imshow(dc[frame, element], cmap='RdBu', vmin=dc.min(), vmax=dc.max())
-# plt.colorbar()
-# plt.legend()

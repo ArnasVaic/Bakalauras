@@ -1,3 +1,5 @@
+import numpy as np
+
 def validate_dt(dt, dx, dy, D, c0, k):
   print(f'dx={dx},dy={dy},D={D},c0={c0},k={k}')
   dt_upper_bound = get_upper_dt_bound(dx, dy, D, c0, k)

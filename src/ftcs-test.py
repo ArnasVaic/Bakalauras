@@ -3,8 +3,8 @@ from matplotlib import pyplot as plt
 import numpy as np  
 from solver_utils import get_quantity_over_time
 from solvers.initial_condition import initial_condition 
-from solvers.efd.config import Config
-from solvers.efd.solver import Solver
+from solvers.ftcs.config import Config
+from solvers.ftcs.solver import Solver
 
 # %%
 config = Config()

@@ -76,18 +76,32 @@ class Config:
 def default_config(temperature: int = 1000) -> Config:
   """Create a default configuration."""
 
-  assert temperature in [1000, 1600], f"Temperature {temperature} is not supported."
+  assert temperature in [1000, 1200, 1600], f"Temperature {temperature} is not supported."
 
-  size = (1, 1) if temperature == 1000 else (10**(1/3), 10**(1/3))
-  D = [10.5e-6, 10.5e-6, 10.5e-8] if temperature == 1000 else [28e-6, 28e-6, 28e-8]
-  k = 119 if temperature == 1000 else 192
+  size_map = {
+    1000: (1, 1),
+    1200: (1, 1),
+    1600: (10**(1/3), 10**(1/3))
+  }
+
+  diffusion_map = {
+    1000: [10.5e-6, 10.5e-6, 10.5e-8],
+    1200: [15e-6, 15e-6, 15e-8],
+    1600: [28e-6, 28e-6, 28e-8]
+  }
+
+  k_map = {
+    1000: 119,
+    1200: 146,
+    1600: 192
+  }
 
   config = Config(
     _order = (0, 0),
-    size = size,
+    size = size_map[temperature],
     resolution = (40, 40),
-    D = np.array(D),
-    k = k,
+    D = np.array(diffusion_map[temperature]),
+    k = k_map[temperature],
     c0 = 1e-6,
     dt = None,
     stopper = ThresholdStopper(0.03),

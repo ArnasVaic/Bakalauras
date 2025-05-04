@@ -3,11 +3,11 @@ from logging import Logger
 import numpy as np
 from scipy.signal import convolve2d
 from solvers.adi.utils import frame_quantity
-from solvers.efd.debug import log_debug_info, log_initial_info
-from solvers.efd.state import State
+from solvers.ftcs.debug import log_debug_info, log_initial_info
+from solvers.ftcs.state import State
 from solvers.mixer import Mixer
 from solvers.stopper import Stopper
-from solvers.efd.config import Config
+from solvers.ftcs.config import Config
 
 @dataclass
 class Solver:
@@ -26,7 +26,15 @@ class Solver:
     """Upper time step bound."""
     dx, dy = self.config.dx, self.config.dy
     D, k, c0 = self.config.D, self.config.k, self.config.c0
-    return 1.0 / (15 * k * c0 + 2 * np.max(D) * (dx**-2 + dy**-2))
+
+    dx2dy2_inv = dx**-2 + dy**-2
+    k15c0 = 15 * k * c0
+
+    dt1 = (k15c0 + 2 * D[0] * dx2dy2_inv)**-1
+    dt2 = (k15c0 + 2 * D[1] * dx2dy2_inv)**-1
+    dt3 = (2 * D[2] * dx2dy2_inv)**-1
+
+    return min(dt1, dt2, dt3)
 
   def solve(
     self,
@@ -53,7 +61,7 @@ class Solver:
 
       if state.time_step % self.config.frame_stride == 0:
         state.capture(dt)
-        pass
+        # pass
 
       kc1c2 = k * state.c_prev[0] * state.c_prev[1]
 

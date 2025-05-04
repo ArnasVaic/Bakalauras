@@ -22,35 +22,27 @@ Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą.
 \newpage
 \subsection{Modelių rezultatai}
 
+Tolimesnėse sekcijose bus aptariami skaitinių modelių rezultatai. Kiekvienas individualus rezultatas bus pateikiamas tokia pačia struktūra -- bus rodomos tik dvi iš trijų medžiagų, nes antrosios ir pirmosios medžiagos koncentracijos pokytis per laiką yra simetriškas, todėl pakanka pavaizduoti tik vieną iš jų. Kiekvienai pavaizduotai medžiagai bus pasirinkti keli laiko momentai, kuriems pavaizduosime visą reakcijos erdvę ir medžiagų koncentracijos pasiskirstymą jose. Modeliuose naudoti reakcijos parametrai buvo parinkti pagal \cite{mackeviciusCloserLookComputer2012} ir bus nurodyti prie kiekvieno pavyzdžio kartu su kitais parametrais išskyrus tuos atvejus kai parametrai nekinta.
+
 \subsubsection{Išreikštinis FTCS metodas}
 
 \begin{figure}[h!]
-\centering
-\includegraphics[width=0.75\textwidth]{images/example-0.png} \\ 
-\includegraphics[width=0.75\textwidth]{images/example-1.png} \\
-\includegraphics[width=0.75\textwidth]{images/example-2.png}
-
-\caption{Kompiuterinio modelio rezultato pavyzdys su parametrais gautais eksperimentiniu būdu, kai reakcija vyksta temperatūroje $T=1600\degree C$ \cite{mackeviciusCloserLookComputer2012}. Parametrų reikšmės: $D = 28\times 10^{-6} \frac{\mu m^2}{s}$, $W = \sqrt[3]{10}\mu m$, $H = \sqrt[3]{10}\mu m$, $\Delta x = \frac{\sqrt[3]{10}}{79}\mu m$, $\Delta y = \frac{\sqrt[3]{10}}{79} \mu m$, $k = 192 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $c_0 = 10^{-6} \frac{g}{\mu m^3}$, $\Delta t \approx 6.5157s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
-
-\label{result-example}
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/ftcs/c1-1000C.png} \\ 
+  \includegraphics[width=0.75\textwidth]{images/ftcs/c3-1000C.png}
+  \caption{Išreikštinio FTCS modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1000\degree C$ temperatūroje. Parametrų reikšmės: $D = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $W = 1\mu m$, $H = 1\mu m$, $\Delta x = \frac{1}{79}\mu m$, $\Delta y = \frac{1}{79} \mu m$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $c_0 = 10^{-6} \frac{g}{\mu m^3}$, $\Delta t \approx 3.78s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
+  \label{fig:ftcs-result-T-1000}
 \end{figure}
-
-\ref{result-example}-ame pavyzdys vaizduoja kompiuterinio (YAG) reakcijos modelio rezultatus, kurie yra išdėstyti vertikaliai kiekvienai medžiagai $c_1, c_2, c_3$. Kiekvienas kadrų stulpelis vaizduoja visų medžiagų koncentracijas tuo pačiu laiko momentu. Pavyzdyje nurodyti parametrai bus naudojami tolesniems pavyzdžiams ir nebus išreikštinai dar kartą nurodomi nebent jie keičiasi. Taip pat kai kuriose vietose praleisime antros medžiagos $c_2$ vaizdavimą, nes jos koncentracijos pasiskirstymas yra simetriškas pirmos medžiagos $c_1$ pasiskirstymui.
-
-\newpage
 
 \begin{figure}[h!]
-\centering
-\includegraphics[width=\textwidth]{images/T1200-c0-1.png} \\ 
-% \includegraphics[width=\textwidth]{images/T1200-c1-1.png}  \\
-\includegraphics[width=\textwidth]{images/T1200-c2-1.png} 
-
-\caption{Kompiuterinio modelio rezultato pavyzdys su parametrais gautais eksperimentiniu būdu, kai reakcija vyksta temperatūroje $T=1200\degree C$ \cite{mackeviciusCloserLookComputer2012}. Parametrų reikšmės: $D = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 17.1651s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
-
-\label{alternate-result-example}
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/ftcs/c1-1200C.png} \\ 
+  \includegraphics[width=0.75\textwidth]{images/ftcs/c3-1200C.png}
+  \caption{Išreikštinio FTCS modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1200\degree C$ temperatūroje. Parametrų reikšmės: $D = 15\times 10^{-6} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 2.65s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
+  \label{fig:ftcs-result-T-1200}
 \end{figure}
 
-\ref{alternate-result-example}-ame pavyzdyje matome kaip atrodo modelio rezultatai, kai parinkti parametrai atitinka reakcijos sąlygas, kuri vyksta prie temperatūros $T=1200\degree$. Šie rezultatai atitinka praktikoje pastebimą faktą, kad ši reakcija prie aukštesnės temperatūros vyksta greičiau \cite{ivanauskasComputationalModellingYAG2009}. 
+Šiuose pavyzdžiuose, paskutiniame stulpelyje yra vaizduojamas paskutinis reakcijos žingsnis ir prie jo nurodytas laikas efektyviai yra reakcijos pabaigos laikas. Galime pastebėti, kad antroji reakcija vykstanti aukštesnėje temperatūroje užtrunka trumpiau. Šie rezultatai sutampa su modelio autorių pastebėjimais \cite{mackeviciusCloserLookComputer2012}.
 
 \subsubsection{ADI metodas}
 
@@ -58,10 +50,8 @@ Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą.
   \centering
   \includegraphics[width=0.75\textwidth]{images/adi/c1-1000C.png} \\ 
   \includegraphics[width=0.75\textwidth]{images/adi/c3-1000C.png}
-  
-  \caption{ADI modelio rezultatas, kai reakcijos temperatūra $T=1000\degree C$ (parametrai tokie patys kaip \ref{result-example}-ame pavyzdyje.}
-  
-  \label{fig:adi-result-T-1000}
+  \caption{ADI modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1000\degree C$ temperatūroje. Parametrų reikšmės: $D = 15\times 10^{-6} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 2.65s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
+  \label{fig:adi-result-T-1200}
 \end{figure}
 
 \begin{figure}[h!]

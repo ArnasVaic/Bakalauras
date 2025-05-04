@@ -1,10 +1,9 @@
-
 import numpy as np
 
-from solvers.efd.config import Config
+from solvers.ftcs.config import Config
 
 def initial_condition(config: Config) -> np.ndarray[np.float64]:
-
+  """Construct initial condition for the simulation."""
   rx = 2 ** config._order[0] # Resolution in x axis
   ry = 2 ** config._order[1] # Resolution in y axis
 
@@ -17,7 +16,7 @@ def initial_condition(config: Config) -> np.ndarray[np.float64]:
 
   assert rx > 0
   assert ry > 0
-  
+
   shift_x = True
   if rx == 1:
     shift_x = False
@@ -60,8 +59,8 @@ def checkerboard(shape, a, b, fill_odd=True):
   numpy array with checkerboard pattern
   """
   rows, cols = shape
-  x = np.arange(rows) // a  
-  y = np.arange(cols) // b  
+  x = np.arange(rows) // a
+  y = np.arange(cols) // b
   pattern = (x[:, None] + y) % 2  # Create checkerboard pattern
-  
+
   return pattern if fill_odd else 1 - pattern  # Invert for even squares

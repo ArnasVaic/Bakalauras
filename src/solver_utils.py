@@ -4,8 +4,8 @@ import datetime
 import time
 from matplotlib import pyplot as plt
 import numpy as np
-from solvers.efd.config import Config
-from solvers.efd.solver import Solver
+from solvers.ftcs.config import Config
+from solvers.ftcs.solver import Solver
 from solvers.initial_condition import initial_condition
 
 def reaction_end_time(config: Config, t: float) -> float:
