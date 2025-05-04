@@ -73,15 +73,21 @@ class Config:
     assert self.dt > 0, f"Time step must be positive, but is {self.dt}."
     # TODO: add more validations
 
-def default_config() -> Config:
+def default_config(temperature: int = 1000) -> Config:
   """Create a default configuration."""
+
+  assert temperature in [1000, 1600], f"Temperature {temperature} is not supported."
+
+  size = (1, 1) if temperature == 1000 else (10**(1/3), 10**(1/3))
+  D = [10.5e-6, 10.5e-6, 10.5e-8] if temperature == 1000 else [28e-6, 28e-6, 28e-8]
+  k = 119 if temperature == 1000 else 192
 
   config = Config(
     _order = (0, 0),
-    size = (1, 1),
+    size = size,
     resolution = (40, 40),
-    D = np.array([28e-6, 28e-6, 28e-8]),
-    k = 192,
+    D = np.array(D),
+    k = k,
     c0 = 1e-6,
     dt = None,
     stopper = ThresholdStopper(0.03),

@@ -1,8 +1,10 @@
-\section{Programos sudarymas ir rezultatai}
+\section{Skaitinių modelių įgyvendinimas ir jų rezultatai}
 
-Pagal dviejų dimensijų skaitinį modelį \eqref{numerical-eqs} sudarytas uždavinį sprendžiantis skriptas ir kiti pagalbiniai skriptai duomenims vaizduoti ir tikrinti. Skriptai rašomi \textit{Python} programavimo kalba, naudojant \textit{NumPy}, \textit{SciPy}, \textit{Matplotlib} paketus. 
+Skaitiniams modeliams įgyvendinti buvo pasirinkta \textit{Python} programavimo kalba. \textit{Python} turi didelį kiekį bibliotekų, skirtų skaitiniams skaičiavimams, tokių kaip \textit{NumPy}, \textit{SciPy}, \textit{Matplotlib}, kurios leidžia efektyviai dirbti su dideliais duomenų rinkiniais ir atlikti sudėtingus skaičiavimus.
 
 Modelio rezultatai yra saugomi kaip atskiri \textit{.npy} formato failai, kurie yra skirti saugoti \mbox{\textit{NumPy}} masyvus. Dėl praktinių rezultatų panaudojimo ir tyrimo nebūtina saugoti informacijos apie visus laiko žingsnius, todėl išsaugotuose rezultatų failuose, simuliacijos kadrai laiko kryptimi gali būti praretinti iki tūkstančio kartų, priklausomai nuo pasirinktų parametrų. Pagalbiniai duomenų vaizdavimo skriptai šiuos duomenis agreguoja į grafikus, kurie išsaugomi \textit{.png} formatu.
+
+Norint praktiškai panaudoti ADI metodą, būtina užtikrinti, kad tridiagonalinės sistemos būtų sprendžiamos efektyviai, tam buvo naudojama \textit{SciPy} funkcija \texttt{solve\_banded}
 
 \subsection*{Medžiagos kiekis}
 
@@ -15,10 +17,12 @@ Pakeičiam dvigubą integralą su dviguba Rymano suma ir gaunam, kad medžiagos 
     q_{m, n}= \sum_{i=0}^{N-1}\sum_{j=0}^{M-1} c_{m, i,j}^n \frac{W\cdot H}{N\cdot M} \quad m=1, 2, 3
 \end{align}
 
-Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą. Šis indikatorius žymi kaip tam tikros medžiagos kiekis sistemoje keičiasi einant laikui, pavyzdžiui - pirma ir antra medžiagos reaguoja ir sukuria trečią medžiagą todėl turėtume matyti, kad pirmos ir antros medžiagos kiekiai per laiką mažėja, o trečios medžiagos kiekis per laiką auga.   
+Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą. Šis indikatorius žymi kaip tam tikros medžiagos kiekis sistemoje keičiasi einant laikui, pavyzdžiui - pirma ir antra medžiagos reaguoja ir sukuria trečią medžiagą todėl turėtume matyti, kad pirmos ir antros medžiagos kiekiai per laiką mažėja, o trečios medžiagos kiekis per laiką auga.
 
 \newpage
-\subsection{Modelio rezultatai}
+\subsection{Modelių rezultatai}
+
+\subsubsection{Išreikštinis FTCS metodas}
 
 \begin{figure}[h!]
 \centering
@@ -31,14 +35,14 @@ Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą.
 \label{result-example}
 \end{figure}
 
-\ref{result-example}-ame pavyzdys vaizduoja kompiuterinio (YAG) reakcijos modelio rezultatus, kurie yra išdėstyti vertikaliai kiekvienai medžiagai $c_1, c_2, c_3$. Kiekvienas kadrų stulpelis vaizduoja visų medžiagų koncentracijas tuo pačiu laiko momentu. Pavyzdyje nurodyti parametrai bus naudojami tolesniems pavyzdžiams ir nebus išreikštinai dar kartą nurodomi nebent jie keičiasi.
+\ref{result-example}-ame pavyzdys vaizduoja kompiuterinio (YAG) reakcijos modelio rezultatus, kurie yra išdėstyti vertikaliai kiekvienai medžiagai $c_1, c_2, c_3$. Kiekvienas kadrų stulpelis vaizduoja visų medžiagų koncentracijas tuo pačiu laiko momentu. Pavyzdyje nurodyti parametrai bus naudojami tolesniems pavyzdžiams ir nebus išreikštinai dar kartą nurodomi nebent jie keičiasi. Taip pat kai kuriose vietose praleisime antros medžiagos $c_2$ vaizdavimą, nes jos koncentracijos pasiskirstymas yra simetriškas pirmos medžiagos $c_1$ pasiskirstymui.
 
 \newpage
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{images/T1200-c0-1.png} \\ 
-\includegraphics[width=\textwidth]{images/T1200-c1-1.png}  \\
+% \includegraphics[width=\textwidth]{images/T1200-c1-1.png}  \\
 \includegraphics[width=\textwidth]{images/T1200-c2-1.png} 
 
 \caption{Kompiuterinio modelio rezultato pavyzdys su parametrais gautais eksperimentiniu būdu, kai reakcija vyksta temperatūroje $T=1200\degree C$ \cite{mackeviciusCloserLookComputer2012}. Parametrų reikšmės: $D = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 17.1651s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
@@ -47,6 +51,28 @@ Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą.
 \end{figure}
 
 \ref{alternate-result-example}-ame pavyzdyje matome kaip atrodo modelio rezultatai, kai parinkti parametrai atitinka reakcijos sąlygas, kuri vyksta prie temperatūros $T=1200\degree$. Šie rezultatai atitinka praktikoje pastebimą faktą, kad ši reakcija prie aukštesnės temperatūros vyksta greičiau \cite{ivanauskasComputationalModellingYAG2009}. 
+
+\subsubsection{ADI metodas}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/adi/c1-1000C.png} \\ 
+  \includegraphics[width=0.75\textwidth]{images/adi/c3-1000C.png}
+  
+  \caption{ADI modelio rezultatas, kai reakcijos temperatūra $T=1000\degree C$ (parametrai tokie patys kaip \ref{result-example}-ame pavyzdyje.}
+  
+  \label{fig:adi-result-T-1000}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/adi/c1-1600C.png} \\ 
+    \includegraphics[width=0.75\textwidth]{images/adi/c3-1600C.png}
+    
+    \caption{ADI modelio rezultatas, kai reakcijos temperatūra $T=1600\degree C$ (parametrai tokie patys kaip \ref{result-example}-ame pavyzdyje.}
+    
+    \label{fig:adi-result-T-1600}
+  \end{figure}
 
 \subsection{Programos korektiškumo tikrinimas}
 

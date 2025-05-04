@@ -1,5 +1,5 @@
 \newpage
-\subsection{Modelio skaitinis stabilumas}
+\subsection{FTCS metodo skaitinis stabilumas}
 
 Norint užtikrinti skaitinį programos stabilumą, reikia užtikrinti, kad visais laiko momentais, visuose diskretizuotos erdvės taškuose, visų medžiagų koncentracijos išliktų ne neigiamos. Šiai sąlygai išpildyti, užtenka pasirinkti pakankamai mažą laiko žingsnį $\Delta t$. Pirmiausia įvedame porą konstantų:
 \begin{align*}
@@ -35,7 +35,7 @@ Visose trijose medžiagų lygtyse, galima pastebėti, kad dėmenys su medžiagų
   \mu_{mx}c^n_{m,i-1,j}+\mu_{mx}c^n_{m,i+1,j}+\mu_{my}c^n_{m,i,j-1}+\mu_{my}c^n_{m,i,j+1}\geqslant 0 ,\quad m=1,2,3
 \end{align*}
 \newpage
-Taigi, $c^{n+1}_{m,i,j}$ ženklą lemia tik koeficientai $R_1, R_2, R_3$, todėl įvedame ribojimą, kad $R_1\geqslant 0, R_2\geqslant 0, R_3\geqslant 0$. Turime nelygybių sistemą:
+Taigi, $c^{n+1}_{m,i,j}$ ženklą lemia tik koeficientai $R_1, R_2, R_3$, todėl įvedame ribojimą, kad $R_1\geqslant 0$, $R_2\geqslant 0$, $R_3\geqslant 0$. Turime nelygybių sistemą:
 \begin{align} \label{impl-ineqs}
   \begin{cases}
     1-3k\Delta tc^{n}_{2,i,j}-2(\mu_{2x}+\mu_{2y})\geqslant 0\\
@@ -109,7 +109,7 @@ Laiko žingsnis čia vis dar priklauso nuo diskretizuotos erdvės koordinatės $
 \max c^0_{2,i,j}=5c_0,\quad i=0,1,\dots,N-1, \quad j=0,1,\dots,M-1
 \end{align*}
 Taigi, kad simuliacija išliktų skaitiškai stabili, reikia, kad laiko žingsnis $\Delta t$ tenkintų šią nelygybę.
-\begin{align}
+\begin{align} \label{numerical-stability-condition}
   \begin{cases}
     \Delta t \leqslant (15kc_0+2D_1((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\
     \Delta t \leqslant (15kc_0+2D_2((\Delta x)^{-2}+(\Delta y)^{-2}))^{-1}\\

@@ -49,6 +49,48 @@ def show_solution_frame(
 
   plt.colorbar()
 
+def show_solution_frames(
+    config: Config,
+    t: np.ndarray,
+    solution: np.ndarray,
+    frames: list[int],
+    element: int,
+    filename: str = 'temp.png',
+    cmap: str = 'viridis') -> None:
+  extent = [
+    0, config.dx * (config.resolution[0] - 1),
+    0, config.dy * (config.resolution[1] - 1)
+  ]
+
+  # plt.xlabel('x [μm]')
+  # plt.ylabel('y [μm]')
+
+  fig, axes = plt.subplots(1, 5, figsize=(15, 3), constrained_layout=True)  # 1 row, 5 columns
+
+  fig.text(-0.03, 0.5, f'$c_{element + 1}$', va='center', rotation='horizontal', fontsize=24)
+
+  for ax, frame in zip(axes, frames):
+
+    time = str(datetime.timedelta(seconds=int(t[frame])))
+
+    ax.set_title(f'$t=$ {time}', fontsize=18)
+    im = ax.imshow(
+      solution[frame, element, :, :],
+      aspect=1,
+      extent=extent,
+      vmin = solution[:, element].min(),
+      vmax = solution[:, element].max(),
+      cmap=cmap
+    )
+    ax.axis('off')  # Remove axes for a cleaner look
+
+  cbar = fig.colorbar(im, ax=axes.ravel().tolist(), shrink=0.8, orientation='vertical')
+  cbar.set_label('Koncentracija', fontsize=12)
+
+  fig.savefig(filename, dpi=300, bbox_inches='tight')  # Save with high DPI
+  # plt.tight_layout(rect=[0.05, 0, 1, 0.95])
+  plt.show()
+
 def validate_solution_stable(config: Config, solution: np.ndarray):
   # this check is very specific to the initial conditions
   # take a line at about a quarter of the total height from
