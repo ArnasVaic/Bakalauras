@@ -30,7 +30,7 @@ Tolimesnėse sekcijose bus aptariami skaitinių modelių rezultatai. Kiekvienas 
   \centering
   \includegraphics[width=0.75\textwidth]{images/ftcs/c1-1000C.png} \\ 
   \includegraphics[width=0.75\textwidth]{images/ftcs/c3-1000C.png}
-  \caption{Išreikštinio FTCS modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1000\degree C$ temperatūroje. Parametrų reikšmės: $D = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $W = 1\mu m$, $H = 1\mu m$, $\Delta x = \frac{1}{79}\mu m$, $\Delta y = \frac{1}{79} \mu m$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $c_0 = 10^{-6} \frac{g}{\mu m^3}$, $\Delta t \approx 3.78s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
+  \caption{Išreikštinio FTCS modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1000\degree C$ temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 10.5\times 10^{-8} \frac{\mu m^2}{s}$, $W = 1\mu m$, $H = 1\mu m$, $\Delta x = \frac{1}{79}\mu m$, $\Delta y = \frac{1}{79} \mu m$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $c_0 = 10^{-6} \frac{g}{\mu m^3}$, $\Delta t \approx 3.78s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
   \label{fig:ftcs-result-T-1000}
 \end{figure}
 
@@ -38,7 +38,7 @@ Tolimesnėse sekcijose bus aptariami skaitinių modelių rezultatai. Kiekvienas 
   \centering
   \includegraphics[width=0.75\textwidth]{images/ftcs/c1-1200C.png} \\ 
   \includegraphics[width=0.75\textwidth]{images/ftcs/c3-1200C.png}
-  \caption{Išreikštinio FTCS modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1200\degree C$ temperatūroje. Parametrų reikšmės: $D = 15\times 10^{-6} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 2.65s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
+  \caption{Išreikštinio FTCS modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1200\degree C$ temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 15\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 15\times 10^{-8} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 2.65s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
   \label{fig:ftcs-result-T-1200}
 \end{figure}
 
@@ -50,19 +50,19 @@ Tolimesnėse sekcijose bus aptariami skaitinių modelių rezultatai. Kiekvienas 
   \centering
   \includegraphics[width=0.75\textwidth]{images/adi/c1-1000C.png} \\ 
   \includegraphics[width=0.75\textwidth]{images/adi/c3-1000C.png}
-  \caption{ADI modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1000\degree C$ temperatūroje. Parametrų reikšmės: $D = 15\times 10^{-6} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 2.65s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
-  \label{fig:adi-result-T-1200}
+  \caption{ADI modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1000\degree C$ temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 10.5\times 10^{-8} \frac{\mu m^2}{s}$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t = 3.78s$}
+  \label{fig:adi-result-T-1000}
 \end{figure}
 
 \begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.75\textwidth]{images/adi/c1-1600C.png} \\ 
-    \includegraphics[width=0.75\textwidth]{images/adi/c3-1600C.png}
-    
-    \caption{ADI modelio rezultatas, kai reakcijos temperatūra $T=1600\degree C$ (parametrai tokie patys kaip \ref{result-example}-ame pavyzdyje.}
-    
-    \label{fig:adi-result-T-1600}
-  \end{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/adi/c1-1200C.png} \\ 
+  \includegraphics[width=0.75\textwidth]{images/adi/c3-1200C.png}
+  \caption{ADI modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią $T=1200\degree C$ temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 15\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 15\times 10^{-8} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t = 3.78s$}
+  \label{fig:adi-result-T-1200}
+\end{figure}
+
+Abiejų skaitinių modelių rezultatai yra vizualiai panašūs, tačiau nežymų skirtumą galima pastebėti reakcijos trukmėje. Modeliuojant reakciją ADI metodu, reakcija $T=1000\degree C$ temperatūroje užtrunka apie $2.5$ minutes ilgiau nei FTCS, o $T=1200\degree C$ temperatūroje užtrunka apie $2$ minutes ilgiau. Šis skirtumas atsiranda dėl skirtingų metodų tikslumo, tačiau nėra pakankamai reikšmingas atsižvelgiant į bendrą reakcijos trukmę.
 
 \subsection{Programos korektiškumo tikrinimas}
 

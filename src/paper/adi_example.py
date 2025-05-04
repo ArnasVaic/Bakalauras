@@ -7,7 +7,7 @@ from solvers.initial_condition import initial_condition
 from solvers.adi.config import default_config
 from solvers.adi.solver import Solver
 
-T = 1000
+T = 1200
 
 frame_strides = {
   1000: 100,
