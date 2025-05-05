@@ -1,0 +1,16 @@
+\subsection{Skaitinių modelių analizė}
+
+% Kas bus šioje sekcijoje?
+% - Modelių tikslumo lyginimas
+% - Modelių efektyvumo lyginimas
+
+\subsubsection*{Skaitinių modelių efektyvumas}
+
+Viena iš priežasčių, kodėl buvo pasirinktas ADI metodas, yra jo efektyvumas. Nors ir šio metodo pritaikymas nagrinėjamai sistemai nėra idealus -- reakcijos komponentai yra laikomi išreikštinais ir todėl besąlygiškas stabilumas nėra garantuojamas, naudojant šį metodą turėtume gebėti didinti laiko žingsnį $\Delta t$ ir taip sumažinti iteracijų skaičių. Pirmiausią palyginsime įgyvendintų skaitinių modelių efektyvumą, kai naudojamas laiko žingsnis $\Delta t$ yra toks pat.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/adi/adi-iteration-time.png}
+  \caption{FTCS ir ADI metodų sprendimo laiko priklausomybė nuo diskrečių taškų skaičiaus reakcijos erdvėje. Kiekvienai skirtingai rezoliucijai buvo parinkta toks laiko žingsnis, kuris užtikrintų stabilumą.}
+  \label{fig:adi-iteration-time}
+\end{figure}

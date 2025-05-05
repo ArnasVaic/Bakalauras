@@ -14,7 +14,7 @@ Užuot tiesiogiai skaičiavę skaitinį sprendinį sekančiu laiko momentu $c^{n
 \end{align}
 \end{subequations}
 
-Analogiškas lygtis yra sudaromos sprendiniui $c^{n+1}$ rasti, tačiau apkeičiame sprendinius, kuriuos naudojame difuzijos komponentui -- $x$ ašies išvestinei naudosime jau turimą sprendinį $c^{*}$, o $y$ ašies naudosime sekančio laiko žingsnio sprendininį $c^{n+1}$:
+Analogiškas lygtis yra sudaromos sprendiniui $c^{n+1}$ rasti, tačiau apkeičiame sprendinius, kuriuos naudojame difuzijos komponentui -- $x$ ašies išvestinei naudosime jau turimą sprendinį $c^{*}$, o $y$ ašies naudosime sekančio laiko žingsnio sprendinį $c^{n+1}$:
 
 \begin{subequations} \label{eqs:adi-next-step}
 \begin{align}
@@ -53,51 +53,48 @@ Kitaip nei FTCS metodo atveju, sprendinys, kurį bandome rasti, priklauso ne tik
 Išskleidę paskutinė lygtyje esančius baigtinių skirtumų operatorius gauname lygtį tarpiniam sprendiniui $c^*$:
 
 \begin{align}
-  \mu_{mx}c^{*}_{m,i-1,j}+(1-2\mu_{mx})c^{*}_{m,i,j}+\mu_{mx}c^{*}_{m,i+1,j}
+  -\mu_{mx}c^{*}_{m,i-1,j}+(1+2\mu_{mx})c^{*}_{m,i,j}-\mu_{mx}c^{*}_{m,i+1,j}
   &= \mu_{my}c^n_{m,i,j-1}+(1-2\mu_{my})c^n_{m,i,j}+\mu_{my}c^n_{m,i,j+1}+\mu_m c^n_{1,i,j}c^n_{2,i,j}
 \end{align}
 
-Analogiškai galima išvesti lygtis sekančiam laiko žingsiui $c^{n+1}_{m,i,j}$:
+Analogiškai galima išvesti lygtis sekančiam laiko žingsniui $c^{n+1}_{m,i,j}$:
 
 \begin{align}
   % c^{n+1}_{m,i,j} - \mu_{my}\delta_y^2[c^{n+1}_{m,i,j}]
   % &= \mu_{mx}\delta_x^2[c^*_{m,i,j}] + \mu_m c^*_{1,i,j}c^*_{2,i,j} + c^*_{m,i,j}\\
-  \mu_{my}c^{n+1}_{m,i,j-1}+(1-2\mu_{my})c^{n+1}_{m,i,j}+\mu_{my}c^{n+1}_{m,i,j+1}
+  -\mu_{my}c^{n+1}_{m,i,j-1}+(1+2\mu_{my})c^{n+1}_{m,i,j}-\mu_{my}c^{n+1}_{m,i,j+1}
   &= \mu_{mx}c^*_{m,i-1,j}+(1-2\mu_{mx})c^*_{m,i,j}+\mu_{mx}c^*_{m,i+1,j}+\mu_m c^*_{1,i,j}c^*_{2,i,j}
 \end{align}
 
-Kraštinėms sąlygoms aproksimuoti naudosime priekinę (\textit{angl. forward}) ir galinę (\textit{angl. backward}) aproksimacijas pirmojom išvestinėm:
+Kraštinėms sąlygoms apskaičiuoti naudosime centrinę pirmosios išvestinės aproksimaciją:
 
 \begin{align*}
   \frac{\partial c}{\partial x}\Big|_{x=x_i, y=y_j, t=t_n} 
-  &\approx \frac{c_{i+1,j}-c_{i,j}}{\Delta x} 
-  \approx \frac{c_{i,j}-c_{i-1,j}}{\Delta x} &
+  &\approx \frac{c^n_{i+1,j}-c^n_{i-1,j}}{2\Delta x} &
   \frac{\partial c}{\partial y}\Big|_{x=x_i, y=y_j, t=t_n} 
-  &\approx \frac{c_{i,j+1}-c_{i,j}}{\Delta y} 
-  \approx \frac{c_{i,j}-c_{i,j-1}}{\Delta y}
+  &\approx \frac{c^n_{i,j+1}-c^n_{i,j-1}}{2\Delta y}
 \end{align*}
 
-Įsistate šias aproksimacijas į modelio kraštines sąlygas \eqref{boundary-cond} gauname:
+Įstate šias aproksimacijas į modelio kraštines sąlygas \eqref{boundary-cond} gauname:
 
 \begin{subequations} \label{boundary-cond-approx}
 \begin{align} 
-  c_{i+1,j} &= c_{i,j}, \text{ kai } i = N - 1 &
-  c_{i-1,j} &= c_{i,j}, \text{ kai } i = 0\\
-  c_{i,j+1} &= c_{i,j}, \text{ kai } j = M - 1 &
-  c_{i,j-1} &= c_{i,j}, \text{ kai } j = 0
+  c_{i+1,j} &= c_{i-1,j}, \text{ kai } i = 0 \text{ arba } i = N-1 &
+  c_{i,j+1} &= c_{i,j-1}, \text{ kai } j = 0 \text{ arba } j = M-1 &
 \end{align}
 \end{subequations}
 
-Turint kraštines sąlygas \eqref{boundary-cond-approx} bei lygtis \eqref{eqs:adi-half-step} ir \eqref{eqs:adi-next-step} galime užrašyti sistemas matriciniu pavidalu. Pirmiausia užrašome lygčių sistemas tarpiniam sprendiniui $c^*$:
+Turint kraštines sąlygas \eqref{boundary-cond-approx} bei lygtis \eqref{eqs:adi-half-step} ir \eqref{eqs:adi-next-step} galime užrašyti sistemas matricos pavidalu. Pirmiausia užrašome lygčių sistemas tarpiniam sprendiniui $c^*$:
 
 \begin{align*}
   \resizebox{\textwidth}{!}{$
   \begin{bmatrix}
-    1 + \mu_{mx} & -\mu_{mx} & 0 & \cdots & 0\\
-    -\mu_{mx} & 1 + 2\mu_{mx} & -\mu_{mx} & \cdots & 0\\
-    0 & -\mu_{mx} & 1 + 2\mu_{mx} & \cdots & 0\\
-    \vdots & \vdots & \vdots & \ddots & \vdots\\
-    0 & 0 & 0 & \cdots & 1 + \mu_{mx}
+    1 + 2\mu_{mx} & -2\mu_{mx} & 0 & \cdots & 0 & 0\\
+    -\mu_{mx} & 1 + 2\mu_{mx} & -\mu_{mx} & \cdots & 0 & 0\\
+    0 & -\mu_{mx} & 1 + 2\mu_{mx} & \cdots & 0 & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots\\
+    0 & 0 & 0 & \cdots & 1 + 2\mu_{mx} & -\mu_{mx}\\
+    0 & 0 & 0 & \cdots & -2\mu_{mx} & 1 + 2\mu_{mx}
   \end{bmatrix}
   \begin{bmatrix}
     c^*_{m,0,j}\\
@@ -122,11 +119,12 @@ Lygčių sistemos sekančio laiko žingsnio sprendiniui $c^{n+1}$:
 \begin{align*}
   \resizebox{\textwidth}{!}{$
   \begin{bmatrix}
-    1 + \mu_{my} & -\mu_{my} & 0 & \cdots & 0\\
-    -\mu_{my} & 1 + 2\mu_{my} & -\mu_{my} & \cdots & 0\\
-    0 & -\mu_{my} & 1 + 2\mu_{my} & \cdots & 0\\
-    \vdots & \vdots & \vdots & \ddots & \vdots\\
-    0 & 0 & 0 & \cdots & 1 + \mu_{my}
+    1 + 2\mu_{my} & -2\mu_{my} & 0 & \cdots & 0 & 0\\
+    -\mu_{my} & 1 + 2\mu_{my} & -\mu_{my} & \cdots & 0 & 0\\
+    0 & -\mu_{my} & 1 + 2\mu_{my} & \cdots & 0 & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots\\
+    0 & 0 & 0 & \cdots & 1 + 2\mu_{my} & -\mu_{my}\\
+    0 & 0 & 0 & \cdots & -2\mu_{my} & 1 + 2\mu_{my}
   \end{bmatrix}
   \begin{bmatrix}
     c^*_{m,i,0}\\
@@ -146,4 +144,4 @@ Lygčių sistemos sekančio laiko žingsnio sprendiniui $c^{n+1}$:
   $}
 \end{align*}
 
-Šios sistemos sprendinys yra atitinkamai ieškomo laiko žingsio sprendinio eilutė arba stulpelis, todėl kiekvieno laiko žingsnio sprendiniui rasti šią sistemą reikės spręsti $M + N$ kartų. Taip pat galima pastebėti, kad kairėje lygties pusėje esančios matricos yra tridiagonalinės, todėl jas galima spręsti efektyviai naudojant tridiagonalinės matricos algoritmą. Būtent dėl šios priežasties mes pasirinkome laikyti reakcijos komponentus išreikštinais, kitu atveju matricos nebūtų tridiagonalinės. Šis sprendimas turi ir savo minusų -- kadangi reakcijos dėmuo laikomas išreikštiniu, sistema nebėra besąlygiškai stabili.
+Šios sistemos sprendinys yra atitinkamai ieškomo laiko žingsnio sprendinio eilutė arba stulpelis, todėl kiekvieno laiko žingsnio sprendiniui rasti šią sistemą reikės spręsti $M + N$ kartų. Taip pat galima pastebėti, kad kairėje lygties pusėje esančios matricos yra tridiagonalinės, todėl jas galima spręsti efektyviai naudojant tridiagonalinės matricos algoritmą. Būtent dėl šios priežasties mes pasirinkome laikyti reakcijos komponentus išreikštinais, kitu atveju matricos nebūtų tridiagonalinės. Šis sprendimas turi ir savo minusų -- kadangi reakcijos dėmuo laikomas išreikštiniu, sistema nebėra besąlygiškai stabili.

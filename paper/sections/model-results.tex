@@ -8,7 +8,7 @@ Norint praktiškai panaudoti ADI metodą, būtina užtikrinti, kad tridiagonalin
 
 \subsection*{Medžiagos kiekis}
 
-Dėl didelės rezultatų dimensijos būtų sunku interpretuoti grafiškai pavaizduotus sprendinio duomenis, todėl tyrimui yra naudinga vizualizuoti ir medžiagų kiekius sistemoje. Galime išskleisti formulę medžiagos kiekiui bendru atveju \eqref{quantity-general} ir gausime formulę diskrečiam atvejui \cite{strangCalculusVolume32016}:
+Dėl didelės rezultatų dimensijos būtų sunku interpretuoti grafiškai pavaizduotus sprendinio duomenis, todėl tyrimui yra naudinga vaizduoti ir medžiagų kiekius sistemoje. Galime išskleisti formulę medžiagos kiekiui bendru atveju \eqref{quantity-general} ir gausime formulę diskrečiam atvejui \cite{strangCalculusVolume32016}:
 \begin{align}
     q(t) = \int_\Omega c\,dV = \int_0^W \int_0^H c(x, y, t)\,dy\,dx
 \end{align}
@@ -63,68 +63,3 @@ Tolimesnėse sekcijose bus aptariami skaitinių modelių rezultatai. Kiekvienas 
 \end{figure}
 
 Abiejų skaitinių modelių rezultatai yra vizualiai panašūs, tačiau nežymų skirtumą galima pastebėti reakcijos trukmėje. Modeliuojant reakciją ADI metodu, reakcija $T=1000\degree C$ temperatūroje užtrunka apie $2.5$ minutes ilgiau nei FTCS, o $T=1200\degree C$ temperatūroje užtrunka apie $2$ minutes ilgiau. Šis skirtumas atsiranda dėl skirtingų metodų tikslumo, tačiau nėra pakankamai reikšmingas atsižvelgiant į bendrą reakcijos trukmę.
-
-\subsection{Programos korektiškumo tikrinimas}
-
-\subsubsection*{Korektiškumo tikrinimas bendru atveju}
-
-Nagrinėjant programos korektiškumą naudosime modelio rezultatų duomenis. 
-Norint nustatyti, ar programa veikia korektiškai galima tikrinti, ar mažinant žingsnių dydį, skaitinis sprendinys artėja prie tikrojo sprendinio. Šiuo atveju mažinsime erdvės žingsnius $\Delta x$ ir $\Delta y$. Tai lemia diskretaus tinklelio taškų kiekio padidėjimą, nes egzistuoja atvirkštinė priklausomybė tarp erdvinių žingsnių dydžio ir diskrečių taškų kiekio atitinkamomis ašimis (\ref{meshx}, \ref{meshy}).
-
-\newpage
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{images/space-error-1.png}
-
-    \caption{Kompiuterinio modelio rezultatai - sprendinio tikslumo priklausomybė nuo diskrečių taškų skaičiaus. }
-
-    \label{results-space-error}
-\end{figure}
-
-\ref{results-space-error}-ame pav. matome, kad eksponentiškai didinant diskrečių taškų skaičių, sprendinių grafikai tolygiai artėja prie sprendinio su didžiausiu tikslumu, darome prielaidą, kad didinant diskrečių taškų skaičių, skaitinis sprendinys konverguoją į tikrąjį sprendinį. Kažkuriuo momentu diskrečios erdvės taškų kiekio didinimas nebeduoda ypatingai didelių rezultato pagerėjimų. Sprendinių grafikuose taip pat galima įžvelgti, kad pirmų dviejų medžiagų kiekiai per laiką griežtai ne mažėja - tai mes teoriškai parodėme \eqref{negative-quantity}, taip, žinoma, yra dėl  medžiagų reakcijos. 
-
-Analogiškai galima būtų fiksuoti erdvinius žingsnius $\Delta x, \Delta y$ ir stebėti kaip keičiasi skaitinis sprendinys mažinant laiko žingsnį $\Delta t$. Dėl priežasčių, kurios vėliau bus akivaizdžios vaizduosime du sprendinius - vienas iš jų gautas pasirinkus $\Delta t$ pagal \eqref{numerical-stability-condition}, o kitam paimta konkreti reikšmė $\Delta t = 10^{-4}$.
-
-
-\begin{figure}[h!]
-
-\centering
-
-\includegraphics[width=\textwidth]{images/time-error-1.png}
-
-\caption{Kompiuterinio modelio rezultatai - sprendinio priklausomybė nuo laiko žingsio pasirinkimo. Čia reakcijos laikas $T=16h$.}
-
-\label{time-error}
-
-\end{figure}
-
-\ref{time-error}-ame pav. matome, kad sprendiniai yra identiški. Laiko žingsnio  $\Delta t$ pasirinkimas pagal \eqref{numerical-stability-condition} yra pakankamai geras ir mažesnių laiko žingsnių pasirinkimas neduoda pastebimai tikslesnių rezultatų.
-
-\newpage
-\subsubsection*{Korektiškumo tikrinimas kai vyksta tik difuzija}
-
-Jei reakcijos koeficientas būtų lygus nuliui, vienintelis sistemoje vykstantis procesas būtų pirmų dviejų medžiagų difuzija. Jei skaitinis modelis veikia korektiškai, rezultatuose turėtų būti galima matyti, kad difuzijos metu medžiagos kiekis sistemoje nekinta, tai teoriškai parodėme skyriuje apie skaitinį stabilumą \eqref{no-q-change}.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/only-diff-1.png}
-    \caption{Kompiuterinio modelio rezultatai - medžiagų kiekių priklausomybė nuo laiko, kai reakcija nevyksta. Čia diskrečių laiko žingsnių skaičius $\tau=10^4$, o reakcijos greitis $k = 0$. }
-    \label{no-reaction}
-\end{figure}
-
-\ref{no-reaction}-ame pavyzdyje kompiuterinės programos rezultatai yra būtent tokie, kokių tikėjomės, tačiau iš šio grafiko negalime užtikrinti, kad simuliacijoje išvis kažkas vyksta. Norint patikrinti, ar medžiagos difunduoja korektiškai galime pabandyti pavaizduoti medžiagų kiekį visoje srityje $\Omega$ kaip rezultatų pavyzdyje \eqref{result-example}.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=\textwidth]{images/all-only-diff-1.png} \\
-\includegraphics[width=\textwidth]{images/all-only-diff-2.png}
-
-\caption{Kompiuterinio modelio rezultatai - medžiagų koncentracijų pasiskirstymas per laiką, kai vyksta tik difuzija. Čia diskrečių laiko žingsnių skaičius $\tau=10^4$, o reakcijos greitis $k = 0$. }
-
-\label{only-diffusion}
-\end{figure}
-
-\ref{only-diffusion}-ame pavyzdyje akivaizdžiai matosi, kad medžiagų difuzija vyksta įprastai. Einant laikui, medžiagos iš didesnės koncentracijos sričių juda į sritis, kur koncentracija yra mažesnė. Reakcijai einant į pabaigą matome, kad medžiagos tolygiai pasiskirsto po erdvę.
-
-

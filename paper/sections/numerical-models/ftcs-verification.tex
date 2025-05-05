@@ -1,0 +1,63 @@
+\subsection{Išreikštinio FTCS modelio verifikacija}
+
+\subsubsection*{Skaitinio sprendinio tikslumas}
+
+Verifikuojant išreikštini FTCS modelį naudosime rezultatų duomenis. Vienas iš būdų verifikuoti modelio rezultatų teisingumą yra tikrinti, ar mažinant žingsnių dydį, skaitinis sprendinys artėja prie tikrojo sprendinio. Šiuo atveju mažinsime erdvės žingsnius $\Delta x$ ir $\Delta y$, o tai lems diskretaus tinklelio taškų skaičiaus padidėjimą, nes egzistuoja atvirkštinė priklausomybė tarp erdvinių žingsnių dydžio ir diskrečių taškų skaičiaus atitinkamomis ašimis (\ref{meshx}, \ref{meshy}).
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{images/space-error-1.png}
+
+    \caption{Kompiuterinio modelio rezultatai - sprendinio tikslumo priklausomybė nuo diskrečių taškų skaičiaus. }
+
+    \label{results-space-error}
+\end{figure}
+
+\ref{results-space-error}-ame pav. matome, kad eksponentiškai didinant diskrečių taškų skaičių, sprendinių grafikai tolygiai artėja prie sprendinio su didžiausiu tikslumu, darome prielaidą, kad didinant diskrečių taškų skaičių, skaitinis sprendinys konverguoją į tikrąjį sprendinį. Kažkuriuo momentu diskrečios erdvės taškų kiekio didinimas nebeduoda ypatingai didelių rezultato pagerėjimų. Sprendinių grafikuose taip pat galima įžvelgti, kad pirmų dviejų medžiagų kiekiai per laiką griežtai ne mažėja - tai mes teoriškai parodėme \eqref{negative-quantity}, taip, žinoma, yra dėl  medžiagų reakcijos. 
+
+Analogiškai galima būtų fiksuoti erdvinius žingsnius $\Delta x, \Delta y$ ir stebėti kaip keičiasi skaitinis sprendinys mažinant laiko žingsnį $\Delta t$. Dėl priežasčių, kurios vėliau bus akivaizdžios vaizduosime du sprendinius - vienas iš jų gautas pasirinkus $\Delta t$ pagal \eqref{numerical-stability-condition}, o kitam paimta konkreti reikšmė $\Delta t = 10^{-4}$.
+
+
+\begin{figure}[h!]
+
+\centering
+
+\includegraphics[width=\textwidth]{images/time-error-1.png}
+
+\caption{Kompiuterinio modelio rezultatai - sprendinio priklausomybė nuo laiko žingsio pasirinkimo. Čia reakcijos laikas $T=16h$.}
+
+\label{time-error}
+
+\end{figure}
+
+\ref{time-error}-ame pav. matome, kad sprendiniai yra identiški. Laiko žingsnio  $\Delta t$ pasirinkimas pagal \eqref{numerical-stability-condition} yra pakankamai geras ir mažesnių laiko žingsnių pasirinkimas neduoda pastebimai tikslesnių rezultatų.
+
+\newpage
+\subsubsection*{Korektiškumo tikrinimas kai vyksta tik difuzija}
+
+Jei reakcijos koeficientas būtų lygus nuliui, vienintelis sistemoje vykstantis procesas būtų pirmų dviejų medžiagų difuzija. Jei skaitinis modelis veikia korektiškai, rezultatuose turėtų būti galima matyti, kad difuzijos metu medžiagos kiekis sistemoje nekinta, tai teoriškai parodėme skyriuje apie skaitinį stabilumą \eqref{no-q-change}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/only-diff-1.png}
+    \caption{Kompiuterinio modelio rezultatai - medžiagų kiekių priklausomybė nuo laiko, kai reakcija nevyksta. Čia diskrečių laiko žingsnių skaičius $\tau=10^4$, o reakcijos greitis $k = 0$. }
+    \label{no-reaction}
+\end{figure}
+
+\ref{no-reaction}-ame pavyzdyje kompiuterinės programos rezultatai yra būtent tokie, kokių tikėjomės, tačiau iš šio grafiko negalime užtikrinti, kad simuliacijoje išvis kažkas vyksta. Norint patikrinti, ar medžiagos difunduoja korektiškai galime pabandyti pavaizduoti medžiagų kiekį visoje srityje $\Omega$ kaip rezultatų pavyzdyje \eqref{fig:ftcs-result-T-1000}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{images/all-only-diff-1.png} \\
+\includegraphics[width=\textwidth]{images/all-only-diff-2.png}
+
+\caption{Kompiuterinio modelio rezultatai - medžiagų koncentracijų pasiskirstymas per laiką, kai vyksta tik difuzija. Čia diskrečių laiko žingsnių skaičius $\tau=10^4$, o reakcijos greitis $k = 0$. }
+
+\label{only-diffusion}
+\end{figure}
+
+\ref{only-diffusion}-ame pavyzdyje akivaizdžiai matosi, kad medžiagų difuzija vyksta įprastai. Einant laikui, medžiagos iš didesnės koncentracijos sričių juda į sritis, kur koncentracija yra mažesnė. Reakcijai einant į pabaigą matome, kad medžiagos tolygiai pasiskirsto po erdvę.
+
+
