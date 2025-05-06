@@ -20,7 +20,7 @@ class State:
   initial_quantity: np.ndarray
 
   # current quantity of each element (shape [3])
-  quantity: np.ndarray
+  current_quantity: np.ndarray
 
   # current simulation time
   time: float = 0.0

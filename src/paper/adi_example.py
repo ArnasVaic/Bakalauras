@@ -2,7 +2,7 @@
 
 import numpy as np
 from solver_utils import get_quantity_over_time, show_solution_frames, timed
-from solvers.adi.time_step_strategy import ConstantTimeStep
+from solvers.adi.time_step_strategy import ACAStep, ConstantTimeStep
 from solvers.initial_condition import initial_condition
 from solvers.adi.config import default_config
 from solvers.adi.solver import Solver
@@ -16,8 +16,8 @@ frame_strides = {
 }
 
 config = default_config(temperature=T)
-config.resolution = (80, 80)
-config.time_step_strategy = ConstantTimeStep(3.78)
+config.resolution = (40, 40)
+config.time_step_strategy = ACAStep(10, 0.1, 100, 0.031, 10)
 config.frame_stride = frame_strides[T]
 c0 = initial_condition(config)
 

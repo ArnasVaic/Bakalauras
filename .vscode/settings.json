@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
         "dxdy",
-        "FTCS"
+        "FTCS",
+        "ndarray"
     ],
     "interactiveWindow.alwaysScrollOnNewCell": false,
     "pylint.args": [

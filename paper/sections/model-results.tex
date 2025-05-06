@@ -1,24 +1,44 @@
 \section{Skaitinių modelių įgyvendinimas ir jų rezultatai}
-
-Skaitiniams modeliams įgyvendinti buvo pasirinkta \textit{Python} programavimo kalba. \textit{Python} turi didelį kiekį bibliotekų, skirtų skaitiniams skaičiavimams, tokių kaip \textit{NumPy}, \textit{SciPy}, \textit{Matplotlib}, kurios leidžia efektyviai dirbti su dideliais duomenų rinkiniais ir atlikti sudėtingus skaičiavimus.
-
-Modelio rezultatai yra saugomi kaip atskiri \textit{.npy} formato failai, kurie yra skirti saugoti \mbox{\textit{NumPy}} masyvus. Dėl praktinių rezultatų panaudojimo ir tyrimo nebūtina saugoti informacijos apie visus laiko žingsnius, todėl išsaugotuose rezultatų failuose, simuliacijos kadrai laiko kryptimi gali būti praretinti iki tūkstančio kartų, priklausomai nuo pasirinktų parametrų. Pagalbiniai duomenų vaizdavimo skriptai šiuos duomenis agreguoja į grafikus, kurie išsaugomi \textit{.png} formatu.
-
-Norint praktiškai panaudoti ADI metodą, būtina užtikrinti, kad tridiagonalinės sistemos būtų sprendžiamos efektyviai, tam buvo naudojama \textit{SciPy} funkcija \texttt{solve\_banded}
-
-\subsection*{Medžiagos kiekis}
-
+Skaitiniams modeliams įgyvendinti buvo pasirinkta \textit{Python} programavimo kalba. \textit{Python} turi didelį kiekį bibliotekų, skirtų skaitiniams skaičiavimams, tokių kaip \textit{NumPy}, \textit{SciPy}, \textit{Matplotlib}, kurios leidžia efektyviai dirbti su dideliais duomenų rinkiniais ir atlikti sudėtingus skaičiavimus. Modelio rezultatai yra saugomi kaip atskiri \textit{.npy} formato failai, kurie yra skirti saugoti \mbox{\textit{NumPy}} masyvus. Dėl praktinių rezultatų panaudojimo ir tyrimo nebūtina saugoti informacijos apie visus laiko žingsnius, todėl išsaugotuose rezultatų failuose, simuliacijos kadrai laiko kryptimi gali būti praretinti iki tūkstančio kartų, priklausomai nuo pasirinktų parametrų. Pagalbiniai duomenų vaizdavimo skriptai šiuos duomenis agreguoja į grafikus, kurie išsaugomi \textit{.png} formatu.
+\subsection{Medžiagos kiekis}
 Dėl didelės rezultatų dimensijos būtų sunku interpretuoti grafiškai pavaizduotus sprendinio duomenis, todėl tyrimui yra naudinga vaizduoti ir medžiagų kiekius sistemoje. Galime išskleisti formulę medžiagos kiekiui bendru atveju \eqref{quantity-general} ir gausime formulę diskrečiam atvejui \cite{strangCalculusVolume32016}:
 \begin{align}
-    q(t) = \int_\Omega c\,dV = \int_0^W \int_0^H c(x, y, t)\,dy\,dx
+  q(t) = \int_\Omega c\,dV = \int_0^W \int_0^H c(x, y, t)\,dy\,dx
 \end{align}
 Pakeičiam dvigubą integralą su dviguba Rymano suma ir gaunam, kad medžiagos $c_m$ kiekis diskrečiu laiko momentu $n$ yra:
 \begin{align}
-    q_{m, n}= \sum_{i=0}^{N-1}\sum_{j=0}^{M-1} c_{m, i,j}^n \frac{W\cdot H}{N\cdot M} \quad m=1, 2, 3
+  q_{m, n}= \sum_{i=0}^{N-1}\sum_{j=0}^{M-1} c_{m, i,j}^n \frac{W\cdot H}{N\cdot M} \quad m=1, 2, 3
 \end{align}
-
 Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą. Šis indikatorius žymi kaip tam tikros medžiagos kiekis sistemoje keičiasi einant laikui, pavyzdžiui - pirma ir antra medžiagos reaguoja ir sukuria trečią medžiagą todėl turėtume matyti, kad pirmos ir antros medžiagos kiekiai per laiką mažėja, o trečios medžiagos kiekis per laiką auga.
-
+\subsection{Reakcijos stabdymo sąlyga}
+Kompiuterinio modelio rezultatai rodo, kad vykstant reakcijai, reagentų kiekis erdvėje artėja prie 0, tačiau niekad jo nepasiekia. Tai būdinga ir realybėje vykstančioms reakcijoms, dėl šios priežasties kompiuterinio modelio darbą stabdysime, kai sureaguos $\eta_\text{stop}\%$ pradinių medžiagų kiekio. Matematiškai reakcijos stabdymo laiką $t_\text{stop}$ galime apibrėžti taip:
+\begin{align}
+  q(t_\text{stop})=\left(1-\frac{\eta_\text{stop}}{100}\right)q(0),\quad \eta_\text{stop}\in[0, 100)
+\end{align}
+Tolimesniems pavyzdžiams ir analizei naudosime konkrečią reikšmę $\eta_\text{stop}=97$ ir reakciją stabdysime laiku $t_\text{stop}$, kai $q(t_\text{stop})=0.03q(0)$. Toks procentas pasirinktas todėl, kad sureagavus 97\% reagentų, reakcija iš esmės yra pasibaigusi ir gautų duomenų užtenka atlikti analizei.
+\subsection{Skaitinių modelių optimizavimas}
+Skaičiavimai, kuriuos atliekame su šiais modeliais yra gana didelės apimties, todėl būtina užtikrinti šio modelio efektyvumą. Tam buvo pasitelktos kelios optimizacijos. Išreikštinio FTCS modelio implementacijoje panaudosime \textit{SciPy} paketo funkciją \texttt{convolve2d}, kuri efektyviai pritaikyti diskretų Laplaso operatorių reakcijos erdvei. ADI modelio implementacijoje pasinaudosime \textit{SciPy} paketo funkciją \texttt{solve\_banded}, kuri efektyviai sprendžia diagonalines lygčių sistemas. Taip pat taikysime kintamo laiko žingsnio strategija, kuri užtikrins stabilų sprendinį ir tikslų reakcijos pabaigos laiką. Strategijos pagrindas -- geometrinė progresija su eksperimentiniu būdu parinktais koeficientais. Strategija keis žingsnį ne kiekvieną iteraciją, o kas nustatytą kiekį iteracijų, tokiu būdu bus išvengta konstantų matricų perskaičiavimo, kurios naudojamos spręsti lygčių sistemas (\ref{eqs:adi-system-half}, \ref{eqs:adi-system-next}). Kad rezultatuose iteracijos nebūtų išsidėsčiusios per plačiais laiko žingsniais, strategijoje yra numatyta viršutinė riba, kurios laiko žingsnis negali viršyti. Taip pat, norint užtikrinti reakcijos trukmės tikslumą, strategija sumažins laiko žingsnį kai reakciją artės prie pabaigos. \ref{alg:scgq}-ame pavyzdyje pateiktas pseudo-kodas apibūdintai strategijai:
+\begin{algorithm}[h]
+  \caption{Kintamo laiko žingsnio strategija}\label{alg:scgq}
+  \begin{algorithmic}[1]
+    \STATE Įeitis: $\Delta t$ -- Naudojama laiko žingsnio reikšmė
+    \STATE Įeitis: $\Delta t_\text{min}$ -- Minimali laiko žingsnio reikšmė
+    \STATE Įeitis: $\Delta t_\text{max}$ -- Maksimali laiko žingsnio reikšmė
+    \STATE Įeitis: $n$ -- Dabartinė iteracija
+    \STATE Įeitis: $N_{\text{iter}}$ -- Skaičius iteracijų, po kurio perskaičiuojama 
+    \STATE Įeitis: $r$ -- Geometrinės progresijos santykis
+    \STATE Įeitis: $q$ -- Dabartinis pirmų dviejų medžiagų kiekis sistemoje
+    \STATE Įeitis: $q_0$ -- Pradinis pirmų dviejų medžiagų kiekis sistemoje
+    \STATE Įeitis: $\eta_\text{stop}$ -- Medžiagų kiekio santykis, kuris turi būti pasiektas, kad reakcija pasibaigtų
+    \IF{$n \equiv 0 \pmod{N_{\text{iter}}}$}
+      \STATE $\Delta t \gets \min(r\Delta t, \Delta t_\text{max})$
+    \ENDIF
+    \IF{$q / q_0 \leqslant \eta_\text{stop} + \varepsilon$}
+      \STATE $\Delta t \gets \Delta t_\text{min}$
+    \ENDIF
+  \end{algorithmic}
+\end{algorithm}
+Norint praktiškai panaudoti ADI metodą, būtina užtikrinti, kad tridiagonalinės sistemos būtų sprendžiamos efektyviai, tam buvo naudojama \textit{SciPy} funkcija \texttt{solve\_banded}
 \newpage
 \subsection{Modelių rezultatai}
 
