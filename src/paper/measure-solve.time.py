@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from solver_utils import timed
-from solvers.adi.time_step_strategy import ACAStep, SCAQStep, SCGQStep
+from solvers.adi.time_step_strategy import SCGQStep
 from solvers.initial_condition import initial_condition
 from solvers.adi.config import default_config as  default_adi_config
 from solvers.ftcs.config import default_config as default_ftcs_config

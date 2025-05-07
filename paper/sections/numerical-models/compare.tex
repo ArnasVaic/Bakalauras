@@ -16,3 +16,14 @@ Norint ištirti skirtingų metodų efektyvumą, paleisime skirtingus skaitinius 
 \end{figure}
 
 \ref{fig:adi-ftcs-solve-time-comparison}-ame pavyzdyje matome, kad pakankamai žemos rezoliucijos konfigūracijoms išreikštinis FTCS skaitinis modelis sprendinį apskaičiuoja greičiau negu ADI, tačiau konfigūracijoms, kurių rezoliucija viršija $100\times100$, sprendinį greičiau randa ADI skaitinis modelis. Vadovaudamiesi šiais rezultatais tolimesniems skaičiavimams ir maišymo modeliavimui didesnėse erdvėse galime naudoti ADI modelį.
+
+\subsection*{Skaitinio ADI sprendinio tikslumas}
+
+Nors analitinio sprendinio nagrinėjamai sistemai neturime, galime laikyti, kad pakankamai didelės rezoliucijos skaitinis ADI sprendinys artėja prie tikrojo sprendinio. Palyginsime didelio tikslumo sprendinį su keliais, mažesnės rezoliucijos sprendiniais -- tokiu būdu galėsime įvertinti kaip jautriai rezoliucija veikia galutinį reakcijos rezultatą. Vaizduosime absoliučią paklaidą tarp didesnės ($200\times200$) ir mažesnės rezoliucijos sprendinių. Šiuo atveju kokybinį poveikį rezultatui sunku įvertinti jei vaizduojame visą reakcijos erdvę ir koncentracijos pasiskirstymą joje, todėl naudosime medžiagų kiekį per laiką, kurį apibrėžėme ankstesniame skyriuje \eqref{eqs:numeric-quantity}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{images/adi/absolute-error.png}
+  \caption{Absoliuti paklaida tarp skaitinių ADI sprendinių su skirtingomis rezoliucijomis}
+  \label{fig:adi-compare-resolution}
+\end{figure}

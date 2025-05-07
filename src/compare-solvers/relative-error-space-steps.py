@@ -5,16 +5,20 @@ from matplotlib import pyplot as plt
 import numpy as np
 from solvers.initial_condition import initial_condition
 from solver_utils import validate_solution_stable, get_quantity_over_time, timed
-from solvers.adi.config import Config
+from solvers.adi.config import default_config
 from solvers.adi.solver import Solver
+from solvers.adi.time_step_strategy import SCGQStep
+
+def filepath(r: int, attribute: str):
+  return f'compare-solvers/assets/adi-{r}x{r}-{attribute}.npy'
 
 
 # %% Cache results for given parameters
 
 RESOLUTION = 120
 
-config = Config()
-config.dt = 1
+config = default_config()
+config.time_step_strategy = SCGQStep(100, 0.1, 2, 60, 0.0305, 5)
 config.frame_stride = 50
 config.resolution = (RESOLUTION, RESOLUTION)
 solver = Solver(config)
@@ -22,7 +26,7 @@ solver = Solver(config)
 c0 = initial_condition(config)
 
 with timed(f"ADI Solve time {config.resolution}") as elapsed:
-  t, c = solver.solve(c0, capture_frame)
+  t, c = solver.solve(c0, lambda f: f.copy())
 q = get_quantity_over_time(config, c)
 validate_solution_stable(config, c)
 
@@ -100,10 +104,11 @@ for index, resolution in enumerate(RESOLUTIONS):
     label=f'{resolution}x{resolution}'
   )
 
-plt.title(f'Absolute error between ADI solutions of different resolutions ($c_{ELEMENT + 1}$)')
-plt.xlabel('t [h]')
-plt.ylabel(f'difference in quantity [g]')
+# plt.title(f'Absolute error between ADI solutions of different resolutions ($c_{ELEMENT + 1}$)')
+plt.xlabel('laikas [val]')
+plt.ylabel(f'medžiagos kiekio skirtumas [g]')
 plt.legend()
+plt.savefig('../paper/images/adi/absolute-error.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 # %% L norms

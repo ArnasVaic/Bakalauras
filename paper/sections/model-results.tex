@@ -6,7 +6,7 @@ Dėl didelės rezultatų dimensijos būtų sunku interpretuoti grafiškai pavaiz
   q(t) = \int_\Omega c\,dV = \int_0^W \int_0^H c(x, y, t)\,dy\,dx
 \end{align}
 Pakeičiam dvigubą integralą su dviguba Rymano suma ir gaunam, kad medžiagos $c_m$ kiekis diskrečiu laiko momentu $n$ yra:
-\begin{align}
+\begin{align}\label{eqs:numeric-quantity}
   q_{m, n}= \sum_{i=0}^{N-1}\sum_{j=0}^{M-1} c_{m, i,j}^n \frac{W\cdot H}{N\cdot M} \quad m=1, 2, 3
 \end{align}
 Toliau nagrinėdami kompiuterinio modelio rezultatus naudosime šį žymėjimą. Šis indikatorius žymi kaip tam tikros medžiagos kiekis sistemoje keičiasi einant laikui, pavyzdžiui - pirma ir antra medžiagos reaguoja ir sukuria trečią medžiagą todėl turėtume matyti, kad pirmos ir antros medžiagos kiekiai per laiką mažėja, o trečios medžiagos kiekis per laiką auga.
@@ -17,7 +17,7 @@ Kompiuterinio modelio rezultatai rodo, kad vykstant reakcijai, reagentų kiekis 
 \end{align}
 Tolimesniems pavyzdžiams ir analizei naudosime konkrečią reikšmę $\eta_\text{stop}=97$ ir reakciją stabdysime laiku $t_\text{stop}$, kai $q(t_\text{stop})=0.03q(0)$. Toks procentas pasirinktas todėl, kad sureagavus 97\% reagentų, reakcija iš esmės yra pasibaigusi ir gautų duomenų užtenka atlikti analizei.
 \subsection{Skaitinių modelių optimizavimas}
-Skaičiavimai, kuriuos atliekame su šiais modeliais yra gana didelės apimties, todėl būtina užtikrinti šio modelio efektyvumą. Tam buvo pasitelktos kelios optimizacijos. Išreikštinio FTCS modelio implementacijoje panaudosime \textit{SciPy} paketo funkciją \texttt{convolve2d}, kuri efektyviai pritaikyti diskretų Laplaso operatorių reakcijos erdvei. ADI modelio implementacijoje pasinaudosime \textit{SciPy} paketo funkciją \texttt{solve\_banded}, kuri efektyviai sprendžia diagonalines lygčių sistemas. Taip pat taikysime kintamo laiko žingsnio strategija, kuri užtikrins stabilų sprendinį ir tikslų reakcijos pabaigos laiką. Strategijos pagrindas -- geometrinė progresija su eksperimentiniu būdu parinktais koeficientais. Strategija keis žingsnį ne kiekvieną iteraciją, o kas nustatytą kiekį iteracijų, tokiu būdu bus išvengta konstantų matricų perskaičiavimo, kurios naudojamos spręsti lygčių sistemas (\ref{eqs:adi-system-half}, \ref{eqs:adi-system-next}). Kad rezultatuose iteracijos nebūtų išsidėsčiusios per plačiais laiko žingsniais, strategijoje yra numatyta viršutinė riba, kurios laiko žingsnis negali viršyti. Taip pat, norint užtikrinti reakcijos trukmės tikslumą, strategija sumažins laiko žingsnį kai reakciją artės prie pabaigos. \ref{alg:scgq}-ame pavyzdyje pateiktas pseudo-kodas apibūdintai strategijai:
+Skaičiavimai, kuriuos atliekame su šiais modeliais yra gana didelės apimties, todėl būtina užtikrinti šio modelio efektyvumą. Tam buvo pasitelktos kelios optimizacijos. Išreikštinio FTCS modelio implementacijoje panaudosime \textit{SciPy} paketo funkciją \texttt{convolve2d}, kuri efektyviai pritaikyti diskretų Laplaso operatorių reakcijos erdvei. ADI modelio implementacijoje pasinaudosime \textit{SciPy} paketo funkciją \texttt{solve\_banded}, kuri efektyviai sprendžia diagonalines lygčių sistemas. Taip pat taikysime kintamo laiko žingsnio strategija, kuri užtikrins stabilų sprendinį ir tikslų reakcijos pabaigos laiką. Strategijos pagrindas -- geometrinė progresija su eksperimentiniu būdu parinktais koeficientais. Strategija keis žingsnį ne kiekvieną iteraciją, o kas nustatytą kiekį iteracijų, tokiu būdu bus išvengta konstantų matricų perskaičiavimo, kurios naudojamos spręsti lygčių sistemas (\ref{eqs:adi-system-half}, \ref{eqs:adi-system-next}). Kad rezultatuose iteracijos nebūtų išsidėsčiusios per plačiais laiko žingsniais, strategijoje yra numatyta viršutinė riba, kurios laiko žingsnis negali viršyti. Taip pat, norint užtikrinti reakcijos trukmės tikslumą, strategija sumažins laiko žingsnį kai reakciją artės prie pabaigos. \ref{alg:scgq} aprašo pseudo-kodą apibūdintai strategijai:
 \begin{algorithm}[h]
   \caption{Kintamo laiko žingsnio strategija}\label{alg:scgq}
   \begin{algorithmic}[1]
@@ -38,7 +38,7 @@ Skaičiavimai, kuriuos atliekame su šiais modeliais yra gana didelės apimties,
     \ENDIF
   \end{algorithmic}
 \end{algorithm}
-Norint praktiškai panaudoti ADI metodą, būtina užtikrinti, kad tridiagonalinės sistemos būtų sprendžiamos efektyviai, tam buvo naudojama \textit{SciPy} funkcija \texttt{solve\_banded}
+
 \newpage
 \subsection{Modelių rezultatai}
 
