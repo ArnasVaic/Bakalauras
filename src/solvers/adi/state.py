@@ -22,6 +22,9 @@ class State:
   # current quantity of each element (shape [3])
   current_quantity: np.ndarray
 
+  # Time steps immediately after which mixing took place
+  mixing_steps: list[int]
+
   # current simulation time
   time: float = 0.0
 
@@ -34,3 +37,4 @@ class State:
     self.previous = np.copy(initial)
     self.initial_quantity = frame_quantity(initial)
     self.current_quantity = frame_quantity(initial)
+    self.mixing_steps = []

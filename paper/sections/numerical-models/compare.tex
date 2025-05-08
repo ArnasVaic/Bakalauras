@@ -19,11 +19,15 @@ Norint ištirti skirtingų metodų efektyvumą, paleisime skirtingus skaitinius 
 
 \subsection*{Skaitinio ADI sprendinio tikslumas}
 
-Nors analitinio sprendinio nagrinėjamai sistemai neturime, galime laikyti, kad pakankamai didelės rezoliucijos skaitinis ADI sprendinys artėja prie tikrojo sprendinio. Palyginsime didelio tikslumo sprendinį su keliais, mažesnės rezoliucijos sprendiniais -- tokiu būdu galėsime įvertinti kaip jautriai rezoliucija veikia galutinį reakcijos rezultatą. Vaizduosime absoliučią paklaidą tarp didesnės ($200\times200$) ir mažesnės rezoliucijos sprendinių. Šiuo atveju kokybinį poveikį rezultatui sunku įvertinti jei vaizduojame visą reakcijos erdvę ir koncentracijos pasiskirstymą joje, todėl naudosime medžiagų kiekį per laiką, kurį apibrėžėme ankstesniame skyriuje \eqref{eqs:numeric-quantity}.
+Nors analitinio sprendinio nagrinėjamai sistemai neturime, galime laikyti, kad pakankamai didelės rezoliucijos skaitinis ADI sprendinys artėja prie tikrojo sprendinio. Palyginsime didelio tikslumo sprendinį su keliais, mažesnės rezoliucijos sprendiniais -- tokiu būdu galėsime įvertinti kaip jautriai rezoliucija veikia galutinį reakcijos rezultatą. Vaizduosime absoliučią paklaidą tarp didesnės ($200\times200$) ir mažesnės rezoliucijos sprendinių. Šiuo atveju kokybinį poveikį rezultatui sunku įvertinti jei vaizduojame visą reakcijos erdvę ir koncentracijos pasiskirstymą joje, todėl vaizduosime medžiagų kiekį per laiką, kurį apibrėžėme ankstesniame skyriuje \eqref{eqs:numeric-quantity}.
+
+\newpage
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.5\textwidth]{images/adi/absolute-error.png}
+  \includegraphics[width=\textwidth]{images/adi/absolute-error-multi.png}
   \caption{Absoliuti paklaida tarp skaitinių ADI sprendinių su skirtingomis rezoliucijomis}
-  \label{fig:adi-compare-resolution}
+  \label{fig:adi-numerical-solution-absolute-error}
 \end{figure}
+
+\ref{fig:adi-numerical-solution-absolute-error} paveiksle matome, kad didžiausias medžiagų kiekių skirtumas pasireiškia reakcijos pradžioje. Taip nutinka todėl, kad tuo metu sistemoje yra daugiausia pradinių medžiagų, o reakcijos greitis yra tiesiogiai proporcingas jų koncentracijai. Reakcijos metu modelis yra ypač jautrus pokyčiams, ką galime pastebėti, lygindami skaitinius sprendinius, gautus naudojant skirtingas reakcijos erdvės rezoliucijas. Vis dėlto, iš rezultatų matyti, kad skirtumas tarp skaitinių sprendinių yra $-8$ eilės ar mažesnis, o reakcijai einant į pabaigą — pradeda asimptotiškai mažėti. Iš pradinių sąlygų žinome, jog pradinių medžiagų koncentracijos reikšmė yra $-6$ eilės, todėl galima teigti, kad net ir naudojant palyginti mažą reakcijos erdvės rezoliuciją ($40\times40$), sprendinio tikslumas išlieka pakankamai didelis, o gauti rezultatai -- reikšmingi.

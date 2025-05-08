@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Literal
 import numpy as np
 from solvers.adi.time_step_strategy import ConstantTimeStep, TimeStepStrategy
 from solvers.mixer import Mixer, SubdivisionMixer
@@ -113,7 +114,11 @@ def default_config(temperature: int = 1000) -> Config:
 
   return config
 
-def large_config(order: int) -> Config:
+def large_config(
+  order: int,
+  temperature: Literal[1000, 1200, 1600],
+  mix_mode: Literal['perfect', 'random'],
+  mix_times: list[float]) -> Config:
   """Create a configuration for a larger space. 
   Do not change configuration that has been created
   with this method, it could lead to unexpected results. 
@@ -124,10 +129,10 @@ def large_config(order: int) -> Config:
   # Resolution multiplier
   res_mul = 2 ** order
 
-  config = Config() # construct default config object
+  config = default_config(temperature) # construct default config object
   config._order = (order, order)
   config.size = (config.size[0] * res_mul, config.size[1] * res_mul)
   config.resolution = (config.resolution[0] * res_mul, config.resolution[1] * res_mul)
-  config.mixer = SubdivisionMixer((2 * res_mul, 2 * res_mul), 'perfect', [])
+  config.mixer = SubdivisionMixer(mix_times, (2 * res_mul, 2 * res_mul), mix_mode)
 
   return config

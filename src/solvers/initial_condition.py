@@ -37,12 +37,12 @@ def initial_condition(config: Config) -> np.ndarray[np.float64]:
   c3 = np.zeros(config.resolution)
 
   if shift_x:
-    c1 = np.roll(c1, square_w / 2, 0)
-    c2 = np.roll(c2, square_w / 2, 0)
+    c1 = np.roll(c1, int(square_w / 2), 0)
+    c2 = np.roll(c2, int(square_w / 2), 0)
 
   if shift_y:
-    c2 = np.roll(c2, square_h / 2, 1)
-    c1 = np.roll(c1, square_h / 2, 1)
+    c2 = np.roll(c2, int(square_h / 2), 1)
+    c1 = np.roll(c1, int(square_h / 2), 1)
 
   return np.array([c1, c2, c3])
 

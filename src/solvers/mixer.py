@@ -1,10 +1,14 @@
 from abc import abstractmethod
 from dataclasses import dataclass, field
+from typing import Literal
 import numpy as np
 
+from solvers.adi.state import State
+
 class Mixer:
+
   @abstractmethod
-  def should_mix(self, time_step: int, dt: float) -> bool:
+  def should_mix(self, state: State, current_dt: float) -> bool:
     pass
 
   @abstractmethod
@@ -14,24 +18,23 @@ class Mixer:
 @dataclass
 class SubdivisionMixer:
 
-  # Mixing will be performed on a discrete grid of 
-  # blocks by swapping them. Grid shape is the resolution.
-  resolution: tuple[int, int] = (2, 2)
-
-  # Mixing mode.
-  # Supported values: 'random', 'perfect'
-  mode: str = 'random'
-
   # Moments in time when (not time steps)
   # when the reaction space is going to be mixed.
-  mix_times: np.ndarray[float] = field(default_factory=lambda: np.array([]))
+  mix_times: np.ndarray[float]
 
-  def should_mix(self, time_step: int, dt: float) -> bool:
-    # true if any discrete time points are less 
+  # Mixing will be performed on a discrete grid of 
+  # blocks by swapping them. Grid shape is the resolution.
+  resolution: tuple[int, int]
+
+  # Mixing mode.
+  mode: Literal['random', 'perfect']
+
+  def should_mix(self, state: State, current_dt: float) -> bool:
+    # true if any discrete time points are less
     # than a half time step away from point of mixing.
 
     self.mix_times = np.array(self.mix_times)
-    return np.any(abs(time_step * dt - self.mix_times) <= dt / 2)
+    return np.any(abs(state.time - self.mix_times) <= current_dt / 2)
 
   def mix(self, c: np.ndarray[np.float64]) -> np.ndarray[np.float64]:
     """Creates a new state by mixing given state c."""
@@ -40,7 +43,7 @@ class SubdivisionMixer:
     elif self.mode == 'perfect':
       c_mixed = self.perfect_mix(c)
     else:
-      raise Exception("mix mode not supported")
+      raise Exception(f"mix mode {self.mode} not supported")
     return c_mixed
   
   def random_mix(self, c: np.ndarray[np.float64]) -> np.ndarray[float]:

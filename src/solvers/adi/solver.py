@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from logging import Logger
 import logging
+import datetime
 import sys
 from typing import Callable
 import numpy as np
@@ -57,7 +58,7 @@ class Solver:
   def solve_line(self, y: int, m: int, ny: int, mu_y: float, mu_m: float, h: np.ndarray, c: np.ndarray) -> None:
     yt, yb = min(y + 1, ny - 1), max(y - 1, 0)
     h[m, :, y] = la.solve_banded((1, 1), self.ax_banded[m],
-      (1 - 2 * mu_y) * c[m, :, y] 
+      (1 - 2 * mu_y) * c[m, :, y]
       + mu_y * (c[m, :, yb] + c[m, :, yt])
       + mu_m * c[0, :, y] * c[1, :, y]
     )
@@ -115,7 +116,8 @@ class Solver:
 
     while True:
 
-      # self.validation(state)
+      self.mix(state, capture, captured_result, captured_times)
+
       self.check_and_recalculate_matrices()
       self.solve_step(state)
       self.log_periodic_info(state)
@@ -131,6 +133,19 @@ class Solver:
         captured_times.append(state.time)
         break
     return np.array(captured_times), np.array(captured_result)
+
+  def mix(self, state: State, capture: Callable, captured_result: np.ndarray, captured_times: np.ndarray) -> None:
+    mixer = self.config.mixer
+    dt = self.config.time_step_strategy.dt
+    if not mixer.should_mix(state, dt):
+      return
+
+    self.logger.info(f'mixing, step = {state.time_step} (index in result: {len(captured_result)}), time = {state.time}')
+    state.current = mixer.mix(state.current)
+    state.mixing_steps.append(state.time_step)
+    # capture state just after mixing
+    captured_result.append(capture(state.current))
+    captured_times.append(state.time)
 
   def initialize_banded(self, dt: float) -> None:
     dx, dy = self.config.dx, self.config.dy
@@ -183,4 +198,5 @@ class Solver:
       q, q0 = state.current_quantity, state.initial_quantity
       r = 100 * (q[0] + q[1]) / (q0[0] + q0[1])
       r1, r2 = 100 * q[0]/q0[0], 100 * q[1]/q0[1]
-      self.logger.info(f'step: {step}, dt: {dt} r: {r:.02f}, r1: {r1:.02f}, r2 {r2:.02f}')
+      time = str(datetime.timedelta(seconds=int(state.time)))
+      self.logger.info(f't: {time}, step: {step}, dt: {dt} r: {r:.02f}, r1: {r1:.02f}, r2 {r2:.02f}')

@@ -60,7 +60,7 @@ class SCAQStep(TimeStepStrategy):
     if q / q0 <= self._threshold:
       self._dt = self._low
 
-# Stepwise Clamped Geometric Time Step with Quantity Detection
+# Stepwise Clamped Geometric Time Step with Quantity detection
 # SCGQ 
 class SCGQStep(TimeStepStrategy):
   """Clamped arithmetic progression time step with stepwise increase and quantity level detection."""
@@ -87,6 +87,45 @@ class SCGQStep(TimeStepStrategy):
     # only update dt every steps_until_change steps
     if state.time_step % self._steps_until_change == 0:
       self._dt = min(self._dt * self._r, self._upper)
+
+    # always check quantity level despite the step skip
+    q = state.current_quantity[0] + state.current_quantity[1]
+    q0 = state.initial_quantity[0] + state.initial_quantity[1]
+    if q / q0 <= self._threshold:
+      self._dt = self._low
+
+# Stepwise Clamped Geometric Time Step with Quantity and Mixing detection
+# SCGQM
+class SCGQMStep(TimeStepStrategy):
+  """Clamped geometric progression time step with stepwise increase, quantity detection and mixing time reset."""
+  def __init__(
+    self,
+    steps_until_change: int,
+    a1: float,
+    r: float,
+    upper: float,
+    threshold: float,
+    low: float = 1.0):
+    self._steps_until_change = steps_until_change
+    self._a1 = a1
+    self._dt = a1
+    self._r = r
+    self._upper = upper
+    self._threshold = threshold
+    self._low = low
+
+  @property
+  def dt(self) -> float:
+    return self._dt
+
+  def update_dt(self, state: State) -> None:
+    # only update dt every steps_until_change steps
+    if state.time_step % self._steps_until_change == 0:
+      self._dt = min(self._dt * self._r, self._upper)
+
+    # after mixing reset the time step
+    if state.time_step - 1 in state.mixing_steps:
+      self._dt = self._a1
 
     # always check quantity level despite the step skip
     q = state.current_quantity[0] + state.current_quantity[1]

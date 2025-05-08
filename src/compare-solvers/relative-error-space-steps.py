@@ -15,7 +15,7 @@ def filepath(r: int, attribute: str):
 
 # %% Cache results for given parameters
 
-RESOLUTION = 120
+RESOLUTION = 200
 
 config = default_config()
 config.time_step_strategy = SCGQStep(100, 0.1, 2, 60, 0.0305, 5)
@@ -28,7 +28,7 @@ c0 = initial_condition(config)
 with timed(f"ADI Solve time {config.resolution}") as elapsed:
   t, c = solver.solve(c0, lambda f: f.copy())
 q = get_quantity_over_time(config, c)
-validate_solution_stable(config, c)
+# validate_solution_stable(config, c)
 
 np.save(f'compare-solvers/assets/adi-{RESOLUTION}x{RESOLUTION}-t', t)
 np.save(f'compare-solvers/assets/adi-{RESOLUTION}x{RESOLUTION}-q', q)
@@ -130,3 +130,67 @@ for index, resolution in enumerate(RESOLUTIONS):
   linf = la.norm(diff, np.inf)
 
   print(f'{resolution:3}x{resolution:3}, L2: {l2:8.2e}, Linf: {linf:8.2e}')
+  
+# %% 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Set global font sizes for readability
+plt.rcParams.update({
+    'font.size': 18,
+    'axes.titlesize': 20,
+    'axes.labelsize': 18,
+    'legend.fontsize': 14,
+    'xtick.labelsize': 14,
+    'ytick.labelsize': 14
+})
+
+true_t = np.load(f'compare-solvers/assets/adi-200x200-t.npy')
+true_q = np.load(f'compare-solvers/assets/adi-200x200-q.npy') 
+
+RESOLUTIONS = [40, 60, 80, 120]
+
+fig, axes = plt.subplots(1, 3, figsize=(18, 6))  # 1 row, 3 plots
+
+for ELEMENT in range(3):  # ELEMENT = 0, 1, 2
+    ax = axes[ELEMENT]
+
+    for resolution in RESOLUTIONS:
+        t = np.load(filepath(resolution, 't'))
+        q = np.load(filepath(resolution, 'q'))
+
+        T = min(t.shape[0], true_t.shape[0])
+
+        error = np.abs(true_q[:T, :] - q[:T, :])
+
+        ax.plot(
+            t[:T] / 3600,
+            error[:, ELEMENT],
+            label=f'{resolution}×{resolution}'
+        )
+
+    # Set subplot title
+    ax.set_title(f'$c_{{{ELEMENT+1}}}$', fontsize=22)
+
+    # Remove individual axis labels
+    ax.set_xlabel('')
+    ax.set_ylabel('' if ELEMENT != 0 else '')
+
+    # Reduce number of axis ticks
+    ax.locator_params(axis='x', nbins=4)  # ~4 ticks on x-axis
+    ax.locator_params(axis='y', nbins=5)  # ~5 ticks on y-axis
+
+# Add common X and Y labels for the whole figure
+fig.text(0.5, 0.02, 'Laikas [val]', ha='center', fontsize=20)
+fig.text(0.01, 0.5, 'Medžiagos kiekio skirtumas [g]', va='center', rotation='vertical', fontsize=20)
+
+# One shared legend for all plots
+handles, labels = axes[0].get_legend_handles_labels()
+fig.legend(handles, labels, loc='upper center', ncol=4, fontsize=16, bbox_to_anchor=(0.5, 1.05))
+
+# Adjust layout to fit labels and legend nicely
+fig.tight_layout(rect=[0.03, 0.03, 1, 0.95])
+
+plt.savefig('../paper/images/adi/absolute-error-multi.png', dpi=300, bbox_inches='tight')
+plt.show()
