@@ -98,11 +98,12 @@ points = [ r * r for r in RESOLUTIONS ]
 adi_solve_ts = np.load(ADI_FILE_PATH) / 60
 ftcs_solve_ts = np.load(FTCS_FILE_PATH) / 60
 
-plt.plot(points, adi_solve_ts)
-plt.plot(points, ftcs_solve_ts)
+plt.plot(points, adi_solve_ts, label='ADI')
+plt.plot(points, ftcs_solve_ts, label='FTCS')
 
 plt.xlabel(f'Diskrečių taškų skaičius [vnt]', fontsize=14)
 plt.ylabel(f'Skaičiavimo laikas [min]', fontsize=14)
+plt.legend(fontsize=14)
 
 plt.savefig('../paper/images/ftcs-adi-perf.png', dpi=300, bbox_inches='tight')
 plt.show()
