@@ -17,7 +17,7 @@ Kompiuterinio modelio rezultatai rodo, kad vykstant reakcijai, reagentų kiekis 
 \end{align}
 Tolimesniems pavyzdžiams ir analizei naudosime konkrečią reikšmę $\eta_\text{stop}=97$ ir reakciją stabdysime laiku $t_\text{stop}$, kai $q(t_\text{stop})=0.03q(0)$. Toks procentas pasirinktas todėl, kad sureagavus 97\% reagentų, reakcija iš esmės yra pasibaigusi ir gautų duomenų užtenka atlikti analizei.
 \subsection{Skaitinių modelių optimizavimas}
-Skaičiavimai, kuriuos atliekame su šiais modeliais yra gana didelės apimties, todėl būtina užtikrinti šio modelio efektyvumą. Tam buvo pasitelktos kelios optimizacijos. Išreikštinio FTCS modelio implementacijoje panaudosime \textit{SciPy} paketo funkciją \texttt{convolve2d}, kuri efektyviai pritaikyti diskretų Laplaso operatorių reakcijos erdvei. ADI modelio implementacijoje pasinaudosime \textit{SciPy} paketo funkciją \texttt{solve\_banded}, kuri efektyviai sprendžia diagonalines lygčių sistemas. Taip pat taikysime kintamo laiko žingsnio strategija, kuri užtikrins stabilų sprendinį ir tikslų reakcijos pabaigos laiką. Strategijos pagrindas -- geometrinė progresija su eksperimentiniu būdu parinktais koeficientais. Strategija keis žingsnį ne kiekvieną iteraciją, o kas nustatytą kiekį iteracijų, tokiu būdu bus išvengta konstantų matricų perskaičiavimo, kurios naudojamos spręsti lygčių sistemas (\ref{eqs:adi-system-half}, \ref{eqs:adi-system-next}). Kad rezultatuose iteracijos nebūtų išsidėsčiusios per plačiais laiko žingsniais, strategijoje yra numatyta viršutinė riba, kurios laiko žingsnis negali viršyti. Taip pat, norint užtikrinti reakcijos trukmės tikslumą, strategija sumažins laiko žingsnį kai reakciją artės prie pabaigos. \ref{alg:scgq} aprašo pseudo-kodą apibūdintai strategijai:
+Skaičiavimai, kuriuos atliekame su šiais modeliais yra gana didelės apimties, todėl būtina užtikrinti šio modelio efektyvumą. Tam buvo pasitelktos kelios optimizacijos. Išreikštinio FTCS modelio implementacijoje panaudosime \textit{SciPy} paketo funkciją \texttt{convolve2d}, kuri efektyviai pritaikyti diskretų Laplaso operatorių reakcijos erdvei. ADI modelio implementacijoje pasinaudosime \textit{SciPy} paketo funkciją \texttt{solve\_banded}, kuri efektyviai sprendžia diagonalines lygčių sistemas. Taip pat taikysime kintamo laiko žingsnio strategija, kuri užtikrins stabilų sprendinį ir tikslų reakcijos pabaigos laiką. Strategijos pagrindas -- geometrinė progresija su eksperimentiniu būdu parinktais koeficientais. Strategija keis žingsnį ne kiekvieną iteraciją, o kas nustatytą kiekį iteracijų, tokiu būdu bus išvengta konstantų matricų perskaičiavimo, kurios naudojamos spręsti lygčių sistemas (\ref{eqs:adi-system-half}, \ref{eqs:adi-system-next}). Kad rezultatuose iteracijos nebūtų išsidėsčiusios per plačiais laiko žingsniais, strategijoje yra numatyta viršutinė riba, kurios laiko žingsnis negali viršyti. Norint užtikrinti reakcijos trukmės tikslumą, strategija sumažins laiko žingsnį kai reakciją artės prie pabaigos. Strategijoje taip pat svarbu atsižvelgti į medžiagų išmaišymą -- įvykus maišymo procesui koncentracijų kontrastas reakcijos erdvėje gali pasikeisti nenuspėjamai, todėl iškart po maišymo iš naujo nustatysime laiko žingsnio reikšmę į pirmąjį geometrinės progresijos narį. \ref{alg:scgq} aprašo pseudo-kodą apibūdintai strategijai, o kaip ši strategija atrodo praktikoje matoma \ref{fig:time-step-strategy-visual}-ame pavyzdyje.
 \begin{algorithm}[h]
   \caption{Kintamo laiko žingsnio strategija}\label{alg:scgq}
   \begin{algorithmic}[1]
@@ -25,19 +25,32 @@ Skaičiavimai, kuriuos atliekame su šiais modeliais yra gana didelės apimties,
     \STATE Įeitis: $\Delta t_\text{min}$ -- Minimali laiko žingsnio reikšmė
     \STATE Įeitis: $\Delta t_\text{max}$ -- Maksimali laiko žingsnio reikšmė
     \STATE Įeitis: $n$ -- Dabartinė iteracija
-    \STATE Įeitis: $N_{\text{iter}}$ -- Skaičius iteracijų, po kurio perskaičiuojama 
+    \STATE Įeitis: $N_{\text{iter}}$ -- Skaičius iteracijų, po kurio perskaičiuojama
+    \STATE Įeitis: \texttt{mixed} -- Boolean tipo reikšmė nusakanti ar reakcijos erdvė buvo išmaišyta nuo praeito karto, kada šis metodas buvo iškviestas
+    \STATE Įeitis: $a_1$ -- Geometrinės progresijos pradinė reikšmė
     \STATE Įeitis: $r$ -- Geometrinės progresijos santykis
     \STATE Įeitis: $q$ -- Dabartinis pirmų dviejų medžiagų kiekis sistemoje
     \STATE Įeitis: $q_0$ -- Pradinis pirmų dviejų medžiagų kiekis sistemoje
-    \STATE Įeitis: $\eta_\text{stop}$ -- Medžiagų kiekio santykis, kuris turi būti pasiektas, kad reakcija pasibaigtų
+    \STATE Įeitis: $\eta_\text{stop}$ -- Procentinis kiekis pirmų dviejų medžiagų, kuris turi sureaguoti, kad laikytume reakciją pasibaigusia
     \IF{$n \equiv 0 \pmod{N_{\text{iter}}}$}
       \STATE $\Delta t \gets \min(r\Delta t, \Delta t_\text{max})$
     \ENDIF
-    \IF{$q / q_0 \leqslant \eta_\text{stop} + \varepsilon$}
+    \IF{\texttt{mixed}}
+      \STATE $\Delta t \gets a_1$
+    \ENDIF
+    \IF{$q / q_0 \leqslant \left(1 - \frac{\eta_\text{stop}}{100}\right) + \varepsilon$}
       \STATE $\Delta t \gets \Delta t_\text{min}$
     \ENDIF
   \end{algorithmic}
 \end{algorithm}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/timestep/strategy-no-mix.png}
+  \caption{Kintamo laiko žingsnio strategija pritaikyta skaičiavime. Strategijos parametrai: $a_1=0.1\text{s}, r=2, N_\text{iter}=100,\Delta t_\text{max}=60\text{s}, \eta_\text{stop}=97, \Delta t_\text{min}=5\text{s}, \varepsilon=10^{-4}$}
+  \label{fig:time-step-strategy-visual}
+  % 100, 0.1, 2, 60, 0.0301, 5
+\end{figure}
 
 \newpage
 \subsection{Modelių rezultatai}

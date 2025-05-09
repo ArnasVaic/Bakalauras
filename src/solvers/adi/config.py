@@ -107,18 +107,24 @@ def default_config(temperature: int = 1000) -> Config:
     dt = None,
     stopper = ThresholdStopper(0.03),
     frame_stride = 1,
-    mixer = SubdivisionMixer((2, 2), 'perfect', []),
+    mixer = SubdivisionMixer([], (2, 2), 'perfect'),
     time_step_strategy = ConstantTimeStep(25.0),
     alpha = np.array([-3, -5, 2])
   )
 
   return config
 
+@dataclass
+class MixConfig:
+  """Mixing configuration"""
+  mode: Literal['perfect', 'random']
+
+  moments: list[float]
+
 def large_config(
   order: int,
   temperature: Literal[1000, 1200, 1600],
-  mix_mode: Literal['perfect', 'random'],
-  mix_times: list[float]) -> Config:
+  mix_config: MixConfig | None = None) -> Config:
   """Create a configuration for a larger space. 
   Do not change configuration that has been created
   with this method, it could lead to unexpected results. 
@@ -133,6 +139,12 @@ def large_config(
   config._order = (order, order)
   config.size = (config.size[0] * res_mul, config.size[1] * res_mul)
   config.resolution = (config.resolution[0] * res_mul, config.resolution[1] * res_mul)
-  config.mixer = SubdivisionMixer(mix_times, (2 * res_mul, 2 * res_mul), mix_mode)
+
+  if mix_config is not None:
+    config.mixer = SubdivisionMixer(
+      mix_config.moments,
+      (2 * res_mul, 2 * res_mul),
+      mix_config.mode
+    )
 
   return config

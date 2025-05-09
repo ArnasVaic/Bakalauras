@@ -8,6 +8,9 @@ from solvers.ftcs.config import Config
 from solvers.ftcs.solver import Solver
 from solvers.initial_condition import initial_condition
 
+def pretty_time(seconds: float) -> str:
+  return str(datetime.timedelta(seconds=int(seconds)))
+
 def reaction_end_time(config: Config, t: float) -> float:
   config.mixer.mix_times = [ t ]
   solver = Solver(config)
@@ -73,6 +76,7 @@ def show_solution_frames(
 
     time = str(datetime.timedelta(seconds=int(t[frame])))
 
+    print(t[frame])
     ax.set_title(f'$t=$ {time}', fontsize=18)
     im = ax.imshow(
       solution[frame, element, :, :],
