@@ -129,18 +129,18 @@ Maišymas praktikoje yra chaotiškas procesas, todėl sudarydami kompiuterinį m
         \includegraphics[width=\textwidth]{images/rnd-mix-right-c2-1.png}
     \end{minipage}
 
-    \caption{Kompiuterinio modelio rezultatai - medžiagų koncentracijos per laiką, kai vyksta išmaišymas. Išmaišymo laikas $t^1_\text{mix} = 1h\,30min$ }
+    \caption{Atsitiktinis maišymo modelis pritaikytas skaitiniame modelyje. Maišymo laikas $t^1_\text{mix} = 1\text{h}\,30\text{min}$ }
 
-    \label{mix-example}
+    \label{fig:random-mix-example}
 
 \end{figure}
 
-\ref{mix-example}-ame pavyzdyje matome kaip atrodo reakcijos eiga, kada vyksta išmaišymas. Trečiame stulpelyje ir ypatingai trečios medžiagos koncentracijoje matome ryškių artefaktų. Taip yra todėl, kad nuo išmaišymo praejo labai mažai laiko ir medžiagos nespėjo sureaguoti naujoje aplinkoje. Tarp laiko momentų $t=1h\,30min$ ir $t=5h\,59min$ trečios medžiagos $c_3$ koncentracija daugiausiai keitėsi tose vietose, kuriose iš pradžių vyko reakcija, tačiau galime matyti ir visiškai naujos sienelės susidaryma ties srities viduriu. Norint geriau suprasti kokį poveikį toks išmaišymas turi reakcijos pabaigos lakui reikėtų ištirti trečios medžiagos koncentracijos priklausomybę nuo laiko.
+\ref{fig:random-mix-example}-ame pavyzdyje matome kaip atrodo reakcijos eiga, kada vyksta išmaišymas. Trečiame stulpelyje ir ypatingai trečios medžiagos koncentracijoje matome ryškių artefaktų. Taip yra todėl, kad nuo išmaišymo praejo labai mažai laiko ir medžiagos nespėjo sureaguoti naujoje aplinkoje. Tarp laiko momentų $t=1h\,30min$ ir $t=5h\,59min$ trečios medžiagos $c_3$ koncentracija daugiausiai keitėsi tose vietose, kuriose iš pradžių vyko reakcija, tačiau galime matyti ir visiškai naujos sienelės susidaryma ties srities viduriu. Norint geriau suprasti kokį poveikį toks išmaišymas turi reakcijos pabaigos lakui reikėtų ištirti trečios medžiagos koncentracijos priklausomybę nuo laiko.
 
 \newpage
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/bad-mix-qnt-1.png}
+    \includegraphics[width=0.45\textwidth]{images/bad-mix-qnt-1.png}
     \caption{Kompiuterinio modelio rezultatų palyginimas, kai išmaišymas vyksta ir nevyksta.  }
     \label{bad-mix-qnt-example}
 \end{figure}
@@ -190,9 +190,23 @@ Kad išspręstume atsitiktinio maišymo problemą, modeliuosime tobulą teorinį
 \end{figure}
 \ref{perfect-2x2-mix}-ame pavyzdyje matoma prieš tai apibūdintą transformacija. Punktyrinės linijos kairėje pusėje žymi sieneles ties kuriomis vyksta reakcija. Šiuo atveju po išmaišymo nėra sričių, kurios turėtų bendrą punktyrinę sienelę, o tai reiškia, kad tokiu būdu sumaišius sritis, visos vidinės sienelės turės didžiausią įmanomą skirtingų medžiagų kontrastą, kuris lems didžiausią įmanomą reakcijos pagreitėjimą.
 
+\subsubsection*{Tobulo maišymo rezultatai}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/mixing/perfect-mix-ord-0-c1.png} \\ 
+  \includegraphics[width=0.75\textwidth]{images/mixing/perfect-mix-ord-0-c3.png}
+  \caption{Tobulo maišymo poveikis skaitiniame sprendinyje. Modelio parametrai atitinka reakciją vykstančia $1000\degree C$ temperatūroje. Reakcijos erdvės rezoliucija $40\times40$. Išmaišymo laikas -- $1\text{h}. $}
+  \label{fig:perfect-mix-small-example}
+\end{figure}
+
+\ref{fig:perfect-mix-small-example}-ame pavyzdyje matome kaip tobulas maišymo procesas paveikia reakcijos erdvę. Kaip ir su atsitiktinio maišymo modelio atveju, kokybiniai maišymo modelio rezultatai nėra pastebimi iš tokio reakcijos erdvės vaizdavimo, todėl analizuosime medžiagos kiekio priklausomybę nuo laiko.
+
+\newpage
+
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{../paper/images/optimal-mix-qnt-1.png}
+    \includegraphics[width=0.5\textwidth]{../paper/images/mixing/perfect-mix-vs-no-mix-ord-0-q3.png}
 
     \caption{Kompiuterinio modelio rezultatų palyginimas tarp reakcijos be išmaišymo ir reakcijos su tobulu išmaišymu.  }
 
@@ -204,14 +218,16 @@ Kad išspręstume atsitiktinio maišymo problemą, modeliuosime tobulą teorinį
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{../paper/images/mix-end-1.png}
+    \includegraphics[width=0.5\textwidth]{../paper/images/mixing/duration-mix-moment-dependance-ord0.png}
 
-    \caption{Kompiuterinio modelio rezultatai - reakcijos pabaigos laiko priklausomybė nuo išmaišymo laiko. }
+    \caption{Reakcijos trukmės priklausomybė nuo išmaišymo momento. Modelio parametrai atitinka reakciją $1000\degree C$ temperatūroje. Reakcijos erdvės rezoliucija $40\times40$. }
 
-    \label{mix-end}
+    \label{fig:duration-mix-moment-graph-for-small-space}
 \end{figure}
 
-\ref{mix-end}-ame pavyzdyje matome, kad priklausomybė nėra simetriška, reakcijos pabaigos laikas, kai išmaišymas nevyksta, yra $11h\, 30min$. Optimalus išmaišymo laikas yra $1h\, 30min$ ir tokiu atveju 97\% medžiagų sureaguos per $9h\,33min$.
+\ref{fig:duration-mix-moment-graph-for-small-space}-ame pavyzdyje matome, kad priklausomybė nėra simetriška, reakcijos pabaigos laikas, kai išmaišymas nevyksta, yra apie 12val. Optimalus išmaišymo laikas yra apie 40min ir tokiu atveju 97\% medžiagų sureaguos per 11h 7min.
+
+\newpage
 
 \subsection{Reakcijos modeliavimas didesnėje erdvėje}
 
@@ -394,3 +410,8 @@ Tobulo maišymo modelį pritaikyti didesnėms erdvėms taip pat nėra sudėtinga
 % \end{figure}
 
 % \ref{mix-end-large}-ame matome, kad priklausomybė beveik tokia pati kaip \ref{mix-end}-ame pavyzdyje su nežymiai skirtumais. Kai išmaišymas nevyksta, reakcijos pabaigos laikas yra $11h\,25min$, skirtumas tarp šio ir rezultato su įprastomis pradinėmis sąlygomis yra $5min$. Optimalus išmaišymo laikas šiuo atveju yra $1h\,36min$, skirtumas - $6min$. Reakcijos pabaigos laikas kai medžiagos išmaišomos optimaliu laiku - $9h\,29min$, skirtumas - $4min$.
+
+\subsection{Tobulo maišymo rezultatai didesnėse erdvėse}
+
+Viena iš pageidautinų maišymo modelių savybių -- nuoseklus rezultatai, kurie būtų nepriklausomi nuo reakcijos erdvės dydžio, kurią modeliuojame. Tokiu atveju, galėtume daryti reikšmingas išvadas apie maišymo poveikį reakcijai modeliuojant mažas reakcijos erdves lyginant su tuo tikra reakcija. Norint patikrinti ar tobulo maišymo modelis pasižymi šia savybe, pirmiausia galime palyginti kaip 
+

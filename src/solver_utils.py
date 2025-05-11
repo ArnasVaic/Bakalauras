@@ -53,20 +53,18 @@ def show_solution_frame(
   plt.colorbar()
 
 def show_solution_frames(
-    config: Config,
     t: np.ndarray,
     solution: np.ndarray,
     frames: list[int],
     element: int,
-    filename: str = 'temp.png',
-    cmap: str = 'viridis') -> None:
+    filename: str | None = None,
+    cmap: str = 'viridis',
+    config: Config | None = None) -> None:
+  
   extent = [
     0, config.dx * (config.resolution[0] - 1),
     0, config.dy * (config.resolution[1] - 1)
-  ]
-
-  # plt.xlabel('x [μm]')
-  # plt.ylabel('y [μm]')
+  ] if config is not None else [0,1,0,1]
 
   fig, axes = plt.subplots(1, 5, figsize=(15, 3), constrained_layout=True)  # 1 row, 5 columns
 
@@ -76,7 +74,6 @@ def show_solution_frames(
 
     time = str(datetime.timedelta(seconds=int(t[frame])))
 
-    print(t[frame])
     ax.set_title(f'$t=$ {time}', fontsize=18)
     im = ax.imshow(
       solution[frame, element, :, :],
@@ -91,8 +88,8 @@ def show_solution_frames(
   cbar = fig.colorbar(im, ax=axes.ravel().tolist(), shrink=0.8, orientation='vertical')
   cbar.set_label('Koncentracija', fontsize=12)
 
-  fig.savefig(filename, dpi=300, bbox_inches='tight')  # Save with high DPI
-  # plt.tight_layout(rect=[0.05, 0, 1, 0.95])
+  if filename is not None:
+    fig.savefig(filename, dpi=300, bbox_inches='tight')  # Save with high DPI
   plt.show()
 
 def validate_solution_stable(config: Config, solution: np.ndarray):
