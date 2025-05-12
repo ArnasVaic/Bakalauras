@@ -375,13 +375,9 @@ Tobulo maišymo modelį pritaikyti didesnėms sritims taip pat nėra sudėtinga 
 \caption{Tobulo maišymo transformacija ant keturis kartus padidintų pradinių sąlygų}
 \label{perfect-4x4-mix}
 \end{figure}
-
 \ref{perfect-4x4-mix}-ame pavyzdyje matome kaip atrodo tobulas išmaišymas praplėstų pradinių sąlygų atveju. Punktyrinės linijos žymi skirtingų medžiagų bendras sieneles t. y. tas sieneles, ties kuriomis aktyviai vyksta medžiagų reakcija. Paprastos linijos žymi sieneles, ties kuriomis susiduria tos pačios medžiagos sritys arba sieneles, kurios yra nukreiptos į išorę. Toks išmaišymas žymiai padidina reakcijos greitį todėl, kad visos sienelės tarp skirtingų medžiagų yra dar nesureagavusios ir turi didelį koncentracijų kontrastą.
-
 \subsection{Modelio rezultatai didesnėse srityse}
-
 Norint modeliuoti maišymą ir tirti šio proceso savybes skirtingo dydžio srityse turime atsižvelgti į tai, kad reakcijos modeliavimas skirtingo dydžio srityse be išmaišymo proceso gali suteikti nenuoseklius rezultatus, todėl pirmiausia turime išsiaiškinti esminius skirtumus tarp šių modelių. Viena svarbiausių modelio rezultatų savybių, kurias mes norėtume tirti yra reakcijos trukmė, todėl pažvelgsime kaip ji kinta priklausomai nuo srities dydžio kurią modeliuojame. Kaip aprašėme praeituose skyriuose, pradinę reakcijos sritį mes galime didinti keturis kartus ir tai daryti rekursyviai, todėl mūsų modeliuojamos sritys didės eksponentiškai.
-
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{images/mixing/duration-order-T1000.png}
@@ -390,16 +386,23 @@ Norint modeliuoti maišymą ir tirti šio proceso savybes skirtingo dydžio srit
 
     \label{fig:duration-order-dependance}
 \end{figure}
-
 \subsection{Atsitiktinis maišymas didesnėse srityse}
+\ref{fig:random-mix-larger-example}-ame pavyzdyje matome kaip atrodo atsitiktinis išmaišymas skaitiniame sprendinyje. Svarbu atkreipti dėmesį į tai, kad sumaišius sritis niekada neatsiras sričių, kuriose skirtingų medžiagų koncentracijos žymiai persidengia, taip yra todėl, kad vykstant maišymui visos tam tikroje srityje esančios medžiagos bus transformuotos tokiu pat būdu, o kadangi pradinėse sąlygose medžiagos nepersidengia -- išmaišytos medžiagos taip pat nepersidengs. Idealus rezultatas, kurio galime tikėtis atlikus atsitiktinį maišymą yra alternuojantis sričių išsidėstymas pagal koncentraciją kaip šachmatų lentoje -- tokiu būdu, difuzijos pagalba, skirtingas medžiagas laikančios sritys viena kitą galės pasiekti greičiausiai.
+
+\newpage
 
 \begin{figure}[h!]
   \centering
-%   \includegraphics[width=0.75\textwidth]{images/mixing/random-mix-ord-1-c1.png} \\ 
-%   \includegraphics[width=0.75\textwidth]{images/mixing/random-mix-ord-1-c3.png}
-  \caption{Atsitiktinio maišymo poveikis skaitiniam sprendiniui. Modeliuojama sritis padidinta 4 kartus. Modelio parametrai atitinka reakciją vykstančia $1000\degree C$ temperatūroje. Modeliuojamos srities rezoliucija $40\times40$. Išmaišymo laikas -- $1\text{h}. $}
+  \includegraphics[width=0.75\textwidth]{images/mixing/random-mix-ord-1-c1.png} \\ 
+  \includegraphics[width=0.75\textwidth]{images/mixing/random-mix-ord-1-c2.png} \\
+  \includegraphics[width=0.75\textwidth]{images/mixing/random-mix-ord-1-c3.png}
+  \caption{Atsitiktinio maišymo poveikis skaitiniam sprendiniui. Modeliuojama sritis padidinta 4 kartus. Modelio parametrai atitinka reakciją vykstančia $1000\degree C$ temperatūroje. Modeliuojamos srities rezoliucija $80\times80$. Išmaišymo laikas -- $1\text{h}. $}
   \label{fig:random-mix-larger-example}
 \end{figure}
+
+Problema su kuria susidūrėme modeliuodami pačią mažiausią erdvės sritį išlieka ir čia -- erdvė per maža, kad išmaišymas sutrumpintų reakcijos laiką. Šiuo atveju nebūtų praktiška pateikti reakcijos trukmės nuo išmaišymo momento priklausomybės grafiką todėl, kad kiekvienam išmaišymo momentui reikėtų rasti kelis sprendinius. Vis dėl to galime pabandyti pasinaudoti pastebėjimu, kad optimalus išmaišymo laikas tobulo maišymo atveju yra apie 40min ir pabandyti ištirti kaip atsitiktinis maišymas paveikia reakcijos trukmę, kai maišymą atliekame šiuo, optimaliu momentu.
+
+
 
 \subsection{Tobulo maišymo rezultatai didesnėse srityse}
 

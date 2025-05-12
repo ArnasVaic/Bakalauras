@@ -21,7 +21,6 @@ frame_strides = {
 
 step_strategy = SCGQMStep(100, 0.1, 1.5, 30, 0.0301, 5)
 
-
 # %% Baseline: duration when mixing does not occur
 
 config = large_config(ORDER, T)

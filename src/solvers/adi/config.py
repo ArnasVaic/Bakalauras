@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Literal
 import numpy as np
-from solvers.adi.time_step_strategy import ConstantTimeStep, TimeStepStrategy
+from solvers.adi.time_step_strategy import ConstantTimeStep, SCGQMStep, TimeStepStrategy
 from solvers.mixer import Mixer, SubdivisionMixer
 from solvers.stopper import Stopper, ThresholdStopper
 
@@ -26,9 +26,6 @@ class Config:
 
   # Initial concentration
   c0: float
-
-  # Initial simulation time step.
-  dt: float
 
   # Time step strategy
   time_step_strategy: TimeStepStrategy
@@ -104,11 +101,10 @@ def default_config(temperature: int = 1000) -> Config:
     D = np.array(diffusion_map[temperature]),
     k = k_map[temperature],
     c0 = 1e-6,
-    dt = None,
     stopper = ThresholdStopper(0.03),
     frame_stride = 1,
     mixer = SubdivisionMixer([], (2, 2), 'perfect'),
-    time_step_strategy = ConstantTimeStep(25.0),
+    time_step_strategy = ConstantTimeStep(1.0),
     alpha = np.array([-3, -5, 2])
   )
 
@@ -139,6 +135,8 @@ def large_config(
   config._order = (order, order)
   config.size = (config.size[0] * res_mul, config.size[1] * res_mul)
   config.resolution = (config.resolution[0] * res_mul, config.resolution[1] * res_mul)
+  # experimental parameters that usually work out
+  config.time_step_strategy = SCGQMStep(100, 0.1, 1.5, 30, 0.0301, 5)
 
   if mix_config is not None:
     config.mixer = SubdivisionMixer(
