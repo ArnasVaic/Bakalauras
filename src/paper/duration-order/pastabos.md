@@ -1,0 +1,12 @@
+- [x] erdve pakeisti zodziu sritis
+- [ ] FTCS keisti išreikštiniu metodu, bus aiškiau
+- [ ] Pridėti ADI metode brėžinuką apie kraštines sąlygas apie tašką už ribos
+- [ ] Iskleisti pirma eilute is matriciniu sistemu, kad parodyti kaip lygtis atrodo ties srities krastine
+- [ ] numeravimas ant 27 lygties
+- [ ] trumpai prie laiko strategijos parasyti kaip veikia
+- [ ] prie laiko strategijos parasyti xlabel kaip laiko zingsnio indeksas
+- [ ] pabandyti paryskinti temperatura boldu ir kad isreikstinis
+- [ ] padaryti tikslumo palyginima ir FTCS metodui (kaip 15pav)
+- [ ] pakeisti "nedeterministinis" galbut panaudoti atsitiktinis
+- [ ] del optimalaus maisymo laiko pasiaiskinti kas negerai, nes rezultatai turetu buti panasus i kursini
+- [ ] padaryti su 98 procentais stabdymui

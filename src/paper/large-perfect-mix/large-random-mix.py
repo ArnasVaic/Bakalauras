@@ -10,7 +10,7 @@ from solvers.adi.config import MixConfig, large_config
 from solvers.adi.solver import Solver
 import matplotlib.pyplot as plt
 
-T = 1000
+T = 1600
 ORDER = 0
 
 frame_strides = {
@@ -21,7 +21,6 @@ frame_strides = {
 
 step_strategy = SCGQMStep(100, 0.1, 1.5, 30, 0.0301, 5)
 
-
 # %% Baseline: duration when mixing does not occur
 
 config = large_config(ORDER, T)
@@ -31,11 +30,11 @@ c0 = initial_condition(config)
 t, c = Solver(config).solve(c0, lambda _: 0)
 
 print(t[-1])
-np.save(f'paper/large-perfect-mix/baseline-{ORDER}.npy', [t[-1]])
+np.save(f'paper/large-perfect-mix/baseline-ord{ORDER}-T{T}.npy', [t[-1]])
 
 # %% Mixing: reaction duration when perfect mixing occurs
 
-baseline = np.load(f'paper/large-perfect-mix/baseline-{ORDER}.npy')
+baseline = np.load(f'paper/large-perfect-mix/baseline-ord{ORDER}-T{T}.npy')
 
 # First part: from 0 to 1.5 with 20 points
 moments_1 = np.linspace(0, 2 * 3600, 25)
@@ -61,13 +60,13 @@ for index, moment in tqdm(enumerate(MOMENTS)):
 
   print(f"mix moment: {pretty_time(moment)}, duration: {pretty_time(t[-1])}")
 
-np.save(f'paper/large-perfect-mix/duration-{ORDER}.npy', duration)
+np.save(f'paper/large-perfect-mix/duration-ord{ORDER}-T{T}.npy', duration)
 
 # %%
 
 ORDER = 0
-baseline = np.load(f'paper/large-perfect-mix/baseline-{ORDER}.npy')
-duration = np.load(f'paper/large-perfect-mix/duration-{ORDER}.npy')
+baseline = np.load(f'paper/large-perfect-mix/baseline-ord{ORDER}-T{T}.npy')
+duration = np.load(f'paper/large-perfect-mix/duration-ord{ORDER}-T{T}.npy')
 
 # Assuming baseline is a scalar or single-value array
 baseline_value = baseline.item()  # in case it's a 0-d array
@@ -84,7 +83,7 @@ plt.xlabel('Maišymo momentas [val]')
 plt.ylabel('Reakcijos trukmė [val]')
 plt.legend()
 plt.grid(True)
-plt.savefig('../paper/images/mixing/duration-mix-moment-dependance-ord0.png', dpi=300, bbox_inches='tight')
+# plt.savefig('../paper/images/mixing/duration-mix-moment-dependance-ord0.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 

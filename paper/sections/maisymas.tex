@@ -25,8 +25,6 @@ Praktikoje vykdant šią reakcija chemikai savo nuožiūra pasirenka laiką, kur
 
 Čia $T^*$ -- bendras išmaišymų skaičius, o $t^i_\text{mix}$ -- $i$-tojo išmaišymo laikas. Kadangi kompiuterinis modelis laiko informaciją apie diskrečius laiko taškus $t_n$, mes negalime tiesiogiai apibrėžti sąlygos, kad išmaišymas vyks konkrečiu laiko momentu $t^i_\text{mix}$, todėl medžiagas išmaišysime einamajame laiko žingsnyje $t_n$, kuris yra artimiausias išmaišymo laikui $t^i_\text{mix}$:
 
-\newpage
-
 \begin{figure}[!h]
 \centering
 \label{mix-inequality-graphic}
@@ -54,9 +52,11 @@ arba kitaip sakant išmaišymas įvyks laiko žingsniu $t_n$, jei:
     \vert t_n - t^i_\text{mix} \vert < \frac{1}{2}\Delta t \label{mix-inequality}
 \end{align}
 
-\subsubsection*{Nedeterministinis maišymas}
+\newpage
 
-Maišymas praktikoje yra chaotiškas procesas, todėl sudarydami kompiuterinį modelį turime į tai atsižvelgti. Maišymą modeliuosime kaip reakcijos erdvės sričių atsitiktinį išdėstymą. Pradinė erdvę $\Omega$ padalinsime į mažesnes, nepersidengiančias, vienodas kvadratines sritis $\Omega_i$, tada sugeneruosime atsitiktinę $4$-permutaciją $\sigma$ ir $4$ atsitiktinius kampus $\theta_i \in \{0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}$. Kiekviena iš sričių $\Omega_i$ keliauja į poziciją, kurioje yra sritis $\Omega_{\sigma(i)}$, tačiau pasukta kampu $\theta_i$. 
+\subsubsection*{Atsitiktinis maišymas}
+
+Maišymas praktikoje yra chaotiškas procesas, todėl sudarydami kompiuterinį modelį turime į tai atsižvelgti. Maišymą modeliuosime kaip reakcijos erdvės sričių atsitiktinį išdėstymą. Pradinė sritį $\Omega$ padalinsime į mažesnes, nepersidengiančias, vienodas kvadratines sritis $\Omega_i$, tada sugeneruosime atsitiktinę $4$-permutaciją $\sigma$ ir $4$ atsitiktinius kampus $\theta_i \in \{0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}$. Kiekviena iš sričių $\Omega_i$ keliauja į poziciją, kurioje yra sritis $\Omega_{\sigma(i)}$, tačiau pasukta kampu $\theta_i$. 
 
 \begin{figure}[!h]
 \centering
@@ -90,20 +90,6 @@ Maišymas praktikoje yra chaotiškas procesas, todėl sudarydami kompiuterinį m
 \end{tikzpicture}
 \caption{Maišymo transformacijos pavyzdys}
 \end{figure}
-
-% \newpage
-% \subsection{Atsitiktinio maišymo rezultatai}
-
-% \begin{figure}[h!]
-% \centering
-% \includegraphics[width=\textwidth]{images/rnd-mix-c0-1.png} \\
-% \includegraphics[width=\textwidth]{images/rnd-mix-c1-1.png} \\
-% \includegraphics[width=\textwidth]{images/rnd-mix-c2-1.png}
-
-% \caption{Kompiuterinio modelio rezultatai - medžiagų koncentracijos per laiką, kai vyksta išmaišymas. Išmaišymo laikas $t^1_\text{mix} = 1h\,30min$ }
-
-% \label{mix-example}
-% \end{figure}
 
 \begin{figure}[h]
     \centering
@@ -196,7 +182,7 @@ Kad išspręstume atsitiktinio maišymo problemą, modeliuosime tobulą teorinį
   \centering
   \includegraphics[width=0.75\textwidth]{images/mixing/perfect-mix-ord-0-c1.png} \\ 
   \includegraphics[width=0.75\textwidth]{images/mixing/perfect-mix-ord-0-c3.png}
-  \caption{Tobulo maišymo poveikis skaitiniame sprendinyje. Modelio parametrai atitinka reakciją vykstančia $1000\degree C$ temperatūroje. Reakcijos erdvės rezoliucija $40\times40$. Išmaišymo laikas -- $1\text{h}. $}
+  \caption{Tobulo maišymo poveikis skaitiniame sprendinyje. Modelio parametrai atitinka reakciją vykstančia $1000\degree C$ temperatūroje. Modeliuojamos srities rezoliucija $40\times40$. Išmaišymo laikas -- $1\text{h}. $}
   \label{fig:perfect-mix-small-example}
 \end{figure}
 
@@ -214,13 +200,13 @@ Kad išspręstume atsitiktinio maišymo problemą, modeliuosime tobulą teorinį
 \end{figure}
 
 Šiuo atveju, \ref{optimal-mix-qnt}-ame pavyzdyje matome, kad dėl tobulo išmaišymo galime matyti šuolį medžiagos kiekyje. Toks maišymas turi teigiamą poveikį reakcijos pabaigos laikui ir labiau atitinka eksperimentinius rezultatus negu atsitiktinis išmaišymas.
-Čia galime pasamprotauti, kaip reakcijos pabaigos laikas priklauso nuo išmaišymo laiko - jei išmaišome pradinę konfigūraciją pačioje reakcijos pradžioje, rezultatams tai neturės jokios įtakos ir gausime reakcijos modelį be išmaišymo. Lygiai tas pats nutiktų jei išmaišymas įvyktų ką tik prieš reakcijos pabaigą, tačiau išmaišymas kitais laiko momentais, kaip jau matėme, gali sutrumpinti reakcijos pabaigos laiką. Jei pavaizduotume reakcijos pabaigos laiko priklausomybę nuo išmaišymo laiko, gautume štai tokį grafiką:
+Čia galime pasamprotauti, kaip reakcijos pabaigos laikas priklauso nuo išmaišymo laiko - jei išmaišome pradinę konfigūraciją pačioje reakcijos pradžioje, rezultatams tai neturės jokios įtakos ir gausime reakcijos modelį be išmaišymo. Lygiai tas pats nutiktų jei išmaišymas įvyktų ką tik prieš reakcijos pabaigą, tačiau išmaišymas kitais laiko momentais, kaip jau matėme, gali sutrumpinti reakcijos pabaigos laiką. Jei pavaizduotume reakcijos trukmės priklausomybę nuo išmaišymo momento, gautume štai tokį grafiką:
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{../paper/images/mixing/duration-mix-moment-dependance-ord0.png}
 
-    \caption{Reakcijos trukmės priklausomybė nuo išmaišymo momento. Modelio parametrai atitinka reakciją $1000\degree C$ temperatūroje. Reakcijos erdvės rezoliucija $40\times40$. }
+    \caption{Reakcijos trukmės priklausomybė nuo išmaišymo momento. Modelio parametrai atitinka reakciją $1000\degree C$ temperatūroje. Modeliuojamos srities rezoliucija $40\times40$. }
 
     \label{fig:duration-mix-moment-graph-for-small-space}
 \end{figure}
@@ -229,9 +215,9 @@ Kad išspręstume atsitiktinio maišymo problemą, modeliuosime tobulą teorinį
 
 \newpage
 
-\subsection{Reakcijos modeliavimas didesnėje erdvėje}
+\subsection{Reakcijos modeliavimas didesnėje srityje}
 
-Modeliuoti mažą visos reakcijos erdvės sritį užtenka norint gauti tikslias aproksimacijas difuzijos bei reakcijos greičio konstantoms \cite{mackeviciusCloserLookComputer2012}. Tačiau modeliuodami medžiagų išmaišymą neturime priežasties daryti tokios pačios prielaidos. Norint modeliuoti didesnę erdvę, pradines sąlygas reikia atkartoti veidrodiniu principu, tuo galima įsitikinti pažvelgus į \ref{fig:periodic-space}-ą pavyzdį. Modeliuodami didesnę erdvę, ne tik padidės srities plotas, kaip pavaizduota \ref{large-initial-conditions}-ame pavyzdyje, tačiau ir padvigubinsime diskrečių taškų kiekį kiekviena erdvine kryptimi. Šį procesą galima rekursyviai kartoti ir tokiu būdu gauti eksponentiškai didesnės reakcijos erdvės pradines sąlygas.
+Modeliuoti mažą visos reakcijos erdvės sritį užtenka norint gauti tikslias aproksimacijas difuzijos bei reakcijos greičio konstantoms \cite{mackeviciusCloserLookComputer2012}. Tačiau modeliuodami medžiagų išmaišymą neturime priežasties daryti tokios pačios prielaidos. Norint modeliuoti didesnę erdvės sritį, pradines sąlygas reikia atkartoti veidrodiniu principu, tuo galima įsitikinti pažvelgus į \ref{fig:periodic-space}-ą pavyzdį. Modeliuojant didesnę erdvę, ne tik padidės srities plotas, kaip pavaizduota \ref{large-initial-conditions}-ame pavyzdyje, tačiau ir padvigubinsime diskrečių taškų kiekį kiekviena erdvine kryptimi. Šį procesą galima rekursyviai kartoti ir tokiu būdu gauti eksponentiškai didesnės srities pradines sąlygas.
 
 
 \begin{figure}[h!]
@@ -277,22 +263,20 @@ Modeliuoti mažą visos reakcijos erdvės sritį užtenka norint gauti tikslias 
     \draw[->] (0, -0.5) -- (0, 4.5) node[anchor=east] {\small $y$};
     \node[anchor=north east] at (0, 0) {\small $(0,0)$};
 \end{tikzpicture}
-\caption{ Du kartus padidinta reakcijos erdvė. }
+\caption{Keturis kartus padidinta pradinių sąlygų sritis. }
 
 \label{large-initial-conditions}
 \end{figure}
 
-\subsection{Maišymo modelių pritaikymas didesnėms erdvėms}
+\subsection{Maišymo modelių pritaikymas didesnėms sritims}
 
 \subsubsection*{Atsitiktinis maišymas}
 
-Praplėsti atsitiktinį maišymo modelį didesnėms reakcijos erdvėms yra trivialu -- sugeneruojame $N^2\text{-permutaciją}$ ir $N^2$ atsitiktinių kampų $\theta_1, \theta_2, \dots, \theta_{N^2}$, kur $N$ yra sričių skaičius didesnėje erdvėje. Tuomet maišymo metu, kiekvieną sritis įgauna nauja poziciją bei posukio kampą.
+Praplėsti atsitiktinį maišymo modelį didesnei sričiai yra trivialu -- sugeneruojame $N^2\text{-permutaciją}$ ir $N^2$ atsitiktinių kampų $\theta_1, \theta_2, \dots, \theta_{N^2}$, kur $N$ yra sričių skaičius didesnėje erdvėje. Tuomet maišymo metu, kiekvieną sritis įgauna nauja poziciją bei posukio kampą.
 
 \subsubsection*{Tobulas maišymas}
 
-Tobulo maišymo modelį pritaikyti didesnėms erdvėms taip pat nėra sudėtinga -- tą galime padaryti atkartodami modelį veidrodžio principu:
-
-% Kadangi prieš tai apibrėžtas maišymo modelis yra tinkamas tik įprastoms pradinėms \hbox{sąlygoms \eqref{intial-cond}}, praplėstoms pradinėms sąlygoms reikės atskirai apibrėžti išmaišymą. Eksperimentas parodė, kad net su praplėstomis pradinėmis sąlygomis, atsitiktinio maišymo problema nedingsta - išmaišymas dažniausiai pailgina reakcijos pabaigos laiką. Dėl šios priežasties praplėsime tobulo išmaišymo modelį analogiškai 
+Tobulo maišymo modelį pritaikyti didesnėms sritims taip pat nėra sudėtinga -- tą galime padaryti atkartodami modelį veidrodžio principu:
 
 \begin{figure}[!h]
 \centering
@@ -388,30 +372,36 @@ Tobulo maišymo modelį pritaikyti didesnėms erdvėms taip pat nėra sudėtinga
         \node at (3.5,0.5) {$\Omega_{11}$};
     \end{scope}
 \end{tikzpicture}
-\caption{Tobulo maišymo transformacija ant du kart padidintų pradinių sąlygų}
+\caption{Tobulo maišymo transformacija ant keturis kartus padidintų pradinių sąlygų}
 \label{perfect-4x4-mix}
 \end{figure}
 
 \ref{perfect-4x4-mix}-ame pavyzdyje matome kaip atrodo tobulas išmaišymas praplėstų pradinių sąlygų atveju. Punktyrinės linijos žymi skirtingų medžiagų bendras sieneles t. y. tas sieneles, ties kuriomis aktyviai vyksta medžiagų reakcija. Paprastos linijos žymi sieneles, ties kuriomis susiduria tos pačios medžiagos sritys arba sieneles, kurios yra nukreiptos į išorę. Toks išmaišymas žymiai padidina reakcijos greitį todėl, kad visos sienelės tarp skirtingų medžiagų yra dar nesureagavusios ir turi didelį koncentracijų kontrastą.
 
-\subsection{Atsitiktinis maišymas didesnėse erdvėse}
+\subsection{Modelio rezultatai didesnėse srityse}
 
- 
+Norint modeliuoti maišymą ir tirti šio proceso savybes skirtingo dydžio srityse turime atsižvelgti į tai, kad reakcijos modeliavimas skirtingo dydžio srityse be išmaišymo proceso gali suteikti nenuoseklius rezultatus, todėl pirmiausia turime išsiaiškinti esminius skirtumus tarp šių modelių. Viena svarbiausių modelio rezultatų savybių, kurias mes norėtume tirti yra reakcijos trukmė, todėl pažvelgsime kaip ji kinta priklausomai nuo srities dydžio kurią modeliuojame. Kaip aprašėme praeituose skyriuose, pradinę reakcijos sritį mes galime didinti keturis kartus ir tai daryti rekursyviai, todėl mūsų modeliuojamos sritys didės eksponentiškai.
 
-% \newpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/mixing/duration-order-T1000.png}
 
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.5\textwidth]{../paper/images/mix-end-large-1.png}
+    \caption{Reakcijos trukmės priklausomybė nuo to, kiek kartų buvo padidintos pradinės sąlygos \eqref{fig:initial-condition-visual}. }
 
-%     \caption{Reakcijos pabaigos laiko priklausomybė nuo išmaišymo laiko, kai modeliuojamos praplėstos pradinės sąlygos \eqref{large-initial-conditions}. }
+    \label{fig:duration-order-dependance}
+\end{figure}
 
-%     \label{mix-end-large}
-% \end{figure}
+\subsection{Atsitiktinis maišymas didesnėse srityse}
 
-% \ref{mix-end-large}-ame matome, kad priklausomybė beveik tokia pati kaip \ref{mix-end}-ame pavyzdyje su nežymiai skirtumais. Kai išmaišymas nevyksta, reakcijos pabaigos laikas yra $11h\,25min$, skirtumas tarp šio ir rezultato su įprastomis pradinėmis sąlygomis yra $5min$. Optimalus išmaišymo laikas šiuo atveju yra $1h\,36min$, skirtumas - $6min$. Reakcijos pabaigos laikas kai medžiagos išmaišomos optimaliu laiku - $9h\,29min$, skirtumas - $4min$.
+\begin{figure}[h!]
+  \centering
+%   \includegraphics[width=0.75\textwidth]{images/mixing/random-mix-ord-1-c1.png} \\ 
+%   \includegraphics[width=0.75\textwidth]{images/mixing/random-mix-ord-1-c3.png}
+  \caption{Atsitiktinio maišymo poveikis skaitiniam sprendiniui. Modeliuojama sritis padidinta 4 kartus. Modelio parametrai atitinka reakciją vykstančia $1000\degree C$ temperatūroje. Modeliuojamos srities rezoliucija $40\times40$. Išmaišymo laikas -- $1\text{h}. $}
+  \label{fig:random-mix-larger-example}
+\end{figure}
 
-\subsection{Tobulo maišymo rezultatai didesnėse erdvėse}
+\subsection{Tobulo maišymo rezultatai didesnėse srityse}
 
-Viena iš pageidautinų maišymo modelių savybių -- nuoseklus rezultatai, kurie būtų nepriklausomi nuo reakcijos erdvės dydžio, kurią modeliuojame. Tokiu atveju, galėtume daryti reikšmingas išvadas apie maišymo poveikį reakcijai modeliuojant mažas reakcijos erdves lyginant su tuo tikra reakcija. Norint patikrinti ar tobulo maišymo modelis pasižymi šia savybe, pirmiausia galime palyginti kaip 
+Viena iš pageidautinų maišymo modelių savybių -- nuoseklus rezultatai, kurie būtų nepriklausomi nuo srities dydžio, kurią modeliuojame. Tokiu atveju, galėtume daryti reikšmingas išvadas apie maišymo poveikį reakcijai modeliuojant mažas sritis lyginant su tikra reakcija. Norint patikrinti ar tobulo maišymo modelis pasižymi šia savybe, pirmiausia galime palyginti kaip 
 

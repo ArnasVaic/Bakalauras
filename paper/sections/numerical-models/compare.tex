@@ -6,16 +6,16 @@
 
 \subsubsection*{Praktinis skaitinių modelių efektyvumas}
 
-Norint ištirti skirtingų metodų efektyvumą, paleisime skirtingus skaitinius modelius su tais pačiais parametrais ir didinsime reakcijos erdvės rezoliuciją -- padidėjęs diskrečių taškų skaičius padidins ir skaičiavimų trukmę, todėl galėsim palyginti metodų efektyvumą iš praktinės pusės. Laiko žingsniai skaitiniams modeliams parinkti skirtingai -- FTCS metodui buvo pasirinktas toks žingsnis, kuris užtikrintų stabilumą, o ADI metodui buvo taikoma anksčiau apibūdinta kintamo laiko žingsnio strategija \eqref{alg:scgq}.
+Norint ištirti skirtingų metodų efektyvumą, paleisime skirtingus skaitinius modelius su tais pačiais parametrais ir didinsime modeliuojamos srities rezoliuciją -- padidėjęs diskrečių taškų skaičius padidins ir skaičiavimų trukmę, todėl galėsim palyginti metodų efektyvumą iš praktinės pusės. Laiko žingsniai skaitiniams modeliams parinkti skirtingai -- išreikštiniam metodui buvo pasirinktas toks žingsnis, kuris užtikrintų stabilumą, o ADI metodui buvo taikoma anksčiau apibūdinta kintamo laiko žingsnio strategija \eqref{alg:scgq}.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.5\textwidth]{images/ftcs-adi-perf.png}
-  \caption{FTCS ir ADI metodų sprendimo laiko priklausomybė nuo diskrečių taškų skaičiaus reakcijos erdvėje.}
+  \caption{Išreikštinio ir ADI metodų sprendimo laiko priklausomybė nuo diskrečių taškų skaičiaus reakcijos erdvėje.}
   \label{fig:adi-ftcs-solve-time-comparison}
 \end{figure}
 
-\ref{fig:adi-ftcs-solve-time-comparison}-ame pavyzdyje matome, kad pakankamai žemos rezoliucijos konfigūracijoms išreikštinis FTCS skaitinis modelis sprendinį apskaičiuoja greičiau negu ADI, tačiau konfigūracijoms, kurių rezoliucija viršija $100\times100$, sprendinį greičiau randa ADI skaitinis modelis. Vadovaudamiesi šiais rezultatais tolimesniems skaičiavimams ir maišymo modeliavimui didesnėse erdvėse galime naudoti ADI modelį.
+\ref{fig:adi-ftcs-solve-time-comparison}-ame pavyzdyje matome, kad pakankamai žemos rezoliucijos konfigūracijoms išreikštinis skaitinis modelis sprendinį apskaičiuoja greičiau negu ADI, tačiau konfigūracijoms, kurių rezoliucija viršija $100\times100$, sprendinį greičiau randa ADI skaitinis modelis. Vadovaudamiesi šiais rezultatais tolimesniems skaičiavimams ir maišymo modeliavimui didesnėse erdvėse galime naudoti ADI modelį.
 
 \subsection*{Skaitinio ADI sprendinio tikslumas}
 
@@ -30,4 +30,4 @@ Nors analitinio sprendinio nagrinėjamai sistemai neturime, galime laikyti, kad 
   \label{fig:adi-numerical-solution-absolute-error}
 \end{figure}
 
-\ref{fig:adi-numerical-solution-absolute-error} paveiksle matome, kad didžiausias medžiagų kiekių skirtumas pasireiškia reakcijos pradžioje. Taip nutinka todėl, kad tuo metu sistemoje yra daugiausia pradinių medžiagų, o reakcijos greitis yra tiesiogiai proporcingas jų koncentracijai. Reakcijos metu modelis yra ypač jautrus pokyčiams, ką galime pastebėti, lygindami skaitinius sprendinius, gautus naudojant skirtingas reakcijos erdvės rezoliucijas. Vis dėlto, iš rezultatų matyti, kad skirtumas tarp skaitinių sprendinių yra $-8$ eilės ar mažesnis, o reakcijai einant į pabaigą — pradeda asimptotiškai mažėti. Iš pradinių sąlygų žinome, jog pradinių medžiagų koncentracijos reikšmė yra $-6$ eilės, todėl galima teigti, kad net ir naudojant palyginti mažą reakcijos erdvės rezoliuciją ($40\times40$), sprendinio tikslumas išlieka pakankamai didelis, o gauti rezultatai -- reikšmingi.
+\ref{fig:adi-numerical-solution-absolute-error} paveiksle matome, kad didžiausias medžiagų kiekių skirtumas pasireiškia reakcijos pradžioje. Taip nutinka todėl, kad tuo metu sistemoje yra daugiausia pradinių medžiagų, o reakcijos greitis yra tiesiogiai proporcingas jų koncentracijai. Reakcijos metu modelis yra ypač jautrus pokyčiams, ką galime pastebėti, lygindami skaitinius sprendinius, gautus naudojant skirtingas modeliuojamos srities rezoliucijas. Vis dėlto, iš rezultatų matyti, kad skirtumas tarp skaitinių sprendinių yra $-8$ eilės ar mažesnis, o reakcijai einant į pabaigą — pradeda asimptotiškai mažėti. Iš pradinių sąlygų žinome, jog pradinių medžiagų koncentracijos reikšmė yra $-6$ eilės, todėl galima teigti, kad net ir naudojant palyginti mažą reakcijos erdvės rezoliuciją ($40\times40$), sprendinio tikslumas išlieka pakankamai didelis, o gauti rezultatai -- reikšmingi.
