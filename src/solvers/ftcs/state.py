@@ -22,6 +22,7 @@ class State:
   initial_quantity: np.ndarray
   current_quantity: np.ndarray
 
+  time: float = 0
   time_step: int = 0
 
   captured_steps: list[int] = field(default_factory=list)

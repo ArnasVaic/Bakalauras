@@ -98,7 +98,7 @@ def default_config(temperature: int = 1000) -> Config:
     dt = None,
     stopper = ThresholdStopper(0.03),
     frame_stride = 1,
-    mixer = SubdivisionMixer((2, 2), 'perfect', [])
+    mixer = SubdivisionMixer([], (2, 2), 'perfect')
   )
 
   return config

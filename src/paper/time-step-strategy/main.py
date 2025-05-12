@@ -21,6 +21,6 @@ dt = np.diff(t)
 # %%
 
 plt.ylabel('Laiko žingsnio dydis [s]')
-plt.xlabel('Laiko žingsnis [vnt]')
+plt.xlabel('Laiko žingsnio indeksas [vnt]')
 plt.plot(dt[:-1])
 plt.savefig('../paper/images/timestep/strategy-no-mix.png', dpi=300, bbox_inches='tight')

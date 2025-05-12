@@ -54,7 +54,7 @@ class Solver:
 
       log_debug_info(logger, state)
 
-      if self.mixer.should_mix(state.time_step, dt):
+      if self.mixer.should_mix(state, dt):
         if logger is not None:
           logger.info(f'mixing, step = {state.time_step}, time = {state.time_step * self.dt}')
         state.c_prev = self.mixer.mix(state.c_prev)
@@ -77,6 +77,7 @@ class Solver:
 
       # update time step
       state.time_step = state.time_step + 1
+      state.time = state.time + dt
 
     return np.array(state.captured_steps), np.array(state.captured_c)
 
