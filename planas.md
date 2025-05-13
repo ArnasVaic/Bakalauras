@@ -29,3 +29,5 @@ Teksto gramatika, stilius ir layout'as:
 Optimal mix times
 2432.141720425366 (ord 0, t 1000)
 2432.141720425366 (ord 1, t 1000)
+2319.7787366300154 (ord 2, t 1000)
+? (ord 3, t 1000)
