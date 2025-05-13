@@ -10,13 +10,13 @@ Kompiuterinis fizinių bei cheminių procesų modeliavimas yra plačiai taikomas
 
 Šiame darbe reakcijos-difuzijos sistemai spręsti taikysime du baigtinių skirtumų metodus (FDM). Pirmasis — išreikštinis metodas, dar žinomas kaip Oilerio integracija. Šis metodas pasižymi paprasta implementacija, tačiau yra sąlyginai stabilus ir nėra itin tikslus. Antrasis — ADI (neišreikštinis kintamos krypties) metodas, kuris yra techniškai sudėtingesnis, tačiau nesąlyginai stabilus ir užtikrina didesnį skaičiavimų tikslumą \cite{doi:10.1137/0103003}. Be to, šis metodas leis efektyviai modeliuoti dideles erdvines sritis. Nors ADI metodas sukurtas jau seniai, jis vis dar plačiai taikomas įvairiuose skaitiniuose tyrimuose \cite{gaidamauskaiteComparisonFiniteDifference2007}. Abu šie skaitiniai metodai išsamiai aprašyti literatūroje \cite{pressNumericalRecipes3rd2007,levequeFiniteDifferenceMethods2007}.
 
-Šio \textbf{darbo tikslas} yra sudaryti skaitinius YAG reakcijos modelius ir ištirti jų rezultatus norint išsiaiškinti kokį poveikį maišymas turi reakcijos trukmei. Šiam tikslui pasiekti buvo iškelti šie uždaviniai:
+Šio \textbf{darbo tikslas} — sudaryti skaitinius YAG reakcijos modelius ir, išanalizavus jų rezultatus, nustatyti, kokį poveikį maišymas daro reakcijos trukmei. Siekiant šio tikslo, buvo suformuluoti šie uždaviniai:
 
 \begin{enumerate}
   \item Sudaryti kompiuterinius YAG reakcijos modelius, taikant išreikštinį ir ADI skaitinius metodus.
   \item Verifikuoti skaitinių modelių rezultatus, palyginti jų tikslumą ir efektyvumą.
   \item Apibrėžti medžiagų maišymo modelius.
   \item Integruoti medžiagų maišymo modelius į skaitinius YAG reakcijos modelius.
-  \item Analizuoti skaitinių modelių rezultatus, siekiant nustatyti, ar maišymo modelių savybės skirtingo dydžio srityse išlieka pastovios.
+  \item Analizuoti skaitinių modelių rezultatus siekiant nustatyti, ar maišymo modelių savybės išlieka pastovios skirtingo dydžio srityse.
   \item Įvertinti, kaip reakcijos trukmė priklauso nuo maišymo momento, remiantis skaitinių modelių rezultatais.
 \end{enumerate}
