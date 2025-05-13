@@ -10,8 +10,8 @@ from solvers.adi.config import MixConfig, large_config
 from solvers.adi.solver import Solver
 import matplotlib.pyplot as plt
 
-T = 1600
-ORDER = 0
+T = 1000
+ORDER = 2
 
 frame_strides = {
   1000: 100,
@@ -64,26 +64,25 @@ np.save(f'paper/large-perfect-mix/duration-ord{ORDER}-T{T}.npy', duration)
 
 # %%
 
-ORDER = 0
-baseline = np.load(f'paper/large-perfect-mix/baseline-ord{ORDER}-T{T}.npy')
-duration = np.load(f'paper/large-perfect-mix/duration-ord{ORDER}-T{T}.npy')
-
-# Assuming baseline is a scalar or single-value array
-baseline_value = baseline.item()  # in case it's a 0-d array
-
 plt.figure(figsize=(8, 5))
 
-plt.plot(MOMENTS / 3600, duration / 3600, label='Reakcijos trukmė maišant')
-plt.plot(
-  MOMENTS / 3600,
-  np.full(len(MOMENTS), baseline_value) / 3600,
-  label='Reakcijos trukmė nemaišant')
+for ord in [0, 1, 2, 3]:
+  baseline = np.load(f'paper/large-perfect-mix/baseline-ord{ord}-T{T}.npy')
+  duration = np.load(f'paper/large-perfect-mix/duration-ord{ord}-T{T}.npy')
+
+  # Assuming baseline is a scalar or single-value array
+  baseline_value = baseline.item()  # in case it's a 0-d array
+  plt.plot(MOMENTS / 3600, duration / 3600, label=f'$\\times{4**ord}$')
+  plt.plot(
+    MOMENTS / 3600,
+    np.full(len(MOMENTS), baseline_value) / 3600,
+    linestyle='dashed')
 
 plt.xlabel('Maišymo momentas [val]')
 plt.ylabel('Reakcijos trukmė [val]')
 plt.legend()
 plt.grid(True)
-# plt.savefig('../paper/images/mixing/duration-mix-moment-dependance-ord0.png', dpi=300, bbox_inches='tight')
+plt.savefig('../paper/images/mixing/duration-mix-moment-dependance-perfect.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 

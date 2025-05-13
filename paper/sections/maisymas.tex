@@ -422,7 +422,15 @@ Pavyzdyje~\ref{fig:random-samples} matyti, kad erdvės didinimas daro neigiamą 
   \label{fig:perfect-mix-larger-example}
 \end{figure}
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/mixing/duration-mix-moment-dependance-perfect.png}
+  \caption{Reakcijos trukmės priklausomybė nuo išmaišymo momento, kai naudojamas tobulo maišymo modelis. Punktyrinės linijos žymi bazinę reakcijos trukmę skirtingo dydžio erdvėse, kai maišymas nevyksta. Legendoje matoma, kiek kartų didesnės erdvės buvo modeliuotos.}
+  \label{fig:duration-mix-moment-perfect}
+\end{figure}
 
+Viena iš pageidautinų maišymo modelių savybių -- nuoseklus rezultatai, kurie būtų nepriklausomi nuo srities dydžio, kurią modeliuojame. Šiuo atveju pavyzdyje \ref{fig:duration-mix-moment-perfect} matome, kad priklausomybė šiek tiek svyruoja priklausomai nuo to, kiek kartų didesnėje srityje modeliuojame reakciją, tačiau optimalūs maišymo laikai beveik sutampa, o skirtumas tarp grafikų yra vertikalus. Taip pat galima pastebėti, kad didinant sritį grafikas konverguoją į \enquote{tikrąjį}. Šis rezultatas rodo, kad norint tiksliai išgauti optimalų maišymo laiką užtenka modeliuoti mažą erdvės sritį. 
 
-Viena iš pageidautinų maišymo modelių savybių -- nuoseklus rezultatai, kurie būtų nepriklausomi nuo srities dydžio, kurią modeliuojame. Tokiu atveju, galėtume daryti reikšmingas išvadas apie maišymo poveikį reakcijai modeliuojant mažas sritis lyginant su tikra reakcija. Norint patikrinti ar tobulo maišymo modelis pasižymi šia savybe, pirmiausia galime palyginti kaip 
+Nors optimalūs maišymo laikai beveik sutampa, gali būti naudinga ištirti, kaip jie kinta priklausomai nuo modeliuojamos srities dydžio. Tam galime pasinaudoti auksinio pjūvio paieškos algoritmu, kuris leidžia efektyviai rasti funkcijos minimumą tam tikrame intervale. Šis metodas paremtas tuo, kad tiriamas taškas pasirenkamas pasinaudojant auksinio pjūvio santykiu, taip sumažinant tiriamą intervalą be reikalo nepervertinant viso funkcijos grafiko. Dėl savo efektyvumo ir nereikalingos išvestinių skaičiavimo, šis metodas ypač tinkamas optimizuoti brangiai skaičiuojamas ar netiesines funkcijas, tokias kaip reakcijos trukmė priklausomai nuo maišymo trukmės. Norint kad algoritmas suveiktų funkcija, kurios ekstremumo ieškome, privalo būti unimodali, ką reakcijos trukmės ir maišymo momento priklausomybės grafikas tenkina.
+
 

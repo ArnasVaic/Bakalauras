@@ -4,7 +4,7 @@ Likusios sekcijos:
 
 - [ ] Santrauka/Summary
 - [ ] Maišymas
-  - [ ] Atsitiktinis 
+  - [x] Atsitiktinis 
   - [ ] Tobulas
 - [ ] Rezultatai/išvados
 
@@ -23,4 +23,9 @@ Teksto gramatika, stilius ir layout'as:
   - [x] Tobulas maisymas pvz dideleje erdveje
   - [ ] Reakcijos trukme/maisymo momentas ant keliu dydziu
   
-- [ ] Peržiūrėti verifikaciją
+- [x] Peržiūrėti verifikaciją
+
+
+Optimal mix times
+2432.141720425366 (ord 0, t 1000)
+2432.141720425366 (ord 1, t 1000)

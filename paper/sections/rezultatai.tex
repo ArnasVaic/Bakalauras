@@ -5,12 +5,13 @@
 Šiame darbe buvo įgyvendinti šie uždaviniai:
 
 \begin{itemize}
-    \item Sukurtas kompiuterinis (YAG) reakcijos modelis. 
-    \item Teoriškai parodyta skaitinio modelio stabilumo sąlyga
-    \item Kompiuterinio modelio rezultatai buvo analizuojami ir buvo užtikrinta, kad modelis veikia korektiškai
-    \item Pasiūlyti du maišymo modeliai - atsitiktinis ir \enquote{tobulas}
-    \item Išmaišymo modeliai integruoti į kompiuterinį (YAG) reakcijos modelį
-    \item Atlikta papildyto kompiuterinio modelio rezultatų analizė
+    \item Sudaryti kompiuteriniai YAG reakcijos modeliai remiantis išreikštiniu ir ADI skaitiniais metodais. 
+    \item Teoriškai parodyta išreikštinio skaitinio modelio stabilumo sąlyga
+    \item Sukurta kintamo laiko žingsnio strategija, kuri leidžia efektyviai modeliuoti YAG sintezės reakciją didelėse srityse
+    \item Išreikštinio modelio rezultatai buvo verifikuojami ir buvo užtikrinta, kad modelis veikia korektiškai 
+    \item Abu skaitiniai modeliai buvo analizuojami, išmatuotas jų efektyvumas bei tikslumas
+    \item Atsitiktinio ir tobulo maišymo modeliai integruoti į kompiuterinius (YAG) reakcijos modelius
+    \item Ištirtas maišymo modelių poveikis įvairaus dydžio erdvėse 
 \end{itemize}
 
 \subsection*{Išvados}
@@ -18,10 +19,15 @@
 Iš rezultatų analizės galima daryti šias išvadas:
 
 \begin{itemize}
-    \item Atsitiktinio maišymo modelio rezultatai neatitinka realybėje pastebimų rezultatų, kai reakcija modeliuojama mažoje srityje, kurioje susiduria tik 4-ios mikrodalelės. Norint iš šio modelio išgauti tikrovę atitinkančius rezultatus yra būtina modeliuoti didesnę erdvės sritį.
-
-    \item \enquote{Tobulo} išmaišymo modelio rezultatai atitinka realybėje pastebimą reakcijos pagreitėjimą.
     
-    \item Modeliuojant didesnę erdvės sritį, \enquote{tobulo} išmaišymo modelio rezultatai kinta gana nežymiai, todėl maišymo modeliavimui užtenka modeliuoti mažą reakcijos erdvės sritį su 4-iom skirtingų medžiagų mikrodalelėmis
+    \item Modeliuojant tobulą išmaišymą YAG reakcijoje, optimalus maišymo laikas nepriklauso nuo modeliuojamos srities dydžio.
+
+    \item Modeliuojant tobulą išmaišymą YAG reakcijoje, optimali reakcijos trukmė konverguoja didinant modeliuojamą sritį.
+
+    \item Tobulo maišymo modelis atspindi savybes, kuriomis pasižymi realus maišymo procesas. Jei maišymas vyksta reakcijos pradžioje arba pabaigoje nepastebime jokio pokyčio reakcijos trukmėje, tačiau maišant kitais laiko momentais pastebime, kad reakcijos trukmė trumpėja.
+
+    \item Kintamo laiko žingsnio strategija leidžia ypač efektyviai spręsti YAG reakcijos uždavinį, o įtaka sprendinio tikslumui yra nereikšminga.
+
+    \item Atsitiktinis maišymo modeliavimas neturi savybių, kuriomis turėtų pasižymėti bet koks maišymo modelis -- beveik visuomet reakcijos trukmė pailgėja. Tai galioja tada, kai modeliuojama erdvė yra dviejų dimensijų ir yra nedidelė palyginus su tikraja reakcijos erdve. Rezultatai rodo, kad net 64 kartus padidintoje srityje (originali sritis yra vienos mikrodalelės dydžio) vidutinis reakcijos laikas pailgėja daugiau nei 40 valandų, todėl laikome, kad atsitiktinis maišymo modelis yra nepraktiškas.
 
 \end{itemize}
