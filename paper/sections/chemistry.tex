@@ -1,13 +1,11 @@
 \section{YAG reakcijos matematinis modeliavimas}
 
-% Šiame darbe yra modeliuojama kietafazė reakcija, kurios metu reaguodami itrio ir aliuminio oksidai sudaro itrio aliuminio granato kristalus arba tiesiog (YAG):
-
 YAG sintezės metu vyksta elementari cheminė reakcija, kurios metu reaguoja aliuminio ir itrio oksidai:
 \begin{align*}
   \ce{3Y_2O_3 + 5Al_2O_3 -> 2Y_3Al_5O_12}
 \end{align*}
 
-Prieš pradedant reakciją metalų oksidai yra sutrinami iki smulkiagrūdžių miltelių ir maišomi kol susidaro homogeniškas mišinys. Metalų oksidų mišinys yra nuolat kaitinamas aukštesnėje negu 1000\degree C temperatūroje. Tokioje temperatūroje metalų oksidai lydosi ir vyksta medžiagų difuzija, todėl reakcijos produktas formuojasi ties mikrodalelių sienelėmis. Priklausomai nuo pasirinktos temperatūros gali kisti dalelių savybės - dalelių tūris, reakcijos ir difuzijos sparta. Eksperimentiniu būdu išmatuota, kad individualių mikrodalelių turiai prie 1000\degree C siekia $1\mu \text{m}^3$, o prie 1600\degree C temperatūros siekia apie $10\mu\text{m}^3$ \cite{ivanauskasComputationalModellingYAG2009}. Minėtame šaltinyje autoriai taip pat pateikia reakcijos bei difuzijos konstantas prie skirtingų temperatūrų:
+Prieš pradedant reakciją, metalų oksidai yra sutrinami iki smulkiagrūdžių miltelių ir maišomi, kol susidaro homogeniškas mišinys. Paruoštas oksidų mišinys nuolat kaitinamas aukštesnėje nei 1000\degree C temperatūroje. Esant tokiai temperatūrai, metalų oksidai lydosi ir vyksta medžiagų difuzija, todėl reakcijos produktas formuojasi mikrodalelių sienelėse. Priklausomai nuo pasirinktos temperatūros, gali kisti dalelių savybės — jų tūris, reakcijos ir difuzijos sparta. Eksperimentiniu būdu nustatyta, kad individualių mikrodalelių tūriai prie 1000\degree C temperatūros siekia apie $1\,\mu\text{m}^3$, o pakilus temperatūrai iki 1600\degree C — apie $10\,\mu\text{m}^3$ \cite{ivanauskasComputationalModellingYAG2009}. Minėtame šaltinyje autoriai taip pat pateikia reakcijos ir difuzijos konstantas prie skirtingų temperatūrų:
 
 \begin{figure}[h]
   \centering
@@ -16,8 +14,7 @@ Prieš pradedant reakciją metalų oksidai yra sutrinami iki smulkiagrūdžių m
   \label{fig:metal-oxides-mixuter}
 \end{figure}
 
-Verta paminėti, kad \ref{fig:metal-oxides-mixuter}-ame pavyzdyje matoma iliustracija nėra iki galo tiksli, yra žinoma, kad mikrodalelės yra išsidėsčiusios glaudžiai.
-\cite{ivanauskasModellingSolidState2005} Ivanauskas et al pasiūlė modelį, kuriame mikrodalelės yra laikomos kubo arba kvadrato formos priklausomai nuo dimensijos, kurioje modeliuojama reakciją. Laikoma, kad dalelės erdvėje yra periodiškai pasikartojančios, todėl užtenka modeliuoti mažą sritį, kurioje susiduria skirtingų medžiagų dalelės kaip pavaizduota \ref{fig:periodic-space}-ajame pavyzdyje. 
+Verta paminėti, kad \ref{fig:metal-oxides-mixuter} pavyzdyje pateikta iliustracija nėra visiškai tiksli — žinoma, jog mikrodalelės išsidėsčiusios glaudžiai. Ivanauskas et al. \cite{ivanauskasModellingSolidState2005} pasiūlė modelį, kuriame mikrodalelės laikomos kubo arba kvadrato formos, priklausomai nuo dimensijos, kurioje modeliuojama reakcija. Taip pat laikoma, kad dalelės erdvėje yra periodiškai pasikartojančios, todėl pakanka modeliuoti mažą sritį, kurioje susiduria skirtingų medžiagų dalelės, kaip pavaizduota \ref{fig:periodic-space} pavyzdyje.
 
 \begin{figure}[h]
   \centering
@@ -26,4 +23,4 @@ Verta paminėti, kad \ref{fig:metal-oxides-mixuter}-ame pavyzdyje matoma iliustr
   \label{fig:periodic-space}
 \end{figure}
 
-Vykstant reakcijai, chemikai periodiškai ištraukia reagentus iš krosnies, kurioje vyksta reakcija, todėl maišymas vyksta prie daug žemesnės temperatūros. Milteliai yra išmaišomi nepažeidžiant mikrodalelių struktūros - t. y. maišoma taip, kad mikrodalelės neskiltų.
+Vykstant reakcijai, chemikai periodiškai ištraukia reagentus iš krosnies, todėl maišymas atliekamas prie gerokai žemesnės temperatūros. Milteliai išmaišomi taip, kad nebūtų pažeista mikrodalelių struktūra — kitaip tariant, maišoma taip, jog mikrodalelės neskiltų.
