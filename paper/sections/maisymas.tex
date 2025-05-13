@@ -400,11 +400,29 @@ Norint modeliuoti maišymą ir tirti šio proceso savybes skirtingo dydžio srit
   \label{fig:random-mix-larger-example}
 \end{figure}
 
-Problema su kuria susidūrėme modeliuodami pačią mažiausią erdvės sritį išlieka ir čia -- erdvė per maža, kad išmaišymas sutrumpintų reakcijos laiką. Šiuo atveju nebūtų praktiška pateikti reakcijos trukmės nuo išmaišymo momento priklausomybės grafiką todėl, kad kiekvienam išmaišymo momentui reikėtų rasti kelis sprendinius. Vis dėl to galime pabandyti pasinaudoti pastebėjimu, kad optimalus išmaišymo laikas tobulo maišymo atveju yra apie 40min ir pabandyti ištirti kaip atsitiktinis maišymas paveikia reakcijos trukmę, kai maišymą atliekame šiuo, optimaliu momentu.
+Problema su kuria susidūrėme modeliuodami pačią mažiausią erdvės sritį išlieka ir čia -- erdvė per maža, kad išmaišymas sutrumpintų reakcijos laiką. Šiuo atveju nebūtų praktiška pateikti reakcijos trukmės nuo išmaišymo momento priklausomybės grafiką todėl, kad kiekvienam išmaišymo momentui reikėtų rasti kelis sprendinius. Vis dėl to galime pabandyti pasinaudoti pastebėjimu, kad optimalus išmaišymo laikas tobulo maišymo atveju yra apie 40min ir pabandyti ištirti kaip atsitiktinis maišymas paveikia reakcijos trukmę, kai maišymą atliekame šiuo, optimaliu momentu. 
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{images/mixing/sample-durations-random-mix.png}
+  \caption{Vidutinės reakcijos trukmės skirtingo dydžio erdvėse, kai modeliuojamas atsitiktinis išmaišymas. Kiekvienam pavaizduotam srities dydžiui buvo padaryta 20 individualių sprendinių (bandymų) su atsitiktiniu išmaišymu. Išmaišymo laikas -- 40min. Pavaizduotas individualių sprendinių reakcijos trukmės laikas bei jų vidurkis.}
+  \label{fig:random-samples}
+\end{figure}
 
+Pavyzdyje~\ref{fig:random-samples} matyti, kad erdvės didinimas daro neigiamą įtaką reakcijos trukmei: kuo didesnė modeliuojama erdvė, tuo ilgesnė vidutinė reakcijos trukmė. Manome, kad tokie rezultatai gaunami todėl, jog net ir padidinus erdvę 64 kartus, nesusidaro pakankamos sąlygos, leidžiančios atsitiktiniam maišymui paspartinti reakciją. Be to, veidrodiniu principu atkartotos pradinės sąlygos iš karto sukuria pakankamai palankų sričių išsidėstymą visoje reakcijos erdvėje, kurį atsitiktinis išmaišymas kaip tik suardo.
 
 \subsection{Tobulo maišymo rezultatai didesnėse srityse}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/mixing/perfect-mix-ord-1-c1.png} \\ 
+  \includegraphics[width=0.75\textwidth]{images/mixing/perfect-mix-ord-1-c2.png} \\
+  \includegraphics[width=0.75\textwidth]{images/mixing/perfect-mix-ord-1-c3.png}
+  \caption{Tobulo maišymo poveikis skaitiniam sprendiniui. Modeliuojama sritis padidinta 4 kartus. Modelio parametrai atitinka reakciją vykstančia $1000\degree C$ temperatūroje. Modeliuojamos srities rezoliucija $80\times80$. Išmaišymo laikas -- $1\text{h}. $}
+  \label{fig:perfect-mix-larger-example}
+\end{figure}
+
+
 
 Viena iš pageidautinų maišymo modelių savybių -- nuoseklus rezultatai, kurie būtų nepriklausomi nuo srities dydžio, kurią modeliuojame. Tokiu atveju, galėtume daryti reikšmingas išvadas apie maišymo poveikį reakcijai modeliuojant mažas sritis lyginant su tikra reakcija. Norint patikrinti ar tobulo maišymo modelis pasižymi šia savybe, pirmiausia galime palyginti kaip 
 

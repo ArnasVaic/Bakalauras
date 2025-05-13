@@ -17,5 +17,10 @@ Teksto gramatika, stilius ir layout'as:
 - [x] Skaitiniai modeliai
   - [x] FTCS
   - [x] ADI
-- [ ] Skaitinių modelių įgyvendinimas ir rezai
+- [x] Skaitinių modelių įgyvendinimas ir rezai
 - [ ] Maišymo modeliavimas
+  - [x] Atsitiktinis samples/duration
+  - [x] Tobulas maisymas pvz dideleje erdveje
+  - [ ] Reakcijos trukme/maisymo momentas ant keliu dydziu
+  
+- [ ] Peržiūrėti verifikaciją
