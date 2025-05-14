@@ -1,4 +1,4 @@
-name: Deploy Slides
+name: Deploy thesis paper
 
 on:
   push:
