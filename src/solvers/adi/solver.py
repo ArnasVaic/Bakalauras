@@ -9,6 +9,7 @@ import scipy.linalg as la
 from solver_utils import validate_frame_stable
 from solvers.adi.config import Config
 from solvers.adi.state import State
+from solvers.adi.time_step_strategy import SCGQMStep
 from solvers.adi.utils import frame_quantity, initialize_banded
 
 NUM_OF_ELEMENTS = 3
@@ -91,6 +92,8 @@ class Solver:
   def solve_step(self, state: State) -> None:
     """Solve for the next step, directly modifies the state
     """
+    # update the time step
+    
     dt = self.config.time_step_strategy.dt
 
     self.update_half(state, 0)
@@ -106,7 +109,7 @@ class Solver:
 
     # TODO: this is expensive, maybe think of a way to not call sum each frame
     state.current_quantity = frame_quantity(state.current)
-    self.config.time_step_strategy.update_dt(state)
+    self.config.time_step_strategy.update_dt(state, self.config.mixer.mix_times)
 
   def solve(self, c0: np.array, capture: Callable) -> tuple[np.array, np.array]:
     state = State(c0)
@@ -115,11 +118,11 @@ class Solver:
     self.log_initial_info()
 
     while True:
-
-      self.mix(state, capture, captured_result, captured_times)
-
+      
       self.check_and_recalculate_matrices()
       self.solve_step(state)
+      self.mix(state, capture, captured_result, captured_times)
+      
       self.log_periodic_info(state)
 
       if state.time_step % self.config.frame_stride == 0:
@@ -137,7 +140,7 @@ class Solver:
   def mix(self, state: State, capture: Callable, captured_result: np.ndarray, captured_times: np.ndarray) -> None:
     mixer = self.config.mixer
     dt = self.config.time_step_strategy.dt
-    if not mixer.should_mix(state, dt):
+    if not mixer.should_mix(state, dt, isinstance(self.config.time_step_strategy, SCGQMStep)):
       return
 
     self.logger.info(f'mixing, step = {state.time_step} (index in result: {len(captured_result)}), time = {state.time}')
@@ -146,6 +149,9 @@ class Solver:
     # capture state just after mixing
     captured_result.append(capture(state.current))
     captured_times.append(state.time)
+
+    # reset time step
+    self.config.time_step_strategy.aftermix_reset()
 
   def initialize_banded(self, dt: float) -> None:
     dx, dy = self.config.dx, self.config.dy
@@ -173,7 +179,7 @@ class Solver:
     current_dt: float = self.config.time_step_strategy.dt
     if abs(self.initialized_dt - current_dt) > sys.float_info.epsilon:
       diff: float = self.initialized_dt - current_dt
-      self.logger.info(f"Recalculating banded, dt difference = {diff:.2e}")
+      self.logger.info(f"Recalculating banded, old dt = {self.initialized_dt:.02f}, new dt = {current_dt:.02f}, difference = {diff:.2e}")
       self.initialize_banded(current_dt)
   
   def validation(self, state: State) -> None:

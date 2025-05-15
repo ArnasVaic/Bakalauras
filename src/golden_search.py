@@ -1,5 +1,7 @@
 import math
 
+from solver_utils import pretty_time
+
 invphi = (math.sqrt(5) - 1) / 2  # 1 / phi
 
 def gss(f, a, b, tolerance=1e-5):
@@ -17,6 +19,7 @@ def gss(f, a, b, tolerance=1e-5):
 
     """
     while b - a > tolerance:
+        print(f"Current interval: {pretty_time(a)}-{pretty_time(b)}")
         c = b - (b - a) * invphi
         d = a + (b - a) * invphi
         if f(c) < f(d):

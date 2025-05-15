@@ -140,7 +140,7 @@ def large_config(
 
   if mix_config is not None:
     config.mixer = SubdivisionMixer(
-      mix_config.moments,
+      np.array(mix_config.moments),
       (2 * res_mul, 2 * res_mul),
       mix_config.mode
     )

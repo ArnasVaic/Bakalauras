@@ -8,7 +8,7 @@ from solvers.adi.state import State
 class Mixer:
 
   @abstractmethod
-  def should_mix(self, state: State, current_dt: float) -> bool:
+  def should_mix(self, state: State, current_dt: float, using_exact_step: bool = False) -> bool:
     pass
 
   @abstractmethod
@@ -29,12 +29,18 @@ class SubdivisionMixer:
   # Mixing mode.
   mode: Literal['random', 'perfect']
 
-  def should_mix(self, state: State, current_dt: float) -> bool:
+  def should_mix(self, state: State, current_dt: float, using_exact_step: bool = False) -> bool:
     # true if any discrete time points are less
     # than a half time step away from point of mixing.
 
-    self.mix_times = np.array(self.mix_times)
-    return np.any(abs(state.time - self.mix_times) <= current_dt / 2)
+    if not using_exact_step:
+      self.mix_times = np.array(self.mix_times)
+      return np.any(abs(state.time - self.mix_times) <= current_dt / 2)
+
+    # when using exact stepping strategy the mix time
+    # should be very close to the actual time
+    epsilon = 0.0001
+    return np.any(abs(state.time - self.mix_times) <= epsilon)
 
   def mix(self, c: np.ndarray[np.float64]) -> np.ndarray[np.float64]:
     """Creates a new state by mixing given state c."""

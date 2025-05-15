@@ -87,7 +87,7 @@ Kraštinėms sąlygoms apskaičiuoti naudosime centrinę pirmosios išvestinės 
 
 \newpage
 
-Vizualiai galime įsivaizduoti, kad diskrečiame tinklelyje, kurį apibrėžėme anksčiau, egzistuoja taškai \enquote{vaiduokliai}, kuriuose medžiagų koncentracija įgyja tokią pat reikšmę kaip ir taškuose, esančiuose per vieną diskretų erdvės žingsnį nuo srities kraštinės, kaip pavaizduota \ref{fig:ghost-points} pavyzdyje.
+Vizualiai galime įsivaizduoti, kad diskrečiame tinklelyje, kurį apibrėžėme anksčiau, egzistuoja taškai \enquote{vaiduokliai}, kuriuose medžiagų koncentracija įgyja tokią pat reikšmę kaip ir taškuose, esančiuose per vieną diskretų erdvės žingsnį nuo srities kraštinės, kaip pavaizduota \ref{fig:ghost-points}-ame pavyzdyje.
 
 \begin{figure}[h!]
   \centering
@@ -122,11 +122,23 @@ Vizualiai galime įsivaizduoti, kad diskrečiame tinklelyje, kurį apibrėžėme
   \caption{ADI metodo baigtinių skirtumų šablonas (\textit{angl. stencil}) modeliuojamos srities $x$ ašies kraštinėms. Analogiškai gali būtų pavaizduoti tokį šabloną $y$ ašies kraštinėms. }
   \label{fig:ghost-points}
 \end{figure}
-Turint kraštines sąlygas \eqref{boundary-cond-approx} bei lygtis \eqref{eqs:adi-short-half} ir \eqref{eqs:adi-short-next} galime pritaikyti tas pačias lygtis srities kraštinėms, pavyzdžiui, tarpinio sprendinio taškui $(i,j)=(0,0)$ (visų lygčių čia neišrašinėsime, nes jų yra gana daug):
-\begin{align} \label{eqs:adi-short-half-boundary}
-  (1+2\mu_{mx})c^{*}_{m,0,0}-2\mu_{mx}c^{*}_{m,1,0}
-  &= (1-2\mu_{my})c^n_{m,0,j}+2\mu_{my}c^n_{m,0,1}+\mu_m c^n_{1,0,0}c^n_{2,0,0},\quad\text{ kai } (i, j) = (0, 0)
-\end{align}
+Turint kraštines sąlygas \eqref{boundary-cond-approx} bei lygtis \eqref{eqs:adi-short-half} ir \eqref{eqs:adi-short-next} galime pritaikyti tas pačias lygtis srities kraštinėms, pavyzdžiui, tarpinio sprendinio formulės pirmajai eilutei atrodytų štai taip:
+
+\begin{align*}
+  & (1 + 2\mu_{mx})c^{*}_{m,0,0} - 2\mu_{mx}c^{*}_{m,1,0} \\
+  & \quad = (1 - 2\mu_{my})c^n_{m,0,0} + 2\mu_{my}c^n_{m,0,1} \\
+  & \qquad + \mu_m c^n_{1,0,0}c^n_{2,0,0}, \quad \text{kai } i = 0 \\[1.5ex]
+  %
+  & -\mu_{mx}c^{*}_{m,i-1,0} + (1 + 2\mu_{mx})c^{*}_{m,i,0} - \mu_{mx}c^{*}_{m,i+1,0} \\
+  & \quad = (1 - 2\mu_{my})c^n_{m,i,0} + 2\mu_{my}c^n_{m,i,1} \\
+  & \qquad + \mu_m c^n_{1,i,0}c^n_{2,i,0}, \quad \text{kai } i = 1, 2, \dots, N-2 \\[1.5ex]
+  %
+  & (1 + 2\mu_{mx})c^{*}_{m,N-1,0} - 2\mu_{mx}c^{*}_{m,N-2,0} \\
+  & \quad = (1 - 2\mu_{my})c^n_{m,N-1,0} + 2\mu_{my}c^n_{m,N-1,1} \\
+  & \qquad + \mu_m c^n_{1,N-1,0}c^n_{2,N-1,0}, \quad \text{kai } i = N-1
+\end{align*}
+
+
 Šias lygtis galime apibendrinti ir užrašyti matricos pavidalu. Pirmiausia užrašome lygčių sistemas tarpiniam sprendiniui $c^*$:
 \begin{align} \label{eqs:adi-system-half}
   \resizebox{\textwidth}{!}{$

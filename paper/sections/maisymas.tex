@@ -431,6 +431,23 @@ Pavyzdyje~\ref{fig:random-samples} matyti, kad erdvės didinimas daro neigiamą 
 
 Viena iš pageidautinų maišymo modelių savybių -- nuoseklus rezultatai, kurie būtų nepriklausomi nuo srities dydžio, kurią modeliuojame. Šiuo atveju pavyzdyje \ref{fig:duration-mix-moment-perfect} matome, kad priklausomybė šiek tiek svyruoja priklausomai nuo to, kiek kartų didesnėje srityje modeliuojame reakciją, tačiau optimalūs maišymo laikai beveik sutampa, o skirtumas tarp grafikų yra vertikalus. Taip pat galima pastebėti, kad didinant sritį grafikas konverguoją į \enquote{tikrąjį}. Šis rezultatas rodo, kad norint tiksliai išgauti optimalų maišymo laiką užtenka modeliuoti mažą erdvės sritį. 
 
-% Nors optimalūs maišymo laikai beveik sutampa, gali būti naudinga ištirti, kaip jie kinta priklausomai nuo modeliuojamos srities dydžio. Tam galime pasinaudoti auksinio pjūvio paieškos algoritmu, kuris leidžia efektyviai rasti funkcijos minimumą tam tikrame intervale. Šis metodas paremtas tuo, kad tiriamas taškas pasirenkamas pasinaudojant auksinio pjūvio santykiu, taip sumažinant tiriamą intervalą be reikalo nepervertinant viso funkcijos grafiko. Dėl savo efektyvumo ir nereikalingos išvestinių skaičiavimo, šis metodas ypač tinkamas optimizuoti brangiai skaičiuojamas ar netiesines funkcijas, tokias kaip reakcijos trukmė priklausomai nuo maišymo trukmės. Norint kad algoritmas suveiktų funkcija, kurios ekstremumo ieškome, privalo būti unimodali, ką reakcijos trukmės ir maišymo momento priklausomybės grafikas tenkina.
+Nors optimalūs maišymo laikai vizualiai beveik sutampa, gali būti naudinga ištirti, kaip jie kinta priklausomai nuo modeliuojamos srities dydžio su tikslesniu metodu. Tam galime pasinaudoti auksinio pjūvio paieškos algoritmu, kuris leidžia efektyviai rasti funkcijos minimumą tam tikrame intervale. Šis metodas paremtas tuo, kad kiekviename žingsnyje intervalas susiaurinamas remiantis auksinio pjūvio proporcija, sumažinant funkcijos kvietimų skaičių, kas šiuo atveju yra ypač svarbu iš praktinės pusės, nes norint apskaičiuoti reakcijos trukmę reikia modeliuoti visą reakciją, ką daryti užtrunka nemažai laiko (tolimesniems rezultatams išgauti prireikė kelių valandų paieškos). 
 
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/mixing/opt-mix-time.png}
+    \caption{Optimalaus maišymo momento priklausomybė nuo to, kiek kartų padidinta sritis yra modeliuojama. }
+    \label{fig:optimal-mix-time-order-dependance}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/mixing/opt-duration.png}
+    \caption{Optimalios reakcijos trukmės priklausomybė nuo to, kiek kartų padidinta sritis yra modeliuojama. }
+    \label{fig:optimal-duration-order-dependance}
+  \end{subfigure}
+\end{figure}
 
+\ref{fig:optimal-duration-order-dependance}-ame pavyzdyje matome, kad optimalus reakcijos laikas artėja prie \enquote{tikrosios} optimalios reikšmės, kai didiname srities dydį. Šis rezultatas nėra stebinantis, todėl, kad jau prieš tai matėme, kad tarp reakcijos trukmės nemaišant reagentų ir modeliuojamos srities dydžio egzistuoja labai panaši priklausomybė, kuri primena eksponentinį nykimą. Tiksliau pavaizdavus optimalaus maišymo momento priklausomybę nuo srities dydžio matome, kad optimalus maišymo momentas nėra toks nuoseklus kaip reakcijos trukmė ir neprimena eksponentinio nykimo, vis dėlto, skirtumas tarp šių momentų išlieka nedidelis -- apie 2min. 

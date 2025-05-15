@@ -66,9 +66,25 @@ np.save(f'paper/large-perfect-mix/duration-ord{ORDER}-T{T}.npy', duration)
 
 plt.figure(figsize=(8, 5))
 
+mix_times = [
+  2326.740421123328,
+  2326.740421123328,
+  2318.847050625473,
+  2272.6384548736437
+]
+
 for ord in [0, 1, 2, 3]:
   baseline = np.load(f'paper/large-perfect-mix/baseline-ord{ord}-T{T}.npy')
   duration = np.load(f'paper/large-perfect-mix/duration-ord{ord}-T{T}.npy')
+
+  # First part: from 0 to 1.5 with 20 points
+  moments_1 = np.linspace(0, 2 * 3600, 25)
+
+  # Second part: from 1.5 to baseline with 20 points
+  moments_2 = np.linspace(2 * 3600, *baseline, 15)
+
+  # Concatenate them (excluding duplicate 1.5 at the start of moments_2)
+  MOMENTS = np.concatenate((moments_1, moments_2[1:]))
 
   # Assuming baseline is a scalar or single-value array
   baseline_value = baseline.item()  # in case it's a 0-d array
@@ -77,12 +93,13 @@ for ord in [0, 1, 2, 3]:
     MOMENTS / 3600,
     np.full(len(MOMENTS), baseline_value) / 3600,
     linestyle='dashed')
+  plt.axvline(x=mix_times[ord]/3600, linestyle='--', linewidth=1)
 
 plt.xlabel('Maišymo momentas [val]')
 plt.ylabel('Reakcijos trukmė [val]')
 plt.legend()
 plt.grid(True)
-plt.savefig('../paper/images/mixing/duration-mix-moment-dependance-perfect.png', dpi=300, bbox_inches='tight')
+#plt.savefig('../paper/images/mixing/duration-mix-moment-dependance-perfect.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 
