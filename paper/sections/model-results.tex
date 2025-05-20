@@ -71,7 +71,7 @@ Tolimesnėse sekcijose bus aptariami skaitinių modelių rezultatai. Kiekvienas 
   \centering
   \includegraphics[width=0.75\textwidth]{images/ftcs/c1-1000C.png} \\ 
   \includegraphics[width=0.75\textwidth]{images/ftcs/c3-1000C.png}
-  \caption{\textbf{Išreikštinio} modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią \textbf{1000\degree C} temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 10.5\times 10^{-8} \frac{\mu m^2}{s}$, $W = 1\mu m$, $H = 1\mu m$, $\Delta x = \frac{1}{79}\mu m$, $\Delta y = \frac{1}{79} \mu m$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $c_0 = 10^{-6} \frac{g}{\mu m^3}$, $\Delta t \approx 3.78s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
+  \caption{\textbf{Išreikštinio} modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią \textbf{1000\degree C} temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 10.5\times 10^{-8} \frac{\mu m^2}{s}$, $W = 1\mu m$, $H = 1\mu m$, $\Delta x = \frac{1}{79}\mu m$, $\Delta y = \frac{1}{79} \mu m$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $c_0 = 10^{-6} \frac{g}{\mu m^3}$, $\Delta t \approx 3.78s$ - pasirinktas pagal \eqref{numerical-stability-condition}. Galutinis reakcijos laikas -- 11h 53min 38s }
   \label{fig:ftcs-result-T-1000}
 \end{figure}
 
@@ -79,9 +79,18 @@ Tolimesnėse sekcijose bus aptariami skaitinių modelių rezultatai. Kiekvienas 
   \centering
   \includegraphics[width=0.75\textwidth]{images/ftcs/c1-1200C.png} \\ 
   \includegraphics[width=0.75\textwidth]{images/ftcs/c3-1200C.png}
-  \caption{\textbf{Išreikštinio} modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią \textbf{1200\degree C} temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 15\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 15\times 10^{-8} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 2.65s$ - pasirinktas pagal \eqref{numerical-stability-condition} }
+  \caption{\textbf{Išreikštinio} modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią \textbf{1200\degree C} temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 15\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 15\times 10^{-8} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t \approx 2.65s$ - pasirinktas pagal \eqref{numerical-stability-condition}. Galutinis reakcijos laikas -- 9h 21min 58s }
   \label{fig:ftcs-result-T-1200}
 \end{figure}
+
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.45\textwidth]{images/adi/q-1000C.png}
+%   \hspace{0.05\textwidth}
+%   \includegraphics[width=0.45\textwidth]{images/adi/q-1200C.png}
+%   \caption{Medžiagos kiekio sistemoje priklausomybės nuo laiko prie skirtingų temperatūrų. Vaizduojami sprendiniai iš \ref{fig:adi-result-T-1000} ir \ref{fig:adi-result-T-1200} pavyzdžių.}
+%   \label{fig:adi-result-q}
+% \end{figure}
 
 Šiuose pavyzdžiuose paskutiniame stulpelyje vaizduojamas paskutinis reakcijos žingsnis, o prie jo nurodytas laikas atspindi reakcijos pabaigos momentą. Galime pastebėti, kad antroji reakcija, vykstanti aukštesnėje temperatūroje, užtrunka trumpiau. Šie rezultatai atitinka modelio autorių pastebėjimus \cite{mackeviciusCloserLookComputer2012}.
 
@@ -90,17 +99,26 @@ Tolimesnėse sekcijose bus aptariami skaitinių modelių rezultatai. Kiekvienas 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.75\textwidth]{images/adi/c1-1000C.png} \\ 
-  \includegraphics[width=0.75\textwidth]{images/adi/c3-1000C.png}
-  \caption{\textbf{ADI} modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią \textbf{1000\degree C} temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 10.5\times 10^{-8} \frac{\mu m^2}{s}$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t = 3.78s$}
+  \includegraphics[width=0.75\textwidth]{images/adi/c3-1000C.png} 
+  \caption{\textbf{ADI} modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią \textbf{1000\degree C} temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 10.5\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 10.5\times 10^{-8} \frac{\mu m^2}{s}$, $k = 119 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t = 3.78s$. Galutinis reakcijos laikas -- 11h 56min 7s}
   \label{fig:adi-result-T-1000}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.75\textwidth]{images/adi/c1-1200C.png} \\ 
-  \includegraphics[width=0.75\textwidth]{images/adi/c3-1200C.png}
-  \caption{\textbf{ADI} modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią \textbf{1200\degree C} temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 15\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 15\times 10^{-8} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t = 3.78s$}
+  \includegraphics[width=0.75\textwidth]{images/adi/c3-1200C.png} 
+  \caption{\textbf{ADI} modelio rezultatai su parametrais, kurie apibūdina reakciją vykstančią \textbf{1200\degree C} temperatūroje. Parametrų reikšmės: $D_1 = D_2 = 15\times 10^{-6} \frac{\mu m^2}{s}$, $D_3 = 15\times 10^{-8} \frac{\mu m^2}{s}$, $k = 146 \frac{1}{ \frac{g}{\mu m^3}\cdot s}$, $\Delta t = 3.78s$. Galutinis reakcijos laikas -- 9h 24min 13s}
   \label{fig:adi-result-T-1200}
 \end{figure}
+
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.45\textwidth]{images/adi/q-1000C.png}
+%   \hspace{0.05\textwidth}
+%   \includegraphics[width=0.45\textwidth]{images/adi/q-1200C.png}
+%   \caption{Medžiagos kiekio sistemoje priklausomybės nuo laiko prie skirtingų temperatūrų. Vaizduojami sprendiniai iš \ref{fig:adi-result-T-1000} ir \ref{fig:adi-result-T-1200} pavyzdžių.}
+%   \label{fig:adi-result-q}
+% \end{figure}
 
 Abiejų skaitinių modelių rezultatai vizualiai panašūs, tačiau nežymus skirtumas pastebimas reakcijos trukmėje. Modeliuojant reakciją ADI metodu, reakcija prie $1000\degree C$ temperatūros užtrunka apie $2.5$ minutes ilgiau nei modeliuojant išreikštiniu metodu, o prie $1200\degree C$ temperatūros -- apie $2$ minutes ilgiau. Šis skirtumas atsiranda dėl skirtingo metodų tikslumo, tačiau nėra pakankamai reikšmingas, atsižvelgiant į bendrą reakcijos trukmę.

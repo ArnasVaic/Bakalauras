@@ -263,7 +263,7 @@ Modeliuoti mažą visos reakcijos erdvės sritį užtenka norint gauti tikslias 
     \draw[->] (0, -0.5) -- (0, 4.5) node[anchor=east] {\small $y$};
     \node[anchor=north east] at (0, 0) {\small $(0,0)$};
 \end{tikzpicture}
-\caption{Keturis kartus padidinta pradinių sąlygų sritis. }
+\caption{Keturis kartus padidinta pradinių sąlygų sritis (du kartus kiekviena erdvine ašimi). }
 
 \label{large-initial-conditions}
 \end{figure}
@@ -272,11 +272,11 @@ Modeliuoti mažą visos reakcijos erdvės sritį užtenka norint gauti tikslias 
 
 \subsubsection*{Atsitiktinis maišymas}
 
-Praplėsti atsitiktinį maišymo modelį didesnei sričiai yra trivialu -- sugeneruojame $N^2\text{-permutaciją}$ ir $N^2$ atsitiktinių kampų $\theta_1, \theta_2, \dots, \theta_{N^2}$, kur $N$ yra sričių skaičius didesnėje erdvėje. Tuomet maišymo metu, kiekvieną sritis įgauna nauja poziciją bei posukio kampą.
+Atsitiktinį maišymo modelį didesnei sričiai pritaikome tokia tvarka -- sugeneruojame natūralių skaičių iki $N^2$ permutaciją ir $N^2$ atsitiktinių kampų $\theta_1, \theta_2, \dots, \theta_{N^2}$, kur $N$ yra sričių skaičius didesnėje erdvėje. Tuomet maišymo metu, kiekvieną sritis įgauna nauja poziciją bei posukio kampą.
 
 \subsubsection*{Tobulas maišymas}
 
-Tobulo maišymo modelį pritaikyti didesnėms sritims taip pat nėra sudėtinga -- tą galime padaryti atkartodami modelį veidrodžio principu:
+Tobulo maišymo modelį pritaikyti didesnėms sritims galime atkartodami modelį veidrodžio principu:
 
 \begin{figure}[!h]
 \centering
@@ -375,9 +375,9 @@ Tobulo maišymo modelį pritaikyti didesnėms sritims taip pat nėra sudėtinga 
 \caption{Tobulo maišymo transformacija ant keturis kartus padidintų pradinių sąlygų}
 \label{perfect-4x4-mix}
 \end{figure}
-\ref{perfect-4x4-mix}-ame pavyzdyje matome kaip atrodo tobulas išmaišymas praplėstų pradinių sąlygų atveju. Punktyrinės linijos žymi skirtingų medžiagų bendras sieneles t. y. tas sieneles, ties kuriomis aktyviai vyksta medžiagų reakcija. Paprastos linijos žymi sieneles, ties kuriomis susiduria tos pačios medžiagos sritys arba sieneles, kurios yra nukreiptos į išorę. Toks išmaišymas žymiai padidina reakcijos greitį todėl, kad visos sienelės tarp skirtingų medžiagų yra dar nesureagavusios ir turi didelį koncentracijų kontrastą.
+\ref{perfect-4x4-mix} pav. matome kaip atrodo tobulas išmaišymas praplėstų pradinių sąlygų atveju. Punktyrinės linijos žymi skirtingų medžiagų bendras sieneles t. y. tas sieneles, ties kuriomis aktyviai vyksta medžiagų reakcija. Paprastos linijos žymi sieneles, ties kuriomis susiduria tos pačios medžiagos sritys arba sieneles, kurios yra nukreiptos į išorę. Toks išmaišymas žymiai padidina reakcijos greitį todėl, kad visos sienelės tarp skirtingų medžiagų yra dar nesureagavusios ir turi didelį koncentracijų kontrastą.
 \subsection{Modelio rezultatai didesnėse srityse}
-Norint modeliuoti maišymą ir tirti šio proceso savybes skirtingo dydžio srityse turime atsižvelgti į tai, kad reakcijos modeliavimas skirtingo dydžio srityse be išmaišymo proceso gali suteikti nenuoseklius rezultatus, todėl pirmiausia turime išsiaiškinti esminius skirtumus tarp šių modelių. Viena svarbiausių modelio rezultatų savybių, kurias mes norėtume tirti yra reakcijos trukmė, todėl pažvelgsime kaip ji kinta priklausomai nuo srities dydžio kurią modeliuojame. Kaip aprašėme praeituose skyriuose, pradinę reakcijos sritį mes galime didinti keturis kartus ir tai daryti rekursyviai, todėl mūsų modeliuojamos sritys didės eksponentiškai.
+Norint modeliuoti maišymą ir tirti šio proceso savybes skirtingo dydžio srityse turime atsižvelgti į tai, kad reakcijos modeliavimas skirtingo dydžio srityse be išmaišymo proceso gali suteikti nenuoseklius rezultatus, todėl pirmiausia turime išsiaiškinti esminius skirtumus tarp šių modelių. Viena svarbiausių modelio rezultatų savybių, kurias mes norėtume tirti yra reakcijos trukmė, todėl pažvelgsime kaip ji kinta priklausomai nuo srities dydžio kurią modeliuojame. Kaip aprašėme praeituose skyriuose, pradinę reakcijos sritį mes galime didinti keturis kartus ir tai daryti rekursyviai, todėl mūsų modeliuojamos sritys didės eksponentiškai. \ref{fig:duration-order-dependance} pav. matome, kad reakcijos laikas eksponentinio nykimo principu artėja prie ribinės reikšmės. Tai reiškia, kad toks erdvės didinimas neturi didelio poveikio pačiam reakcijos procesui ir juo naudodamiesi toliau galime tirti maišymo poveikį.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{images/mixing/duration-order-T1000.png}
@@ -387,7 +387,7 @@ Norint modeliuoti maišymą ir tirti šio proceso savybes skirtingo dydžio srit
     \label{fig:duration-order-dependance}
 \end{figure}
 \subsection{Atsitiktinis maišymas didesnėse srityse}
-\ref{fig:random-mix-larger-example}-ame pavyzdyje matome kaip atrodo atsitiktinis išmaišymas skaitiniame sprendinyje. Svarbu atkreipti dėmesį į tai, kad sumaišius sritis niekada neatsiras sričių, kuriose skirtingų medžiagų koncentracijos žymiai persidengia, taip yra todėl, kad vykstant maišymui visos tam tikroje srityje esančios medžiagos bus transformuotos tokiu pat būdu, o kadangi pradinėse sąlygose medžiagos nepersidengia -- išmaišytos medžiagos taip pat nepersidengs. Idealus rezultatas, kurio galime tikėtis atlikus atsitiktinį maišymą yra alternuojantis sričių išsidėstymas pagal koncentraciją kaip šachmatų lentoje -- tokiu būdu, difuzijos pagalba, skirtingas medžiagas laikančios sritys viena kitą galės pasiekti greičiausiai.
+\ref{fig:random-mix-larger-example} pav. matome kaip atrodo atsitiktinis išmaišymas skaitiniame sprendinyje. Svarbu atkreipti dėmesį į tai, kad sumaišius sritis niekada neatsiras sričių, kuriose skirtingų medžiagų koncentracijos žymiai persidengia, taip yra todėl, kad vykstant maišymui visos tam tikroje srityje esančios medžiagos bus transformuotos tokiu pat būdu, o kadangi pradinėse sąlygose medžiagos nepersidengia -- išmaišytos medžiagos taip pat nepersidengs. Idealus rezultatas, kurio galime tikėtis atlikus atsitiktinį maišymą yra alternuojantis sričių išsidėstymas pagal koncentraciją kaip šachmatų lentoje -- tokiu būdu, difuzijos pagalba, skirtingas medžiagas laikančios sritys viena kitą galės pasiekti greičiausiai.
 
 \newpage
 
@@ -429,7 +429,7 @@ Pavyzdyje~\ref{fig:random-samples} matyti, kad erdvės didinimas daro neigiamą 
   \label{fig:duration-mix-moment-perfect}
 \end{figure}
 
-Viena iš pageidautinų maišymo modelių savybių -- nuoseklus rezultatai, kurie būtų nepriklausomi nuo srities dydžio, kurią modeliuojame. Šiuo atveju pavyzdyje \ref{fig:duration-mix-moment-perfect} matome, kad priklausomybė šiek tiek svyruoja priklausomai nuo to, kiek kartų didesnėje srityje modeliuojame reakciją, tačiau optimalūs maišymo laikai beveik sutampa, o skirtumas tarp grafikų yra vertikalus. Taip pat galima pastebėti, kad didinant sritį grafikas konverguoją į \enquote{tikrąjį}. Šis rezultatas rodo, kad norint tiksliai išgauti optimalų maišymo laiką užtenka modeliuoti mažą erdvės sritį. 
+Viena iš pageidautinų maišymo modelių savybių -- pastovūs rezultatai, kurie būtų nepriklausomi nuo srities dydžio, kurią modeliuojame. Šiuo atveju pavyzdyje \ref{fig:duration-mix-moment-perfect} matome, kad priklausomybė šiek tiek svyruoja priklausomai nuo to, kiek kartų didesnėje srityje modeliuojame reakciją, tačiau optimalūs maišymo laikai beveik sutampa. Taip pat galima pastebėti, kad didinant sritį grafikas konverguoją į \enquote{tikrąjį}. Šis rezultatas rodo, kad norint tiksliai išgauti optimalų maišymo laiką užtenka modeliuoti mažą erdvės sritį. 
 
 Nors optimalūs maišymo laikai vizualiai beveik sutampa, gali būti naudinga ištirti, kaip jie kinta priklausomai nuo modeliuojamos srities dydžio su tikslesniu metodu. Tam galime pasinaudoti auksinio pjūvio paieškos algoritmu, kuris leidžia efektyviai rasti funkcijos minimumą tam tikrame intervale. Šis metodas paremtas tuo, kad kiekviename žingsnyje intervalas susiaurinamas remiantis auksinio pjūvio proporcija, sumažinant funkcijos kvietimų skaičių, kas šiuo atveju yra ypač svarbu iš praktinės pusės, nes norint apskaičiuoti reakcijos trukmę reikia modeliuoti visą reakciją, ką daryti užtrunka nemažai laiko (tolimesniems rezultatams išgauti prireikė kelių valandų paieškos). 
 
@@ -450,4 +450,4 @@ Nors optimalūs maišymo laikai vizualiai beveik sutampa, gali būti naudinga i�
   \end{subfigure}
 \end{figure}
 
-\ref{fig:optimal-duration-order-dependance}-ame pavyzdyje matome, kad optimalus reakcijos laikas artėja prie \enquote{tikrosios} optimalios reikšmės, kai didiname srities dydį. Šis rezultatas nėra stebinantis, todėl, kad jau prieš tai matėme, kad tarp reakcijos trukmės nemaišant reagentų ir modeliuojamos srities dydžio egzistuoja labai panaši priklausomybė, kuri primena eksponentinį nykimą. Tiksliau pavaizdavus optimalaus maišymo momento priklausomybę nuo srities dydžio matome, kad optimalus maišymo momentas nėra toks nuoseklus kaip reakcijos trukmė ir neprimena eksponentinio nykimo, vis dėlto, skirtumas tarp šių momentų išlieka nedidelis -- apie 2min. 
+\subref{fig:optimal-duration-order-dependance} pav. matome, kad optimalus reakcijos laikas artėja prie \enquote{tikrosios} optimalios reikšmės, kai didiname srities dydį. Šis rezultatas nėra stebinantis, todėl, kad jau prieš tai matėme, kad tarp reakcijos trukmės nemaišant reagentų ir modeliuojamos srities dydžio egzistuoja labai panaši priklausomybė, kuri primena eksponentinį nykimą. Tiksliau pavaizdavus optimalaus maišymo momento priklausomybę nuo srities dydžio (\subref{fig:optimal-mix-time-order-dependance} pav.) matome, kad optimalus maišymo momentas nėra tolygiai mažėjantis kaip reakcijos trukmė ir neprimena eksponentinio nykimo, vis dėlto, skirtumas tarp šių momentų išlieka nedidelis -- apie 2min. Remiantis šiais rezultatais, galime daryti išvadą, kad užtenka modeliuoti ir mažiausio dydžio reakcijos erdvę.

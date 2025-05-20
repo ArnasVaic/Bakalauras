@@ -103,7 +103,7 @@ def default_config(temperature: int = 1000) -> Config:
     c0 = 1e-6,
     stopper = ThresholdStopper(0.03),
     frame_stride = 1,
-    mixer = SubdivisionMixer([], (2, 2), 'perfect'),
+    mixer = SubdivisionMixer(np.array([]), (2, 2), 'perfect'),
     time_step_strategy = ConstantTimeStep(1.0),
     alpha = np.array([-3, -5, 2])
   )
