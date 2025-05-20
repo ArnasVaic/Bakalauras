@@ -15,7 +15,7 @@ Norint ištirti skirtingų metodų efektyvumą, paleisime skirtingus skaitinius 
   \label{fig:adi-ftcs-solve-time-comparison}
 \end{figure}
 
-\ref{fig:adi-ftcs-solve-time-comparison}-ame pavyzdyje matome, kad pakankamai žemos rezoliucijos konfigūracijoms išreikštinis skaitinis modelis sprendinį apskaičiuoja greičiau negu ADI, tačiau konfigūracijoms, kurių rezoliucija viršija $100\times100$, sprendinį greičiau randa ADI skaitinis modelis. Vadovaudamiesi šiais rezultatais tolimesniems skaičiavimams ir maišymo modeliavimui didesnėse erdvėse galime naudoti ADI modelį.
+\ref{fig:adi-ftcs-solve-time-comparison} pav. matome, kad pakankamai žemos rezoliucijos konfigūracijoms išreikštinis skaitinis modelis sprendinį apskaičiuoja greičiau negu ADI, tačiau konfigūracijoms, kurių rezoliucija viršija $100\times100$, sprendinį greičiau randa ADI skaitinis modelis. Vadovaudamiesi šiais rezultatais tolimesniems skaičiavimams ir maišymo modeliavimui didesnėse erdvėse galime naudoti ADI modelį.
 
 \subsection*{Skaitinių sprendinių tikslumas}
 
@@ -29,7 +29,7 @@ Nors analitinio sprendinio nagrinėjamai sistemai neturime, galime laikyti, kad 
   \caption{Absoliuti paklaida tarp skaitinių ADI sprendinių su skirtingomis rezoliucijomis (Lyginama su sprendiniu, kurio rezoliucija $200\times200$)}
   \label{fig:adi-numerical-solution-absolute-error}
 \end{figure}
-\ref{fig:adi-numerical-solution-absolute-error} paveiksle matome, kad didžiausias medžiagų kiekių skirtumas pasireiškia reakcijos pradžioje. Taip nutinka todėl, kad tuo metu sistemoje yra daugiausia pradinių medžiagų, o reakcijos greitis yra tiesiogiai proporcingas jų koncentracijai. Reakcijos metu modelis yra ypač jautrus pokyčiams, ką galime pastebėti, lygindami skaitinius sprendinius, gautus naudojant skirtingas modeliuojamos srities rezoliucijas. Vis dėlto, iš rezultatų matyti, kad skirtumas tarp skaitinių sprendinių yra $-8$ eilės ar mažesnis, o reakcijai einant į pabaigą — pradeda asimptotiškai mažėti. Iš pradinių sąlygų žinome, jog pradinių medžiagų koncentracijos reikšmė yra $-6$ eilės, todėl galima teigti, kad net ir naudojant palyginti mažą reakcijos erdvės rezoliuciją ($40\times40$), sprendinio tikslumas išlieka pakankamai didelis. 
+\ref{fig:adi-numerical-solution-absolute-error} pav. matome, kad didžiausias medžiagų kiekių skirtumas pasireiškia reakcijos pradžioje. Taip nutinka todėl, kad tuo metu sistemoje yra daugiausia pradinių medžiagų, o reakcijos greitis yra tiesiogiai proporcingas jų koncentracijai. Reakcijos metu modelis yra ypač jautrus pokyčiams, ką galime pastebėti, lygindami skaitinius sprendinius, gautus naudojant skirtingas modeliuojamos srities rezoliucijas. Vis dėlto, iš rezultatų matyti, kad skirtumas tarp skaitinių sprendinių yra $-8$ eilės ar mažesnis, o reakcijai einant į pabaigą — pradeda asimptotiškai mažėti. Iš pradinių sąlygų žinome, jog pradinių medžiagų koncentracijos reikšmė yra $-6$ eilės, todėl galima teigti, kad net ir naudojant palyginti mažą reakcijos erdvės rezoliuciją ($40\times40$), sprendinio tikslumas išlieka pakankamai didelis. 
 
 Lygiai tokį patį palyginimą galime atlikti ir su išreikštinio metodo skaitiniais sprendiniais.
 
@@ -40,6 +40,6 @@ Lygiai tokį patį palyginimą galime atlikti ir su išreikštinio metodo skaiti
   \label{fig:ftcs-numerical-solution-absolute-error}
 \end{figure}
 
-\ref{fig:ftcs-numerical-solution-absolute-error}-ame pavyzdyje matome, kad absoliuti paklaida tarp išreikštinio metodo sprendinių yra labai panaši į ADI metodo. Paklaidos turi identiškas savybes -- didžiausia paklaida matoma reakcijos pradžioje, tačiau reakcijai progresuojant pradeda nykti. Iš praktinės pusės toks palyginimas reikalauja visiems skaitiniams sprendiniams naudoti tą patį laiko žingsnį, kuris turi būti pakankamai mažas, kad tenkintų visas stabilumo sąlygas \eqref{numerical-stability-condition}, todėl patys skaičiavimai užtrunka gana ilgai lyginant su ADI metodu.
+\ref{fig:ftcs-numerical-solution-absolute-error} pav. matome, kad absoliuti paklaida tarp išreikštinio metodo sprendinių yra labai panaši į ADI metodo. Paklaidos turi identiškas savybes -- didžiausia paklaida matoma reakcijos pradžioje, tačiau reakcijai progresuojant pradeda nykti. Iš praktinės pusės toks palyginimas reikalauja visiems skaitiniams sprendiniams naudoti tą patį laiko žingsnį, kuris turi būti pakankamai mažas, kad tenkintų visas stabilumo sąlygas \eqref{numerical-stability-condition}, todėl patys skaičiavimai užtrunka gana ilgai lyginant su ADI metodu.
 
 Šie rezultatai rodo, kad modeliuoti reakcijai užtenka ir nedidelės $40\times 40$ rezoliucijos -- tokiu būdu bus užtikrintas sprendinio tikslumas ir greitas sprendimo laikas. Tolimesniems skaičiavimams taikysime šią rezoliuciją.
