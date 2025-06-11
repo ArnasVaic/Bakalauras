@@ -96,7 +96,7 @@ def default_config(temperature: int = 1000) -> Config:
     k = k_map[temperature],
     c0 = 1e-6,
     dt = None,
-    stopper = ThresholdStopper(0.03),
+    stopper = ThresholdStopper(0.02),
     frame_stride = 1,
     mixer = SubdivisionMixer([], (2, 2), 'perfect')
   )

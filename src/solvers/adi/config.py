@@ -94,6 +94,9 @@ def default_config(temperature: int = 1000) -> Config:
     1600: 192
   }
 
+  epsilon = 0.0001
+  threshold = 0.02
+
   config = Config(
     _order = (0, 0),
     size = size_map[temperature],
@@ -101,10 +104,10 @@ def default_config(temperature: int = 1000) -> Config:
     D = np.array(diffusion_map[temperature]),
     k = k_map[temperature],
     c0 = 1e-6,
-    stopper = ThresholdStopper(0.03),
+    stopper = ThresholdStopper(threshold),
     frame_stride = 1,
     mixer = SubdivisionMixer(np.array([]), (2, 2), 'perfect'),
-    time_step_strategy = ConstantTimeStep(1.0),
+    time_step_strategy = SCGQMStep(100, 0.1, 1.5, 30, threshold + epsilon, 5),
     alpha = np.array([-3, -5, 2])
   )
 
