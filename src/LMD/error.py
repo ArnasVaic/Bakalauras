@@ -60,7 +60,7 @@ plt.show()
 
 plt.figure(figsize=(6, 4))
 plt.xlabel('laikas [val]')
-plt.ylabel('Absoliutus kiekio skirtumas [$\\mu g$]')
+plt.ylabel('Absoliutus kiekio skirtumas\n(ADI vs išreikštinis) [$\\mu g$]')
   
 for N in [10, 100]:
   
@@ -74,7 +74,7 @@ for N in [10, 100]:
   
   dq = np.abs(q2[:T, 2] - q1[:T, 2])
   
-  plt.plot(t1[:T] / 3600, dq, label=f'Abs. error N={N}')
+  plt.plot(t1[:T] / 3600, dq, label=f'N={N}')
 
 plt.legend()
 plt.savefig('LMD/images/abs_error.png', dpi=300)

@@ -54,8 +54,9 @@ class SubdivisionMixer:
   
   def random_mix(self, c: np.ndarray[np.float64]) -> np.ndarray[float]:
     particle_cnt = self.resolution[0] * self.resolution[1]
-    rotations = np.random.randint(4, size=particle_cnt)
-    positions = np.random.permutation(particle_cnt)
+    rng = np.random.RandomState(2)
+    rotations = rng.randint(4, size=particle_cnt)
+    positions = rng.permutation(particle_cnt)
     return self.mix_with_params(c, rotations, positions)
 
   def perfect_mix(self, c: np.ndarray[np.float64]) -> np.ndarray[float]:
