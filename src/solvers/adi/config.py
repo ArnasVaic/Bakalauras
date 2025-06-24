@@ -139,7 +139,7 @@ def large_config(
   config.size = (config.size[0] * res_mul, config.size[1] * res_mul)
   config.resolution = (config.resolution[0] * res_mul, config.resolution[1] * res_mul)
   # experimental parameters that usually work out
-  config.time_step_strategy = SCGQMStep(100, 0.1, 1.5, 30, 0.0301, 5)
+  config.time_step_strategy = SCGQMStep(100, 0.1, 1.5, 30, 0.0201, 5)
 
   if mix_config is not None:
     config.mixer = SubdivisionMixer(

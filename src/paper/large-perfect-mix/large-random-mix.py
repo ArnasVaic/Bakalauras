@@ -11,7 +11,7 @@ from solvers.adi.solver import Solver
 import matplotlib.pyplot as plt
 
 T = 1000
-ORDER = 2
+ORDER = 0
 
 frame_strides = {
   1000: 100,
@@ -19,7 +19,7 @@ frame_strides = {
   1600: 100
 }
 
-step_strategy = SCGQMStep(100, 0.1, 1.5, 30, 0.0301, 5)
+step_strategy = SCGQMStep(100, 0.1, 1.5, 30, 0.0201, 5)
 
 # %% Baseline: duration when mixing does not occur
 
@@ -73,7 +73,7 @@ mix_times = [
   2272.6384548736437
 ]
 
-for ord in [0, 1, 2, 3]:
+for ord in [0]:
   baseline = np.load(f'paper/large-perfect-mix/baseline-ord{ord}-T{T}.npy')
   duration = np.load(f'paper/large-perfect-mix/duration-ord{ord}-T{T}.npy')
 
@@ -88,12 +88,14 @@ for ord in [0, 1, 2, 3]:
 
   # Assuming baseline is a scalar or single-value array
   baseline_value = baseline.item()  # in case it's a 0-d array
-  plt.plot(MOMENTS / 3600, duration / 3600, label=f'$\\times{4**ord}$')
+  plt.plot(MOMENTS / 3600, duration / 3600,
+  label='Tobulas maišymas')
   plt.plot(
     MOMENTS / 3600,
     np.full(len(MOMENTS), baseline_value) / 3600,
-    linestyle='dashed')
-  plt.axvline(x=mix_times[ord]/3600, linestyle='--', linewidth=1)
+    linestyle='dashed',
+    label='Be maišymo')
+  # plt.axvline(x=mix_times[ord]/3600, linestyle='--', linewidth=1)
 
 plt.xlabel('Maišymo momentas [val]')
 plt.ylabel('Reakcijos trukmė [val]')
